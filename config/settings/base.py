@@ -1,5 +1,5 @@
 from pathlib import Path
-from os import getenv, path
+from os import getenv, path  # noqa: F401
 
 from dotenv import load_dotenv
 
@@ -44,7 +44,16 @@ THIRD_PARTY_APPS = [
     "django_celery_beat",
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    "core_apps.issues",
+    "core_apps.users",
+    "core_apps.common",
+    "core_apps.profiles",
+    "core_apps.ratings",
+    "core_apps.posts",
+    # "core_apps.apartments",
+    # "core_apps.reports",
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -84,8 +93,12 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": getenv("POSTGRES_DB"),
+        "USER": getenv("POSTGRES_USER"),
+        "PASSWORD": getenv("POSTGRES_PASSWORD"),
+        "HOST": getenv("POSTGRES_HOST"),
+        "PORT": getenv("POSTGRES_PORT"),
     }
 }
 
