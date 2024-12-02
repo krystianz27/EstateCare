@@ -1,5 +1,5 @@
-from pathlib import Path
 from os import getenv, path  # noqa: F401
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -157,3 +157,5 @@ STATIC_ROOT = str(BASE_DIR / "staticfiles")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 TAGGIT_CASE_INSENSITIVE = True
+
+AUTH_USER_MODEL = "users.User"

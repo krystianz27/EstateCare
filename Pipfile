@@ -28,6 +28,8 @@ flower = "2.0.1"
 psycopg2-binary = "2.9.10"
 watchfiles = "1.0.0"
 black = "24.10.0"
+ruff = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.12"
