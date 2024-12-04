@@ -73,4 +73,3 @@ class UserManager(DjangoUserManager):
             raise ValueError("An email address must be provided")
 
         return self._create_user(username, email, password, **extra_fields)
-        return self._create_user(username, email, password, **extra_fields)

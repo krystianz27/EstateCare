@@ -1,6 +1,7 @@
 from os import getenv, path  # noqa: F401
 from pathlib import Path
 
+import cloudinary
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -160,6 +161,7 @@ TAGGIT_CASE_INSENSITIVE = True
 
 AUTH_USER_MODEL = "users.User"
 
+# CELERY
 if USE_TZ:
     CELERY_TIMEZONE = TIME_ZONE
 
@@ -180,3 +182,17 @@ CELERY_TASK_TIMING_LIMIT = 5 * 60
 CELERY_TASK_SOFT_TIME_LIMIT = 60
 
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+# CLOUDINARY
+CLOUDINARY_CLOUD_NAME = getenv("CLOUDINARY_CLOUD_NAME")
+CLOUDINARY_API_KEY = getenv("CLOUDINARY_API_KEY")
+CLOUDINARY_API_SECRET = getenv("CLOUDINARY_API_SECRET")
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_CLOUD_NAME,
+    api_key=CLOUDINARY_API_KEY,
+    api_secret=CLOUDINARY_API_SECRET,
+    # secure = True,
+    # cname = None,
+    # use_ssl = True,
+)

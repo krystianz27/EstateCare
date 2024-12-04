@@ -36,3 +36,9 @@ mailpit-volume:
 
 estate-db:
 	docker compose -f local.yml exec postgres psql --username=krystian --dbname=estate
+
+start-pytest:
+	docker-compose -f local.yml exec api pytest
+
+api-sh:
+	docker-compose -f local.yml exec api sh
