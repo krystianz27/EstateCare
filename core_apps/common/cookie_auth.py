@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class CookieAuthentication(JWTAuthentication):
     def authenticate(self, request: Request) -> Tuple[AuthUser, Token] | None:
-        header = self.get_header(request.headers)
+        header = self.get_header(request)
         raw_token = None
 
         if header:
