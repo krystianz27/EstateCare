@@ -113,7 +113,6 @@ class CustomProviderAuthView(ProviderAuthView):
     def post(self, request: Request, *args, **kwargs) -> Response:
         provider_res = super().post(request, *args, **kwargs)
 
-        # Sprawdzamy, czy odpowiedź zawiera dane
         if provider_res.status_code == status.HTTP_201_CREATED and provider_res.data:
             access_token = provider_res.data.get("access")
             refresh_token = provider_res.data.get("refresh")

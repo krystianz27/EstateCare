@@ -42,3 +42,4 @@ start-pytest:
 
 api-sh:
 	docker-compose -f local.yml exec api sh
+
