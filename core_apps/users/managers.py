@@ -1,6 +1,4 @@
-from django.apps import apps
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as DjangoUserManager
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
@@ -12,7 +10,7 @@ def validate_email_address(email: str):
         validate_email(email)
         return True
     except ValidationError:
-        return ValidationError(_("Enter a valid email address"))
+        raise ValidationError(_("Enter a valid email address"))
 
 
 class UserManager(DjangoUserManager):
