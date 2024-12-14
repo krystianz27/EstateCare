@@ -41,7 +41,7 @@ class ContentView(TimeStampedModel):
     )
     last_viewed = models.DateTimeField()
 
-    class Meta:
+    class Meta(TimeStampedModel.Meta):
         verbose_name = _("Content View")
         verbose_name_plural = _("Content Views")
         unique_together = ("content_type", "object_id", "user", "viewer_ip")
@@ -51,7 +51,7 @@ class ContentView(TimeStampedModel):
         self.user else "Anonymous"} from iP {self.viewer_ip}"
 
     @classmethod
-    def record_view(cls, content_object, user: User, viewer_ip: str):
+    def record_view(cls, content_object, user: User, viewer_ip: str):  # type: ignore
         content_type = ContentType.objects.get_for_model(content_object)
         try:
             view, created = cls.objects.get_or_create(
