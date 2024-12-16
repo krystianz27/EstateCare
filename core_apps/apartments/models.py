@@ -23,10 +23,10 @@ class Apartment(TimeStampedModel):
     )
 
     class Meta(TimeStampedModel.Meta):
-        # ordering = ["building", "floor", "unit_number"]
         verbose_name = _("Apartment")
         verbose_name_plural = _("Apartments")
 
-
-def __str__(self) -> str:
-    return f"Unit {self.unit_number} | Building {self.building} | Floor {self.floor}"
+    def __str__(self) -> str:
+        return (
+            f"Unit {self.unit_number} | Building {self.building} | Floor {self.floor}"
+        )
