@@ -1,0 +1,23 @@
+{% extends "emails/base.html" %}
+
+{% block title %} Important Notice: Reported Issue {% endblock title %}
+
+{% block content %}
+<p>Dear {{ user.first_name }} {{ user.last_name }},</p>
+
+<p>We hope this message finds you well. Unfortunately, we need to inform you that a report has been filed regarding the following issue:</p>
+
+<p><strong>Issue Title:</strong> {{ title }}</p>
+<p><strong>Description:</strong> {{ description }}</p>
+
+<p>We kindly ask you to address this matter promptly to prevent further complaints or reports from other tenants.</p>
+
+<p><strong>Important Notice:</strong> Please be advised that if you receive a total of 5 reports, your account will be deactivated, and a 30-day eviction notice will be issued. These measures are in accordance with the tenancy terms and conditions you agreed to upon joining our community.</p>
+
+<p>If you have any questions or wish to discuss this matter further, please do not hesitate to contact us.</p>
+
+<p>Thank you for your understanding and cooperation.</p>
+
+<p>Best regards,</p>
+<p>The {{ site_name }} Team</p>
+{% endblock content %}

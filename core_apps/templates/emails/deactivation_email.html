@@ -1,0 +1,22 @@
+{% extends "emails/base.html" %}
+
+{% block title %} Account Deactivation and Eviction Notice {% endblock title %}
+
+{% block content %}
+<p>Dear {{ user.get_full_name }},</p>
+
+<p>We regret to inform you that your account has been deactivated following multiple reports of misconduct (5 incident reports).</p>
+
+<p><strong>Details of the last report:</strong></p>
+<p>Title: <strong>{{ title }}</strong></p>
+<p>Description: <strong>{{ description }}</strong></p>
+
+<p>Despite prior feedback and warnings, the repeated issues have not been addressed. As a result, and in accordance with the tenancy terms and conditions that you agreed to upon joining, you are required to vacate the premises within 30 days.</p>
+
+<p>Please ensure compliance with this notice to avoid further actions. If you have any questions or concerns, feel free to contact our support team.</p>
+
+<p>Thank you for your understanding.</p>
+
+<p>Regards,<br>
+The {{ site_name }} Team</p>
+{% endblock content %}

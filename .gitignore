@@ -4,7 +4,7 @@
 staticfiles/
 .envs/*
 !.envs/.env.example
-.activate_venv.bat
+activate_venv.bat
 
 
 # Byte-compiled / optimized / DLL files
