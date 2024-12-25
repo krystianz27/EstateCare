@@ -6,3 +6,6 @@ class PostsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "core_apps.posts"
     verbose_name = _("Posts")
+
+    def ready(self):
+        import core_apps.posts.signals  # noqa: F401
