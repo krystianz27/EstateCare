@@ -1,3 +1,13 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "ignorePatterns": ["src/components/ui/**"],
+  "extends": ["next/core-web-vitals", 
+    "next/typescript", 
+    "standard",
+    "plugin:tailwindcss/recommender",   
+    "prettier"],
+  "rules": {
+    "camelcase": "off",
+    "no-unused-vars": "off",
+    "tailwindcss/no-custom-classname": "off"
+  }
 }
