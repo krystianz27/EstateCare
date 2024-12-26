@@ -1,13 +1,17 @@
 {
   "ignorePatterns": ["src/components/ui/**"],
-  "extends": ["next/core-web-vitals", 
-    "next/typescript", 
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
     "standard",
-    "plugin:tailwindcss/recommender",   
-    "prettier"],
+    "plugin:tailwindcss/recommended",
+    "prettier"
+  ],
+  "plugins": ["tailwindcss"],
   "rules": {
     "camelcase": "off",
     "no-unused-vars": "off",
-    "tailwindcss/no-custom-classname": "off"
+    "tailwindcss/no-custom-classname": "off",
+    "tailwindcss/classnames-order": "warn"
   }
 }
