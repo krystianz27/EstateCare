@@ -3,5 +3,5 @@
   "printWidth": 80,
   "useTabs": false,
   "doubleQuote": true,
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "tailwindConfig": "./tailwind.config.ts"
 }

@@ -7,7 +7,7 @@
     "plugin:tailwindcss/recommended",
     "prettier"
   ],
-  "plugins": ["tailwindcss"],
+  // "plugins": ["tailwindcss"],
   "rules": {
     "camelcase": "off",
     "no-unused-vars": "off",
