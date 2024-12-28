@@ -23,7 +23,10 @@ export default function HomePage() {
       </div>
       <main className="flex-center relative z-10 h-full bg-black/50">
         <div className="text-center">
-          <h1 className="font-robotoSlab mb-4 text-4xl font-semibold text-cyan-400 antialiased sm:text-6xl md:text-8xl">
+          <h1
+            className="font-robotoSlab mb-4 text-4xl font-semibold 
+          text-cyan-400 antialiased sm:text-6xl md:text-8xl"
+          >
             Welcome to Estate Care
           </h1>
           <p className="my-8 text-2xl text-teal-300 sm:text-4xl">
