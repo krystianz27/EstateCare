@@ -1,8 +1,5 @@
 import { LeftNavLink } from "@/types/navigation";
 
-// Import your IssueData interface if it's defined in another file
-// import { IssueData } from '@/types';
-
 type OptionType = {
   value: "reported" | "resolved" | "in_progress" | "low" | "medium" | "high";
   label: string;

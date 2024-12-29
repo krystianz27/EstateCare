@@ -25,7 +25,7 @@ const NotFound: FC = () => {
         </p>
         <div className="mt-10 flex justify-center gap-x-6">
           <Link
-            href="/"
+            href="/welcome"
             aria-label="Go back to the homepage"
             className="rounded-3xl bg-green-700 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-lime-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:px-3.5 sm:py-2.5 sm:text-2xl"
           >
