@@ -1,8 +1,9 @@
 import React from "react";
-import type { Metadata } from "next";
-import { defaultMetadata } from "@/lib/metadata";
+import type { Metadata, Viewport } from "next";
+import { defaultMetadata, viewport } from "@/lib/metadata";
 
 export const metadata: Metadata = defaultMetadata;
+export const viewportMeta: Viewport = viewport;
 
 export default function WelcomePage() {
   return (

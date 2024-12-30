@@ -4,7 +4,10 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetFooter,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { leftNavLinks } from "@/constant";
@@ -13,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 function LeftNavContent() {
   const pathname = usePathname();
@@ -38,6 +42,7 @@ function LeftNavContent() {
                 width={22}
                 height={22}
                 className={`${isActive ? "" : "color-invert"}`}
+                style={{ objectFit: "contain", width: "22px", height: "22px" }}
               />
               <p className={`${isActive ? "base-bold" : "base-medium"}`}>
                 {linkItem.label}
@@ -64,10 +69,22 @@ export default function MobileNavbar() {
       </SheetTrigger>
       <SheetContent
         side="left"
+        aria-labelledby="sheet-title"
+        aria-describedby="sheet-description"
         className="bg-baby_rich scrollbar-thin  
         max-h-screen overflow-y-auto border-none
         pb-10"
       >
+        <VisuallyHidden>
+          <SheetHeader>
+            <SheetTitle>Sidebar</SheetTitle>
+            <SheetDescription>
+              Navigation menu for Estate Care Apartments. You can navigate to
+              different sections, register, or log in.
+            </SheetDescription>
+          </SheetHeader>
+        </VisuallyHidden>
+
         <Link href="/" className="flex items-center gap-1">
           <HomeModernIcon className="mr-2 size-11 text-lime-500">
             <p className="h2-bold text-baby_veryBlack font-robotoSlab">

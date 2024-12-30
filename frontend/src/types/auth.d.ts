@@ -1,7 +1,7 @@
 import { UserCommonData } from "./user";
 import { Profile } from "./profile";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LoginUserData extends UserCommonData {}
 
 export interface LoginResponse {
