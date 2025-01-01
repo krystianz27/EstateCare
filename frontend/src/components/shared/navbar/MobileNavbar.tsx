@@ -10,19 +10,20 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { leftNavLinks } from "@/constant";
 import { HomeModernIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { useAuthNavigation } from "@/hooks";
 
 function LeftNavContent() {
   const pathname = usePathname();
+  const { filteredLeftNavLinks } = useAuthNavigation();
   return (
     <section className="flex h-full flex-col gap-6 pt-16">
-      {leftNavLinks.map((linkItem) => {
+      {filteredLeftNavLinks.map((linkItem) => {
         const isActive =
           (pathname.includes(linkItem.path) && linkItem.path.length > 1) ||
           pathname === linkItem.path;
@@ -56,6 +57,8 @@ function LeftNavContent() {
 }
 
 export default function MobileNavbar() {
+  const { handleLogout, isAuthenticated } = useAuthNavigation();
+
   return (
     <Sheet>
       <SheetTrigger asChild className="cursor-pointer">
@@ -92,30 +95,49 @@ export default function MobileNavbar() {
             </p>
           </HomeModernIcon>
         </Link>
+
         <div>
           <SheetClose asChild>
             <LeftNavContent />
           </SheetClose>
+
           <SheetClose asChild>
-            <SheetFooter>
-              <Link href="/register">
+            <SheetFooter className="flex flex-col gap-3">
+              {isAuthenticated ? (
                 <Button
+                  key="logout"
+                  onClick={handleLogout}
                   className="electricIndigo-gradient small-medium light-border-2 
-                btn-tertiary text-babyPowder mt-4 min-h-[41px] w-full 
-                rounded-lg border px-4 py-3 shadow-none"
+                  btn-tertiary text-babyPowder mt-4 min-h-[41px] w-full 
+                  rounded-lg border px-4 py-3 shadow-none"
                 >
-                  Register
+                  Logout
                 </Button>
-              </Link>
-              <Link href="/login">
-                <Button
-                  className="lime-gradient small-medium light-border-2 
-                btn-tertiary text-babyPowder min-h-[41px] w-full rounded-lg 
-                border px-4 py-3 shadow-none"
-                >
-                  Login
-                </Button>
-              </Link>
+              ) : (
+                <>
+                  <Link href="/login" key="login">
+                    <Button
+                      className="lime-gradient small-medium 
+                      light-border-2 btn-tertiary text-baby_ballon 
+                      mt-4 min-h-[41px] w-full rounded-lg border px-4 py-3 
+                      shadow-none"
+                    >
+                      Login
+                    </Button>
+                  </Link>
+
+                  <Link href="/register" key="register">
+                    <Button
+                      className="electricIndigo-gradient small-medium 
+                      light-border-2 btn-tertiary text-baby_ballon 
+                      mt-4 min-h-[41px] w-full rounded-lg border px-4 py-3 
+                      shadow-none"
+                    >
+                      Register
+                    </Button>
+                  </Link>
+                </>
+              )}
             </SheetFooter>
           </SheetClose>
         </div>
