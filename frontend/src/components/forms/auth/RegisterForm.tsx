@@ -1,5 +1,4 @@
 "use client";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Contact2Icon, MailIcon, UserCheck2 } from "lucide-react";
 import { useRegisterUserMutation } from "@/lib/redux/features/auth/authApiSlice";
@@ -87,7 +86,7 @@ export default function RegisterForm() {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof registerUserSchema>) => {
+  const onSubmit = async (values: RegisterUserSchema) => {
     try {
       await registerUser(values).unwrap();
       toast.success("An email with an activation link has been sent");
@@ -124,7 +123,7 @@ export default function RegisterForm() {
           className="h4-semibold bg-eerieBlack dark:bg-pumpkin w-full text-white"
           disabled={isLoading}
         >
-          {isLoading ? <Spinner size="sm" /> : `Submit`}
+          {isLoading ? <Spinner size="sm" /> : "Submit"}
         </Button>
       </form>
     </main>
