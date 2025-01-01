@@ -5,6 +5,7 @@ import { openSans, robotoSlab } from "@/lib/font";
 import { ThemeProvider } from "@/components/theme-provider";
 import ReduxProvider from "@/lib/redux/provider";
 import Toast from "@/components/shared/Toast";
+import PersistAuth from "@/utils/persistAuth";
 
 export const metadata: Metadata = {
   title: "Estate Care",
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={`${openSans.variable} ${robotoSlab.variable}`}>
         <Toast />
         <ReduxProvider>
+          <PersistAuth />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
