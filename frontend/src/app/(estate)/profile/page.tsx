@@ -1,10 +1,11 @@
 "use client";
 
+import ProtectedRoute from "@/components/shared/ProtectedRoutes";
 import Spinner from "@/components/shared/Spinner";
 import { useGetUserProfileQuery } from "@/lib/redux/features/users/usersApiSlice";
 import React from "react";
 
-export default function ProfilePage() {
+function ProfilePageContent() {
   const { data, isLoading } = useGetUserProfileQuery();
 
   if (isLoading) {
@@ -19,5 +20,13 @@ export default function ProfilePage() {
     <div>
       <h1>{data?.profile.username} Profile</h1>
     </div>
+  );
+}
+
+export default function ProfilePage() {
+  return (
+    <ProtectedRoute>
+      <ProfilePageContent />
+    </ProtectedRoute>
   );
 }
