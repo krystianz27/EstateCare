@@ -21,12 +21,14 @@ export const authApiSlice = baseApiSlice.injectEndpoints({
         body: loginData,
       }),
     }),
+
     logoutUser: builder.mutation<void, void>({
       query: () => ({
         url: "/auth/logout/",
         method: "POST",
       }),
     }),
+
     registerUser: builder.mutation<RegisterUserResponse, RegisterUserData>({
       query: (userData) => ({
         url: "/auth/users/",
@@ -50,6 +52,7 @@ export const authApiSlice = baseApiSlice.injectEndpoints({
         body: formData,
       }),
     }),
+
     resetPasswordConfirm: builder.mutation<void, ResetPasswordConfirmData>({
       query: (formData) => ({
         url: "/auth/users/reset_password_confirm/",
@@ -64,9 +67,11 @@ export const authApiSlice = baseApiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
+
     getUser: builder.query<UserResponse, void>({
       query: () => "/auth/users/me/",
     }),
+
     socialAuthentication: builder.mutation<SocialAuthResponse, SocialAuthArgs>({
       query: ({ provider, state, code }) => {
         const params = new URLSearchParams({ state, code });

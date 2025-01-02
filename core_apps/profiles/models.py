@@ -73,8 +73,8 @@ class Profile(TimeStampedModel):
         super().save(*args, **kwargs)
 
     def get_average_rating(self) -> float:
-        average = self.received_ratings.aggregate(average_rating=Avg("rating")).get(
-            "average_rating"
-        )
+        average = self.user.received_ratings.aggregate(  # type: ignore
+            average_rating=Avg("rating")
+        ).get("average_rating")
 
         return round(average, 2) if average is not None else 0.0
