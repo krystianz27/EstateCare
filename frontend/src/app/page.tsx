@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import buildings from "@/../public/assets/images/buildings.webp";
+import buildings from "@/../public/assets/images/photo19.webp";
 import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
@@ -17,25 +17,25 @@ export default function HomePage() {
           src={buildings}
           alt="Apartments"
           fill
-          style={{ objectFit: "cover", objectPosition: "center" }}
+          style={{ objectFit: "cover", objectPosition: "top" }}
           priority
         />
       </div>
-      <main className="flex-center relative z-10 h-full bg-black/50">
+      <main className="flex-center relative z-10 h-full bg-black/15">
         <div className="text-center">
           <h1
             className="font-robotoSlab mb-4 text-4xl font-semibold 
-          text-cyan-400 antialiased sm:text-6xl md:text-8xl"
+          text-neutral-200 text-opacity-80 antialiased sm:text-6xl md:text-8xl"
           >
             Welcome to Estate Care
           </h1>
-          <p className="my-8 text-2xl text-teal-300 sm:text-4xl">
-            Are you a tenant? Or an existing tenant?
+          <p className="my-8 text-2xl text-cyan-100 text-opacity-50 sm:text-4xl">
+            New to Estate Care? Or already a member?
           </p>
           <Link href="/register" prefetch={false}>
-            <button className="bg-asparagus rounded-3xl px-4 py-2 text-lg font-semibold text-white hover:bg-lime-600 sm:px-6 sm:text-2xl">
+            <button className=" bg-asparagus rounded-3xl px-4 py-2 text-lg font-semibold text-white text-opacity-80 hover:bg-lime-600 sm:px-6 sm:text-2xl">
               <span className="inline-flex items-center">
-                Create Account
+                Get Started Today
                 <ArrowRightIcon className="ml-2 size-6"></ArrowRightIcon>
               </span>
             </button>
