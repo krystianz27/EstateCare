@@ -11,7 +11,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Alpha Apartments | User Profile",
+  title: "Estate Care | User Profile",
   description: "Signed in users can view all their profile information",
 };
 
