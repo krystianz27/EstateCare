@@ -126,7 +126,7 @@ export default function EditProfileForm() {
         <OccupationSelectField setValue={setValue} control={control} />
 
         <FormFieldComponent
-          label="Country of Origin"
+          label="Country"
           name="country_of_origin"
           register={register}
           errors={errors}
@@ -135,7 +135,7 @@ export default function EditProfileForm() {
         />
 
         <FormFieldComponent
-          label="City of Origin"
+          label="City"
           name="city_of_origin"
           register={register}
           errors={errors}
