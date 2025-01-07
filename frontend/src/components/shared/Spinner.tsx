@@ -39,6 +39,7 @@ export default function Spinner({ size = "md" }: SpinnerProps) {
         alt="Loading..."
         width={widthHeight}
         height={widthHeight}
+        suppressHydrationWarning
       />
       <span className="sr-only">Loading...</span>
     </div>
