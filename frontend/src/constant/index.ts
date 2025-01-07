@@ -24,7 +24,7 @@ export const occupationOptions = [
   { value: "roofer", label: "Roofer" },
   { value: "painter", label: "Painter" },
   { value: "electrician", label: "Electrician" },
-  { value: "Gardener", label: "Gardener" },
+  { value: "gardener", label: "Gardener" },
   { value: "hvac", label: "HVAC" },
   { value: "tenant", label: "Tenant" },
 ];
