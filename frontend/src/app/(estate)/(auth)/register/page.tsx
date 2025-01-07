@@ -10,7 +10,6 @@ export default function RegisterPage() {
   useRedirectIfAuthenticated();
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Tło ze zdjęciem */}
       <div className="absolute inset-0 z-0">
         <Image
           src={buildingImage}
