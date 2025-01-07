@@ -36,7 +36,7 @@ export const defaultMetadata: Metadata = {
     type: "website",
     title: "Estate Care | Your Tenant Portal",
     description:
-      "Discover Alpha Apartments, the all-in-one platform for tenants to manage their profiles, report issues, and interact with the community.",
+      "Discover Estate Care Apartments, the all-in-one platform for tenants to manage their profiles, report issues, and interact with the community.",
     // url: "https://estatecare.example.com",
     images: [
       {
