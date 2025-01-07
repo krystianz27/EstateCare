@@ -12,12 +12,13 @@ import {
 import { useAuthNavigation } from "@/hooks";
 import { useProfile } from "@/hooks/useProfile";
 import { BookMarked, CircleUser, LogOut, User, Users } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function AuthAvatar() {
   const { handleLogout } = useAuthNavigation();
   const { profile, isLoading, isError } = useProfile();
+  const router = useRouter();
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -49,22 +50,31 @@ export default function AuthAvatar() {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className="auth-nav">
-          <Link href="/profile" className="flex-row-center">
-            <User className="mr-1" /> My Profile
-          </Link>
+        <DropdownMenuItem
+          onClick={() => {
+            router.push("/profile"); // Nawigacja
+          }}
+          className="auth-nav"
+        >
+          <User className="mr-1" /> My Profile
         </DropdownMenuItem>
 
-        <DropdownMenuItem className="auth-nav">
-          <Link href="/tenants" className="flex-row-center">
-            <Users className="mr-1" /> Tenants
-          </Link>
+        <DropdownMenuItem
+          onClick={() => {
+            router.push("/tenants");
+          }}
+          className="auth-nav"
+        >
+          <Users className="mr-1" /> Tenants
         </DropdownMenuItem>
 
-        <DropdownMenuItem className="auth-nav">
-          <Link href="/bookmarks" className="flex-row-center">
-            <BookMarked className="mr-1" /> My Bookmarks
-          </Link>
+        <DropdownMenuItem
+          onClick={() => {
+            router.push("/bookmarks");
+          }}
+          className="auth-nav"
+        >
+          <BookMarked className="mr-1" /> My Bookmarks
         </DropdownMenuItem>
 
         <DropdownMenuItem
