@@ -26,17 +26,17 @@ import { formatDate } from "@/utils";
 import ProtectedRoute from "../shared/ProtectedRoutes";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { useAppSelector } from "@/lib/redux/hooks/typedHooks";
-// import PaginationSection from "../shared/PaginationSection";
+import PaginationSection from "../shared/Pagination";
 
 function TenantCardContent() {
   const { theme } = useTheme();
   const searchTerm = useAppSelector((state) => state.user.searchTerm);
-  //   const page = useAppSelector((state) => state.user.page);
+  const page = useAppSelector((state) => state.user.page);
 
-  const { data, isLoading } = useGetAllUsersQuery({ searchTerm });
+  const { data, isLoading } = useGetAllUsersQuery({ searchTerm, page });
 
   const totalCount = data?.profiles.count || 0;
-  const totalPages = Math.ceil(totalCount / 9);
+  const totalPages = totalCount > 0 ? Math.ceil(totalCount / 9) : 1;
 
   if (isLoading) {
     return (
@@ -124,7 +124,7 @@ function TenantCardContent() {
           <p>No tenants found</p>
         )}
       </div>
-      {/* <PaginationSection totalPages={totalPages} entityType="user" /> */}
+      <PaginationSection totalPages={totalPages} />
     </div>
   );
 }
