@@ -16,3 +16,8 @@ export {
 } from "./passwordResetConfirmSchema";
 
 export { profileSchema, type ProfileSchema } from "./profileSchema";
+
+export {
+  apartmentCreateSchema,
+  type ApartmentCreateSchema,
+} from "./apartmentSchema";
