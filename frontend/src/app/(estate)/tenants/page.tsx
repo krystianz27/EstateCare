@@ -1,33 +1,16 @@
-"use client";
-
+import TenantCard from "@/components/cards/TenantCard";
 import ProtectedRoute from "@/components/shared/ProtectedRoutes";
-import Spinner from "@/components/shared/Spinner";
-import { useGetAllUsersQuery } from "@/lib/redux/features/users/usersApiSlice";
-import React from "react";
+import { Metadata } from "next";
 
-function TenantsPageContent() {
-  const { data, isLoading } = useGetAllUsersQuery({});
+export const metadata: Metadata = {
+  title: "Estate Care | Tenants",
+  description: "View and manage all tenants in your estate.",
+};
 
-  if (isLoading) {
-    return (
-      <div className="flex-center pt-32">
-        <Spinner size="xl" />
-      </div>
-    );
-  }
-
+function TenantPageContent() {
   return (
     <div>
-      <h1 className="dark:text-pumpkin text-6xl">Tenants</h1>
-      {data && data.profiles.results.length > 0 ? (
-        data.profiles.results.map((profile) => (
-          <p key={profile.id} className="text-2xl">
-            {profile.full_name} - {profile.occupation}
-          </p>
-        ))
-      ) : (
-        <p>No tenants found.</p>
-      )}
+      <TenantCard />
     </div>
   );
 }
@@ -35,7 +18,7 @@ function TenantsPageContent() {
 export default function TenantsPage() {
   return (
     <ProtectedRoute>
-      <TenantsPageContent />
+      <TenantPageContent />
     </ProtectedRoute>
   );
 }
