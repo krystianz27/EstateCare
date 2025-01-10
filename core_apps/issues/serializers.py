@@ -31,6 +31,13 @@ class IssueSerializer(serializers.ModelSerializer):
             "priority",
             "view_count",
         ]
+        read_only_fields = [
+            "id",
+            "apartment_unit",
+            "reported_by",
+            "assigned_to",
+            "view_count",
+        ]
 
     def get_view_count(self, obj) -> int:
         content_type = ContentType.objects.get_for_model(obj)

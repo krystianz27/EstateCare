@@ -1,5 +1,3 @@
-import { IssueData } from "./issue";
-
 interface Report {
   id: string;
   title: string;
@@ -24,8 +22,4 @@ export interface ReportTenantData {
 
 export interface ReportTenantResponse {
   report: Report;
-}
-
-export interface ReportIssueData extends IssueData {
-  apartmentId: string;
 }

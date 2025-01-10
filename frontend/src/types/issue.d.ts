@@ -17,6 +17,10 @@ export interface IssueData {
   priority: "low" | "medium" | "high";
 }
 
+export interface ReportIssueData extends IssueData {
+  apartmentId: string;
+}
+
 export interface UpdateIssueResponse {
   issue: {
     title: string;

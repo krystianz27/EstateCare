@@ -23,7 +23,8 @@ body {
 
 /* Dark theme react select styling */
 .dark {
-  --select-background-color: #2b2a33;
+  /* --select-background-color: #2b2a33; */
+  --select-background-color: black;
   --select-border-color: #ffffff;
   --select-text-color: white;
   --select-border-hover-color: #718096;
@@ -32,7 +33,7 @@ body {
   --select-option-text-color: white;
   --select-option-hover-background-color: #718096;
   --select-value-text-color: white;
-  --select-menu-background-color: #2b2a33;
+  --select-menu-background-color: black;
 }
 
 .lucide-chevron-down {

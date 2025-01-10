@@ -21,3 +21,6 @@ export {
   apartmentCreateSchema,
   type ApartmentCreateSchema,
 } from "./apartmentSchema";
+
+export { issueCreateSchema, type IssueCreateSchema } from "./issueSchema";
+export { issueUpdateSchema, type IssueUpdateSchema } from "./issueSchema";

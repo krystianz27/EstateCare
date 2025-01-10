@@ -1,5 +1,6 @@
 import logging
 from typing import Literal
+from uuid import UUID
 
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
@@ -146,9 +147,16 @@ class IssueCreateAPIView(generics.CreateAPIView):
     object_label = "issue"
 
     def perform_create(self, serializer: IssueSerializer) -> None:
-        apartment_id = self.kwargs.get("apartment_id")
+        apartment_id = self.request.data.get("apartmentId")
+
         if not apartment_id:
-            raise ValidationError({"apartment_id": ["Apartmend ID is required."]})
+            raise ValidationError({"apartmentId": ["Apartment ID is required."]})
+
+        # try:
+        #     apartment_uuid = UUID((apartment_id))
+        # except ValueError:
+        #     logger.error(f"Invalid UUID: {apartment_id}")
+        #     raise ValidationError({"apartmentId": ["Invalid UUID format."]})
 
         try:
             apartment = Apartment.objects.get(id=apartment_id, tenant=self.request.user)
@@ -159,6 +167,7 @@ class IssueCreateAPIView(generics.CreateAPIView):
 
         issue = serializer.save(reported_by=self.request.user, apartment=apartment)
         logger.info(f"Issue {issue.title} created. Sending confirmation email...")
+
         send_issue_confirmation_email(issue)
 
 

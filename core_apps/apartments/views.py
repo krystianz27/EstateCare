@@ -33,12 +33,15 @@ class ApartmentCreateAPIView(generics.CreateAPIView):
             )
 
 
-class ApartmentDetailAPIView(generics.RetrieveAPIView):
+class ApartmentDetailAPIView(generics.ListAPIView):
     serializer_class = ApartmentSerializer
     renderer_classes = [GenericJSONRenderer]
-    object_label = "apartment"
+    object_label = "apartments"
 
-    def get_object(self) -> Apartment:  # type: ignore
-        queryset = self.request.user.apartment.all()  # type: ignore
-        obj = generics.get_object_or_404(queryset)
-        return obj
+    # def get_object(self) -> Apartment:  # type: ignore
+    #     queryset = self.request.user.apartment.all()  # type: ignore
+    #     obj = generics.get_object_or_404(queryset)
+    #     return obj
+
+    def get_queryset(self):
+        return self.request.user.apartment.all()  # type: ignore
