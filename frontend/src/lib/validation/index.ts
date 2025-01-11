@@ -24,3 +24,5 @@ export {
 
 export { issueCreateSchema, type IssueCreateSchema } from "./issueSchema";
 export { issueUpdateSchema, type IssueUpdateSchema } from "./issueSchema";
+
+export { reportCreateSchema, type ReportCreateSchema } from "./reportSchema";

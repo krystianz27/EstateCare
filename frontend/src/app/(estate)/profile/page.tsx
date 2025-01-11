@@ -11,6 +11,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Issues from "@/components/issue/Issues";
 import IssuesAsigned from "@/components/issue/IssuesAsigned";
+import Reports from "@/components/profile/Reports";
+import Apartments from "@/components/apartment/Apartments";
 
 export const metadata: Metadata = {
   title: "Estate Care | User Profile",
@@ -29,8 +31,8 @@ function ProfilePageContent() {
             defaultValue="about"
           >
             <TabsList
-              className="bg-baby_rich mb-6 grid min-h-16 grid-cols-2 gap-4 rounded-lg  px-4 
-              py-3 max-md:min-h-32 sm:gap-6 md:grid-cols-4 md:gap-8"
+              className="bg-baby_rich mb-6 grid min-h-32 grid-cols-2 gap-4 rounded-lg  px-4 
+              py-3 max-md:min-h-32 sm:gap-6 md:grid-cols-3 md:gap-8"
             >
               <TabsTrigger
                 value="about"
@@ -45,10 +47,22 @@ function ProfilePageContent() {
                 Posts
               </TabsTrigger>
               <TabsTrigger
+                value="my-apartments"
+                className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
+              >
+                My Apartments
+              </TabsTrigger>
+              <TabsTrigger
                 value="my-issues"
                 className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
               >
                 My Issues
+              </TabsTrigger>
+              <TabsTrigger
+                value="my-reports"
+                className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
+              >
+                My Reports
               </TabsTrigger>
               <TabsTrigger
                 value="assigned-issues"
@@ -61,8 +75,9 @@ function ProfilePageContent() {
             <div className="mt-20">
               <About />
               <Posts />
+              <Apartments />
               <Issues />
-              {/* <Reports /> */}
+              <Reports />
               <IssuesAsigned />
             </div>
           </Tabs>

@@ -58,7 +58,7 @@ export const leftNavLinks: LeftNavLink[] = [
   },
 
   {
-    path: "/report-tenant",
+    path: "/report/report-tenant",
     label: "Report a Tenant",
     imgLocation: "/assets/icons/speak.svg",
   },

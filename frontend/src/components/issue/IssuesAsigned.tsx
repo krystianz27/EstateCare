@@ -40,7 +40,7 @@ export default function IssuesAsigned() {
         Total: ({myAssignedIssues?.count || 0})
       </h2>
       <div
-        className={clsx("mt-4 grid cursor-pointer gap-4 p-1.5", {
+        className={clsx("m-4 grid cursor-pointer gap-4 p-1.5", {
           "grid-cols-1":
             !myAssignedIssues || myAssignedIssues.results.length === 0,
           "md:grid-cols-2 lg:grid-cols-3":

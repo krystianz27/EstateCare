@@ -30,7 +30,7 @@ export function useAuthNavigation() {
       link.path === "/tenants" ||
       link.path === "/bookmark" ||
       link.path === "/issue/report-issue" ||
-      link.path === "/report-tenant" ||
+      link.path === "/report/report-tenant" ||
       link.path === "/technicians" ||
       link.path === "/add_post"
     ) {
