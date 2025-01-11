@@ -6,7 +6,6 @@ import Spinner from "../shared/Spinner";
 import { TabsContent } from "../ui/tabs";
 import ApartmentCard from "../cards/ApartmentCard";
 import clsx from "clsx";
-// import ApartmentCard from "../cards/ApartmentCard";
 
 export default function Apartments() {
   const { data, isLoading, isError } = useGetMyApartmentQuery();
