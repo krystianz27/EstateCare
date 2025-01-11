@@ -52,7 +52,7 @@ export default function AuthAvatar() {
 
         <DropdownMenuItem
           onClick={() => {
-            router.push("/profile"); // Nawigacja
+            router.push("/profile");
           }}
           className="auth-nav"
         >

@@ -35,10 +35,10 @@ export const issueApiSlice = baseApiSlice.injectEndpoints({
     }),
 
     updateIssue: builder.mutation<UpdateIssueResponse, UpdateIssueData>({
-      query: ({ issueId, ...statusData }) => ({
+      query: ({ issueId, ...issueData }) => ({
         url: `/issues/update/${issueId}/`,
         method: "PATCH",
-        body: statusData,
+        body: issueData,
       }),
       invalidatesTags: ["Issue"],
     }),

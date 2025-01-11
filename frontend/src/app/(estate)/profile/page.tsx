@@ -9,6 +9,8 @@ import About from "@/components/profile/AboutContent";
 import Posts from "@/components/profile/Posts";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Issues from "@/components/issue/Issues";
+import IssuesAsigned from "@/components/issue/IssuesAsigned";
 
 export const metadata: Metadata = {
   title: "Estate Care | User Profile",
@@ -23,46 +25,46 @@ function ProfilePageContent() {
 
         <div className="w-full">
           <Tabs
-            className="dark:border-eerieBlack rounded-lg border"
+            className="dark:border-eerieBlack space-y-6 rounded-lg border"
             defaultValue="about"
           >
-            <TabsList className="bg-baby_rich mb-10 flex flex-wrap justify-center gap-4 px-4 py-3 sm:gap-6">
-              <TabsTrigger value="about" className="h3-semibold tab px-6 py-2">
+            <TabsList
+              className="bg-baby_rich mb-6 grid min-h-16 grid-cols-2 gap-4 rounded-lg  px-4 
+              py-3 max-md:min-h-32 sm:gap-6 md:grid-cols-4 md:gap-8"
+            >
+              <TabsTrigger
+                value="about"
+                className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
+              >
                 About
               </TabsTrigger>
-              <TabsTrigger value="posts" className="h3-semibold tab px-6 py-2">
+              <TabsTrigger
+                value="posts"
+                className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
+              >
                 Posts
               </TabsTrigger>
               <TabsTrigger
                 value="my-issues"
-                className="h3-semibold tab px-6 py-2"
+                className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
               >
                 My Issues
               </TabsTrigger>
               <TabsTrigger
-                value="my-reports"
-                className="h3-semibold tab px-6 py-2"
-              >
-                My Reports
-              </TabsTrigger>
-              <TabsTrigger
                 value="assigned-issues"
-                className="h3-semibold tab px-6 py-2"
+                className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
               >
                 Assigned Issues
               </TabsTrigger>
             </TabsList>
 
-            <About />
-
-            <Posts />
-
-            {/* issue tab content */}
-            {/* <Issues /> */}
-            {/* report tab content */}
-            {/* <Reports /> */}
-            {/* assigned Issue tab content */}
-            {/* <AssignedIssues /> */}
+            <div className="mt-20">
+              <About />
+              <Posts />
+              <Issues />
+              {/* <Reports /> */}
+              <IssuesAsigned />
+            </div>
           </Tabs>
         </div>
       </div>

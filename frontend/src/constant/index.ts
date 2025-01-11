@@ -52,7 +52,7 @@ export const leftNavLinks: LeftNavLink[] = [
     imgLocation: "/assets/icons/technician.svg",
   },
   {
-    path: "/report-issue",
+    path: "/issue/report-issue",
     label: "Report an Issue",
     imgLocation: "/assets/icons/report.svg",
   },
