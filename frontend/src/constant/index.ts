@@ -68,7 +68,7 @@ export const leftNavLinks: LeftNavLink[] = [
     imgLocation: "/assets/icons/bookmark.svg",
   },
   {
-    path: "/add-post",
+    path: "/posts/create-post",
     label: "Create a Post....",
     imgLocation: "/assets/icons/question-file.svg",
   },

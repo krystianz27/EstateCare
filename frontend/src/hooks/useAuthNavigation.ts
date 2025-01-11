@@ -32,7 +32,7 @@ export function useAuthNavigation() {
       link.path === "/issue/report-issue" ||
       link.path === "/report/report-tenant" ||
       link.path === "/technicians" ||
-      link.path === "/add_post"
+      link.path === "/posts/create-post"
     ) {
       return isAuthenticated;
     }
