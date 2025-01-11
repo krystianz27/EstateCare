@@ -33,6 +33,15 @@ export interface PostData {
   body: string;
 }
 
+export interface MyPostsResponse {
+  my_posts: {
+    count: number;
+    next: null | string;
+    previous: null | string;
+    results: Post[];
+  };
+}
+
 export interface UpdatePostData {
   postSlug: string;
   title: string;
@@ -90,6 +99,15 @@ export interface TopPostsResponse {
 
 export interface BookmarkResponse {
   message: string;
+}
+
+export interface BookmarkedPostsResponse {
+  bookmarked_posts: {
+    count: number;
+    next: null | string;
+    previous: null | string;
+    results: Post[];
+  };
 }
 
 export interface UpvoteDownvoteResponse {
