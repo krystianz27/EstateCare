@@ -67,7 +67,7 @@ export default function MobileNavbar() {
           alt="Mobile Menu"
           width={36}
           height={36}
-          className="invert-colors sm:hidden"
+          className="invert-colors lg:hidden"
         ></Image>
       </SheetTrigger>
       <SheetContent

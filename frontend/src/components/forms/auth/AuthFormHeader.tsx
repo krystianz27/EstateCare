@@ -9,7 +9,7 @@ type FormHeaderProps = {
 };
 
 export default function AuthFormHeader({
-  title = "Welcome",
+  title,
   staticText,
   linkHref,
   linkText,

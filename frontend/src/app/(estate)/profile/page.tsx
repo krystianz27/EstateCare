@@ -31,8 +31,8 @@ function ProfilePageContent() {
             defaultValue="about"
           >
             <TabsList
-              className="bg-baby_rich mb-6 grid min-h-32 grid-cols-2 gap-4 rounded-lg  px-4 
-              py-3 max-md:min-h-32 sm:gap-6 md:grid-cols-3 md:gap-8"
+              className="bg-baby_rich mb-6 grid min-h-40 grid-cols-2 gap-4 rounded-lg  px-4 
+              py-3 max-md:min-h-48 sm:gap-6 md:grid-cols-3 md:gap-4"
             >
               <TabsTrigger
                 value="about"

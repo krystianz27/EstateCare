@@ -8,3 +8,9 @@ export const UseGoogleAuth = () =>
 
 export { formatDate } from "./formatDate";
 export { capitalizeFirstLetter } from "./capitalizeFirstLetter";
+
+export { formatViewCount } from "./formatViewCount";
+
+export { sortByDateDescending } from "./sortByDate";
+
+export { formatRepliesCount } from "./formatRepliesCount";

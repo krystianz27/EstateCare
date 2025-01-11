@@ -15,7 +15,7 @@ export default function LeftNavbar() {
       className="bg-baby_rich light-border custom-scrollbar 
     shadow-platinum sticky left-0 top-0 flex h-screen flex-col 
     justify-between overflow-y-auto border-r p-6 pt-36 
-    max-sm:hidden lg:w-[297px] dark:shadow-none"
+    max-md:hidden lg:w-[297px] dark:shadow-none"
     >
       <div className="flex flex-1 flex-col gap-6">
         {filteredLeftNavLinks.map((linkItem) => {
