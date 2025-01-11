@@ -1,4 +1,6 @@
-import { setCurrentPage } from "@/lib/redux/features/users/userSlice";
+import { setCurrentPage as setUserCurrentPage } from "@/lib/redux/features/users/userSlice";
+import { setCurrentPage as setPostCurrentPage } from "@/lib/redux/features/posts/postSlice";
+
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks/typedHooks";
 import {
   Pagination,
@@ -11,19 +13,26 @@ import {
 
 interface PaginationProps {
   totalPages: number;
+  entityType: "user" | "post";
 }
 
-const PaginationSection = ({ totalPages }: PaginationProps) => {
+const PaginationSection = ({ totalPages, entityType }: PaginationProps) => {
   const dispatch = useAppDispatch();
 
-  const currentPage = useAppSelector((state) => state.user.page);
+  const currentPage = useAppSelector((state) =>
+    entityType === "user" ? state.user.page : state.post.page,
+  );
+
+  const setCurrentPageAction =
+    entityType === "user" ? setUserCurrentPage : setPostCurrentPage;
 
   const handlePreviousClick = () => {
-    if (currentPage > 1) dispatch(setCurrentPage(currentPage - 1));
+    if (currentPage > 1) dispatch(setCurrentPageAction(currentPage - 1));
   };
 
   const handleNextClick = () => {
-    if (currentPage < totalPages) dispatch(setCurrentPage(currentPage + 1));
+    if (currentPage < totalPages)
+      dispatch(setCurrentPageAction(currentPage + 1));
   };
 
   return (
