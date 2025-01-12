@@ -73,6 +73,8 @@ services:
         # add this line(uncomment it) so that hot module reloading can work when working with windows subsystem for linux.
     environment:
       - WATCHPACK_POLLING=true
+    depends_on:
+      - api
     networks:
       - estate_prod_nw
 

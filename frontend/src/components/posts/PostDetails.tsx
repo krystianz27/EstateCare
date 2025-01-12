@@ -16,8 +16,9 @@ import PostFooter from "./PostFooter";
 import ProtectedRoute from "../shared/ProtectedRoutes";
 import { formatRepliesCount, sortByDateDescending } from "@/utils";
 import { MessageCircleMoreIcon } from "lucide-react";
-// import RepliesList from "./RepliesList";
-// import CreateReplyForm from "../forms/add-reply/CreateReplyForm";
+import ReplyList from "./replies/ReplyList";
+import ReplyCreateForm from "../forms/posts/ReplyCreateForm";
+import { useEffect, useState } from "react";
 
 interface PostDetailsProps {
   params: {
@@ -26,9 +27,19 @@ interface PostDetailsProps {
 }
 
 function PostDetailsContent({ params }: PostDetailsProps) {
-  const slug = params.slug;
-  const { data } = useGetSinglePostQuery(slug);
+  const [slug, setSlug] = useState<string | null>(null);
+  useEffect(() => {
+    if (params.slug) {
+      setSlug(params.slug);
+    }
+  }, [params.slug]);
+
+  console.log(slug);
+
+  const { data } = useGetSinglePostQuery(slug ?? "", { skip: !slug });
+
   const post = data?.post;
+  console.log(post?.title);
 
   const [upvotePost, { isLoading: isUpvoteLoading }] = useUpvotePostMutation();
 
@@ -103,9 +114,8 @@ function PostDetailsContent({ params }: PostDetailsProps) {
         </span>
 
         {sortedReplies && sortedReplies.length > 0 ? (
-          sortedReplies.map((reply, index) => (
-            <p key={index}>{reply.post}</p>
-            // <RepliesList key={reply.id} reply={reply} />
+          sortedReplies.map((reply) => (
+            <ReplyList key={reply.id} reply={reply} />
           ))
         ) : (
           <p className="text-lg">This Post does not have any replies yet</p>
@@ -116,7 +126,7 @@ function PostDetailsContent({ params }: PostDetailsProps) {
         <h2 className="h2-semibold dark:text-pumpkin mt-3">
           Add your reply here
         </h2>
-        {/* <CreateReplyForm slug={post?.slug} /> */}
+        <ReplyCreateForm slug={post?.slug} />
       </CardContent>
     </Card>
   );

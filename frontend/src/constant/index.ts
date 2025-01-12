@@ -63,7 +63,7 @@ export const leftNavLinks: LeftNavLink[] = [
     imgLocation: "/assets/icons/speak.svg",
   },
   {
-    path: "/bookmark",
+    path: "/posts/bookmark",
     label: "Bookmarked Posts",
     imgLocation: "/assets/icons/bookmark.svg",
   },

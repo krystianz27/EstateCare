@@ -28,3 +28,7 @@ export { issueUpdateSchema, type IssueUpdateSchema } from "./issueSchema";
 export { reportCreateSchema, type ReportCreateSchema } from "./reportSchema";
 
 export { postSchema, type PostSchema } from "./postSchema";
+
+export { postUpdateSchema, type PostUpdateSchema } from "./postSchema";
+
+export { replyCreateSchema, type ReplyCreateSchema } from "./replySchema";

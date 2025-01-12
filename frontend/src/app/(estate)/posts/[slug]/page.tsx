@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 import PostDetails from "@/components/posts/PostDetails";
 import type { Metadata } from "next";
 
@@ -14,6 +16,11 @@ interface ParamsProps {
 }
 
 export default async function PostDetailPage({ params }: ParamsProps) {
+  const { slug } = params;
+  if (slug === "bookmark") {
+    redirect("/bookmark");
+  }
+
   const resolvedParams = await params;
   return (
     <>
