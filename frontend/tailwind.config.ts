@@ -29,12 +29,16 @@ const config = {
         richBlack: "#0D1317",
         veryBlack: "#000000",
         babyPowder: "#FBFEF9",
-        pumpkin: "#F17105",
+        // pumpkin: "#F17105",
+        pumpkin: "#fbbf24",
+        amber: "#fbbf24",
+        amberText: "#0f172a",
         platinum: "#DDE1E4",
         lightGrey: "#EEEEEE",
         pear: "#C2E812",
         eerieBlack: "#171D1C",
         ballonWhite: "#dfe6f6",
+        muted: "#f9fafb",
       },
 
       keyframes: {
