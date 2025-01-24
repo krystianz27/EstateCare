@@ -32,3 +32,8 @@ export { postSchema, type PostSchema } from "./postSchema";
 export { postUpdateSchema, type PostUpdateSchema } from "./postSchema";
 
 export { replyCreateSchema, type ReplyCreateSchema } from "./replySchema";
+
+export {
+  technicianRatingCreateSchema,
+  type TechnicianRatingCreateSchema,
+} from "./technicianSchema";
