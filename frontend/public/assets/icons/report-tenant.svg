@@ -1,0 +1,19 @@
+<!-- <?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" height="100%" viewBox="0 0 800 800" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;"><circle cx="333.333" cy="200" r="133.333" style="fill:none;stroke:#fff;stroke-width:50px;"/><path d="M600,583.333c0,82.844 0,150 -266.667,150c-266.666,0 -266.666,-67.156 -266.666,-150c-0,-82.843 119.39,-150 266.666,-150c147.277,0 266.667,67.157 266.667,150Z" style="fill:none;fill-rule:nonzero;stroke:#fff;stroke-width:50px;"/><path d="M633.333,66.667c0,-0 66.667,40 66.667,133.333c0,93.333 -66.667,133.333 -66.667,133.333" style="fill:none;fill-rule:nonzero;stroke:#fff;stroke-width:50px;stroke-linecap:round;"/><path d="M566.667,133.333c-0,0 33.333,20 33.333,66.667c0,46.667 -33.333,66.667 -33.333,66.667" style="fill:none;fill-rule:nonzero;stroke:#fff;stroke-width:50px;stroke-linecap:round;"/></svg> -->
+
+<!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path style="fill:#fff;fill-rule:nonzero;" stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
+</svg> -->
+
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 -0.5 21 21" version="1.1">
+    
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dribbble-Light-Preview" transform="translate(-339.000000, -320.000000)" fill="#000000">
+            <g id="icons" transform="translate(56.000000, 160.000000)">
+                <path style="fill:#fff;fill-rule:nonzero;" d="M300.85,162 L289.3,162 L289.3,168 L301.12195,168 L297.83755,165 L300.85,162 Z M304,162 L300.76495,165 L304,168 L304,170 L287.2,170 L287.2,160 L303.22195,160 L304,160 L304,162 Z M283,180 L285.1,180 L285.1,160 L283,160 L283,180 Z" id="flag_bug_report-[#1493]">
+
+</path>
+            </g>
+        </g>
+    </g>
+</svg>
