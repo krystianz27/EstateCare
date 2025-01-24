@@ -212,7 +212,6 @@ COOKIE_SECURE = (getenv("COOKIE_SECURE", "True") == "True",)
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "core_apps.common.cookie_auth.CookieAuthentication",
-        "core_apps.common.cookie_auth.CookieAuthentication",  # JA
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
@@ -225,8 +224,8 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.UserRateThrottle",
     ),
     "DEFAULT_THROTTLE_RATES": {
-        "anon": "200/day",
-        "user": "500/day",
+        "anon": "20000/day",
+        "user": "50000/day",
     },
     # "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.AutoSchema",
     # "DEFAULT_METADATA_CLASS": "rest_framework.metadata.SimpleMetadata",
