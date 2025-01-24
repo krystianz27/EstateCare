@@ -12,13 +12,13 @@ export default function LeftNavbar() {
 
   return (
     <section
-      className="bg-baby_rich light-border custom-scrollbar 
-    shadow-platinum sticky left-0 top-0 flex h-screen flex-col 
+      className="light-border custom-scrollbar shadow-platinum 
+    light:bg-zinc-50 sticky left-0 top-0 flex h-screen flex-col 
     justify-between overflow-y-auto border-r p-6 pt-36 
     max-md:hidden lg:w-[297px] dark:shadow-none"
     >
-      <div className="flex flex-1 flex-col gap-6">
-        {filteredLeftNavLinks.map((linkItem) => {
+      <div className="mb-8 flex flex-1 flex-col gap-6">
+        {filteredLeftNavLinks.map((linkItem, index) => {
           const isActive =
             (pathname.includes(linkItem.path) && linkItem.path.length > 1) ||
             pathname === linkItem.path;
@@ -30,7 +30,12 @@ export default function LeftNavbar() {
                 isActive
                   ? "electricIndigo-gradient text-babyPowder rounded-lg"
                   : "text-baby_richBlack"
-              } flex items-center justify-start gap-4 bg-transparent p-4`}
+              } flex items-center justify-start gap-4 bg-transparent p-4 
+               ${
+                 index !== filteredLeftNavLinks.length - 1
+                   ? "border-b border-slate-600"
+                   : ""
+               }`}
             >
               <Image
                 src={linkItem.imgLocation}
@@ -52,7 +57,8 @@ export default function LeftNavbar() {
         <div className="flex flex-col gap-3">
           <Button
             onClick={handleLogout}
-            className="lime-gradient small-medium light-border-2 btn-tertiary text-baby_ballon min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none"
+            // className="lime-gradient small-medium light-border-2 btn-tertiary text-baby_ballon min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none"
+            className="dark:bg-amber dark:text-amberText w-full rounded-lg border bg-black px-4 py-3 text-white"
           >
             Log Out
           </Button>
@@ -71,10 +77,11 @@ export default function LeftNavbar() {
           </Link>
           <Link href="/register">
             <Button
-              className="electricIndigo-gradient small-medium 
-          light-border-2 btn-tertiary text-baby_ballon 
-          min-h-[41px] w-full rounded-lg border px-4 py-3 
-          shadow-none"
+            //     className="electricIndigo-gradient small-medium
+            // light-border-2 btn-tertiary text-baby_ballon
+            // min-h-[41px] w-full rounded-lg border px-4 py-3
+            // shadow-none"
+            // className="bg-amber"
             >
               Register
             </Button>
