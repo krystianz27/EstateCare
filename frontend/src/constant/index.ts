@@ -41,6 +41,11 @@ export const leftNavLinks: LeftNavLink[] = [
     imgLocation: "/assets/icons/user-profile.svg",
   },
   {
+    path: "/posts",
+    label: "Posts",
+    imgLocation: "/assets/icons/posts.svg",
+  },
+  {
     path: "/tenants",
     label: "Tenants",
     imgLocation: "/assets/icons/tenants.svg",
@@ -49,18 +54,18 @@ export const leftNavLinks: LeftNavLink[] = [
   {
     path: "/technicians",
     label: "Technicians",
-    imgLocation: "/assets/icons/technician.svg",
+    imgLocation: "/assets/icons/technicians.svg",
   },
   {
     path: "/issue/report-issue",
     label: "Report an Issue",
-    imgLocation: "/assets/icons/report.svg",
+    imgLocation: "/assets/icons/report-issue.svg",
   },
 
   {
     path: "/report/report-tenant",
     label: "Report a Tenant",
-    imgLocation: "/assets/icons/speak.svg",
+    imgLocation: "/assets/icons/report-tenant.svg",
   },
   {
     path: "/posts/bookmark",
@@ -70,6 +75,6 @@ export const leftNavLinks: LeftNavLink[] = [
   {
     path: "/posts/create-post",
     label: "Create a Post....",
-    imgLocation: "/assets/icons/question-file.svg",
+    imgLocation: "/assets/icons/create-post.svg",
   },
 ];
