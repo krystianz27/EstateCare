@@ -157,7 +157,7 @@ body {
   }
 
   .tab {
-    @apply dark:bg-deepBlueGrey bg-platinum dark:data-[state=active]:bg-eerieBlack data-[state=active]:bg-ballonWhite data-[state=active]:text-pumpkin min-h-full !important;
+    @apply dark:bg-deepBlueGrey bg-platinum dark:data-[state=active]:bg-eerieBlack data-[state=active]:bg-ballonWhite dark:data-[state=active]:text-amber min-h-full !important;
   }
 
   .color-invert {
