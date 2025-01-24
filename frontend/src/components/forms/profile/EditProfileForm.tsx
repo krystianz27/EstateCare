@@ -177,7 +177,7 @@ export default function EditProfileForm() {
 
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin mt-2 w-full text-white"
+          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText mt-2 w-full text-white"
           disabled={isUpdating || uploading}
         >
           {isUpdating || uploading ? <Spinner size="sm" /> : "Update Profile"}

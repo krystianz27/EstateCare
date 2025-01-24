@@ -108,7 +108,7 @@ export default function IssueCreateForm() {
           register={register}
           errors={errors}
           placeholder="Issue Title"
-          startIcon={<FlagIcon className="dark:text-babyPowder size-8" />}
+          // startIcon={<FlagIcon className="dark:text-babyPowder size-8" />}
         />
         <FormFieldComponent
           label="Description"
@@ -187,7 +187,7 @@ export default function IssueCreateForm() {
         </div>
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin mt-2 w-full text-white"
+          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText mt-2 w-full text-white"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Report"}

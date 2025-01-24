@@ -73,7 +73,7 @@ function PostDetailsContent({ params }: PostDetailsProps) {
   };
 
   return (
-    <Card className="dark:border-gray rounded-xl border border-dashed">
+    <Card className="dark:border-gray rounded-3xl border border-dashed dark:bg-zinc-900">
       <AuthFormHeader linkText="Go back to Home" linkHref="/welcome" />
 
       <h1 className="text-baby_richBlack font-robotoSlab dark:text-pumpkin text- mt-3 text-center text-3xl">
@@ -122,7 +122,7 @@ function PostDetailsContent({ params }: PostDetailsProps) {
         )}
       </div>
 
-      <CardContent className="border-b-eerieBlack dark:border-gray dark:text-platinum border-b border-dashed">
+      <CardContent className="border-b-eerieBlack dark:border-gray dark:text-platinum w-full border-b border-dashed">
         <h2 className="h2-semibold dark:text-pumpkin mt-3">
           Add your reply here
         </h2>

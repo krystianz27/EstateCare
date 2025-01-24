@@ -140,7 +140,7 @@ function CreatePostFormContent() {
 
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin w-full text-white"
+          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText w-full text-white"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Create Your Post"}

@@ -74,7 +74,7 @@ export default function ReplyCreateForm({ slug }: ReplyFormProps) {
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full max-w-md flex-col gap-4"
+        className="max-w-l flex w-full flex-col gap-4"
       >
         <FormFieldComponent
           name="body"
@@ -88,7 +88,7 @@ export default function ReplyCreateForm({ slug }: ReplyFormProps) {
 
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin w-full text-white"
+          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText w-full text-white"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Add your reply"}

@@ -67,22 +67,20 @@ export default function PostCard() {
 
   return (
     <>
+      <Link
+        href="/posts/create-post"
+        className="flex justify-center max-sm:w-full sm:w-full"
+      >
+        <Button className="h3-semibold electricIndigo-gradient text-babyPowder min-h-[46px] w-full min-w-60 px-4 py-3 sm:w-auto">
+          Create a Post
+        </Button>
+      </Link>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="font-robotoSlab dark:text-pumpkin text-5xl">
           All Posts - ({posts.length})
         </h1>
-
-        <Link
-          href="/posts/create-post"
-          className="flex justify-end max-sm:w-full"
-        >
-          <Button className="h3-semibold electricIndigo-gradient text-babyPowder min-h-[46px] px-4 py-3">
-            Create a Post
-          </Button>
-        </Link>
       </div>
-
-      <div className="mt-7 grid grid-cols-2 gap-6">
+      <div className="mt-7 grid grid-cols-1 gap-6">
         {sortedPosts.map((postItem) => {
           const titlePreview =
             postItem.title.length > 25
@@ -97,7 +95,7 @@ export default function PostCard() {
           return (
             <Card
               key={postItem.id}
-              className="dark:border-gray rounded-lg border"
+              className="dark:border-gray rounded-3xl border dark:bg-zinc-900"
             >
               <article className="dark:text-platinum w-full pb-4">
                 <CardHeader>
@@ -114,7 +112,7 @@ export default function PostCard() {
                   <p className="dark:text-platinum">{bodyPreview}</p>
                 </CardContent>
 
-                <div className="flex flex-row items-center justify-between p-2">
+                <div className="flex flex-col items-start gap-2 p-2">
                   <div className="flex-row-center dark:text-platinum">
                     <EyeIcon className="post-icon text-electricIndigo mr-1" />
                     {formatViewCount(postItem.view_count)}
@@ -125,8 +123,14 @@ export default function PostCard() {
                     <span>{formatRepliesCount(postItem.replies_count)}</span>
                   </div>
 
-                  <Link href={`/posts/${postItem.slug}`}>
-                    <Button size="sm" className="lime-gradient text-babyPowder">
+                  <Link
+                    href={`/posts/${postItem.slug}`}
+                    className="w-full sm:w-auto"
+                  >
+                    <Button
+                      size="sm"
+                      className="lime-gradient text-babyPowder w-full sm:w-auto"
+                    >
                       View Post
                     </Button>
                   </Link>
@@ -136,7 +140,6 @@ export default function PostCard() {
           );
         })}
       </div>
-
       <PaginationSection totalPages={totalPages} entityType="post" />
     </>
   );

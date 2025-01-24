@@ -61,7 +61,7 @@ export default function PasswordResetRequestForm() {
         />
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin w-full text-white"
+          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText w-full text-white"
           disabled={isLoading}
           aria-busy={isLoading}
           aria-label={

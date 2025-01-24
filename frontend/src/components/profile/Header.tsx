@@ -29,7 +29,7 @@ function HeaderContent() {
         <h1 className="font-robotoSlab dark:text-platinum text-5xl font-semibold">
           {profile?.full_name}
         </h1>
-        <p className="dark:text-lime-500">@{profile?.username}</p>
+        <p className="dark:text-amber">@{profile?.username}</p>
       </div>
     </div>
   );

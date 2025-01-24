@@ -96,7 +96,7 @@ export default function IssueUpdateForm({ params }: UpdateParamsProps) {
 
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin mt-2 w-full text-white"
+          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText mt-2 w-full text-white"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Update Status"}
