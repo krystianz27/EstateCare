@@ -60,7 +60,7 @@ export default function TechnicianCard() {
         All Technicians - ({technicians.length})
       </h1>
 
-      <div className="mt-4 grid cursor-pointer grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-4 grid cursor-pointer grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2">
         {technicians.map((technician) => (
           <Card key={technician.id}>
             <CardContent className="dark:border-gray rounded-lg border">
@@ -101,7 +101,9 @@ export default function TechnicianCard() {
               </CardDescription>
 
               <div className="flex-center">
-                <Link href={`/add-rating?username=${technician.username}`}>
+                <Link
+                  href={`/technicians/create-rating?username=${technician.username}`}
+                >
                   <Button
                     size="sm"
                     className="electricIndigo-gradient text-babyPowder mt-3"
