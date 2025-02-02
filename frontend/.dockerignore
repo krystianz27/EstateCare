@@ -7,6 +7,10 @@ node_modules/
 
 /dist
 
+.gitignore
+.prettierrc
+.README.md
+
 .env
 .env.local
 .env.development.local
