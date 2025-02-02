@@ -10,10 +10,15 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
 APPS_DIR = BASE_DIR / "core_apps"
 
+# Local
 local_env_file = path.join(BASE_DIR, ".envs", ".env.local")
-
 if path.isfile(local_env_file):
     load_dotenv(local_env_file)
+
+# Production
+# production_env_file = path.join(BASE_DIR, ".envs", ".env.production")
+# if path.isfile(production_env_file):
+#     load_dotenv(production_env_file)
 
 
 # Quick-start development settings - unsuitable for production
