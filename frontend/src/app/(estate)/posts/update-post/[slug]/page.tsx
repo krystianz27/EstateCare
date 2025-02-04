@@ -2,10 +2,16 @@ import { AuthFormHeader } from "@/components/forms/auth";
 import PostUpdateForm from "@/components/forms/posts/PostUpdateForm";
 import React from "react";
 
+// interface UpdateParamsProps {
+//   params: {
+//     slug: string;
+//   };
+// }
+
 interface UpdateParamsProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function UpdatePostPage({ params }: UpdateParamsProps) {

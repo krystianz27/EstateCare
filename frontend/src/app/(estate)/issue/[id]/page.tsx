@@ -7,10 +7,14 @@ export const metadata: Metadata = {
     "View detailed information about the issue you've reported, including its status and priority. Authenticated users can also update or delete the issue.",
 };
 
+// interface ParamsProps {
+//   params: {
+//     id: string;
+//   };
+// }
+
 interface ParamsProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function IssueDetailPage({ params }: ParamsProps) {

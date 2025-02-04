@@ -9,14 +9,20 @@ export const metadata: Metadata = {
     "View the details of a post, including votes, replies, and more.",
 };
 
+// interface ParamsProps {
+//   params: {
+//     slug: string;
+//   };
+// }
+
 interface ParamsProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function PostDetailPage({ params }: ParamsProps) {
-  const { slug } = params;
+  const { slug } = await params;
   if (slug === "bookmark") {
     redirect("/bookmark");
   }

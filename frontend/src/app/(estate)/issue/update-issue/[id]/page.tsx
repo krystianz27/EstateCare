@@ -7,16 +7,21 @@ export const metadata: Metadata = {
     "Update the details of the issue you've reported, including its status and priority. Ensure your information is accurate to help us address the issue efficiently.",
 };
 
+// interface ParamsProps {
+//   params: {
+//     id: string;
+//   };
+// }
+
 interface ParamsProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function IssueUpdatePage({ params }: ParamsProps) {
+  const resolvedParams = await params;
   return (
     <div>
-      <IssueUpdateForm params={params} />
+      <IssueUpdateForm params={resolvedParams} />
     </div>
   );
 }

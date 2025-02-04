@@ -1,11 +1,16 @@
 import React from "react";
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { defaultMetadata, viewport } from "@/lib/metadata";
 import Image from "next/image";
 import buildingImage from "@/../public/assets/images/photo13.webp";
 
-export const metadata: Metadata = defaultMetadata;
-export const viewportMeta: Viewport = viewport;
+// export const metadata: Metadata = defaultMetadata;
+// export const viewportMeta: Viewport = viewport;
+
+export const metadata: Metadata = {
+  ...defaultMetadata,
+  viewport,
+};
 
 export default function WelcomePage() {
   return (

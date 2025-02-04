@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 };
 
 interface SlugParamsProps {
-  params: {
+  params: Promise<{
     tagSlug: string;
-  };
+  }>;
 }
 
 export default async function PostTagPage({ params }: SlugParamsProps) {

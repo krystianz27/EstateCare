@@ -1,27 +1,53 @@
 "use client";
 
 import { useActivateUserMutation } from "@/lib/redux/features/auth/authApiSlice";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-interface ActivationProps {
-  params: {
-    uid: string;
-    token: string;
-  };
-}
+// interface ActivationProps {
+//   params: {
+//     uid: string;
+//     token: string;
+//   };
+// }
 
-export default function ActivationPage({ params }: ActivationProps) {
+// export default function ActivationPage({ params }: ActivationProps) {
+export default function ActivationPage() {
   const router = useRouter();
-  const { uid, token } = params;
+  // const { uid, token } = params;
+  const searchParams = useSearchParams();
+  const [isParamsReady, setIsParamsReady] = useState(false);
+
+  const [uid, setUid] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   const [activateUser, { isLoading, isSuccess, isError, error }] =
     useActivateUserMutation();
 
   useEffect(() => {
-    activateUser({ uid, token });
-  }, [activateUser, uid, token]);
+    const fetchedUid = searchParams?.get("uid");
+    const fetchedToken = searchParams?.get("token");
+
+    if (fetchedUid && fetchedToken) {
+      setUid(fetchedUid);
+      setToken(fetchedToken);
+      setIsParamsReady(true);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (uid && token) {
+      setIsParamsReady(true);
+    }
+  }, [uid, token]);
+
+  useEffect(() => {
+    // if (uid && token) {
+    if (isParamsReady && uid && token) {
+      activateUser({ uid, token });
+    }
+  }, [isParamsReady, activateUser, uid, token]);
 
   useEffect(() => {
     if (isSuccess) {
