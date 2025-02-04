@@ -17,6 +17,14 @@ trap cleanup_local EXIT
 echo "Packaging project files..."
 git archive --format tar --output ./project.tar main
 
+ENV_FILE="./.envs/.env.production"
+if [ -f "$ENV_FILE" ]; then
+  echo "Adding $ENV_FILE to archive..."
+  tar --append --file=project.tar -C "$(dirname "$ENV_FILE")" "$(basename "$ENV_FILE")"
+else
+  echo "Warning: $ENV_FILE not found!"
+fi
+
 echo "Uploading project to Digital Ocean..."
 
 rsync -avz --progress ./project.tar root@$DIGITAL_OCEAN_IP_ADDRESS:/tmp/project.tar
