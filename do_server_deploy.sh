@@ -20,14 +20,16 @@ git archive --format tar --output ./project.tar main
 ENV_FILE="./.envs/.env.production"
 if [ -f "$ENV_FILE" ]; then
   echo "Adding $ENV_FILE to archive..."
-  tar --append --file=project.tar -C "$(dirname "$ENV_FILE")" "$(basename "$ENV_FILE")"
+  # tar --append --file=project.tar -C ./.envs "$(basename "$ENV_FILE")"
+  tar --append --file=project.tar -C . ".envs/.env.production"
 else
   echo "Warning: $ENV_FILE not found!"
 fi
 
 echo "Uploading project to Digital Ocean..."
 
-rsync -avz --progress ./project.tar root@$DIGITAL_OCEAN_IP_ADDRESS:/tmp/project.tar
+# rsync -avz --progress ./project.tar root@$DIGITAL_OCEAN_IP_ADDRESS:/tmp/project.tar
+scp ./project.tar root@$DIGITAL_OCEAN_IP_ADDRESS:/tmp/project.tar
 
 echo "Building and deploying project..."
 
@@ -47,14 +49,23 @@ TEMP_DIR=$(mktemp -d)
 echo "Extracting project to $TEMP_DIR"
 tar -xf /tmp/project.tar -C "$TEMP_DIR"
 
-echo "Stopping and removing existing containers"
+if [ -f "$TEMP_DIR/.envs/.env.production" ]; then
+  echo ".env.production found, proceeding..."
+else
+  echo "Warning: .env.production not found in extracted files"
+fi
+
+echo "Stopping and removing existing containers..."
 docker compose -f "$TEMP_DIR/production.yml" down --remove-orphans
 
 echo "Pruning unused Docker resources..."
 docker system prune -af
 
+echo "Restarting Docker service to ensure all ports are free..."
+sudo systemctl restart docker
+
 echo "Building and starting new containers..."
-docker compose -f "$TEMP_DIR/production.yml" up --build -d --remove-orphans"
+docker compose -f "$TEMP_DIR/production.yml" up --build -d --remove-orphans
 
 ENDSSH
 
