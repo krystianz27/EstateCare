@@ -28,22 +28,22 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 
 ADMIN_URL = getenv("DJANGO_ADMIN_URL")
 
-# EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
-# EMAIL_HOST = getenv("EMAIL_HOST")
-# EMAIL_PORT = getenv("EMAIL_PORT", 587)
-# DEFAULT_FROM_EMAIL = getenv("DEFAULT_FROM_EMAIL")
-# DOMAIN = getenv("DOMAIN")
-
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
+EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
 EMAIL_HOST = getenv("EMAIL_HOST")
-EMAIL_HOST_USER = getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = getenv("EMAIL_HOST_PASSWORD")
-EMAIL_PORT = getenv("EMAIL_PORT")
+EMAIL_PORT = getenv("EMAIL_PORT", 587)
 DEFAULT_FROM_EMAIL = getenv("DEFAULT_FROM_EMAIL")
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
 DOMAIN = getenv("DOMAIN")
+
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# # EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
+# EMAIL_HOST = getenv("EMAIL_HOST")
+# EMAIL_HOST_USER = getenv("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = getenv("EMAIL_HOST_PASSWORD")
+# EMAIL_PORT = getenv("EMAIL_PORT")
+# DEFAULT_FROM_EMAIL = getenv("DEFAULT_FROM_EMAIL")
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+# DOMAIN = getenv("DOMAIN")
 COOKIE_SECURE = getenv("COOKIE_SECURE") == "True"
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
