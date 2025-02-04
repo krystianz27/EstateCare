@@ -62,6 +62,7 @@ echo "Pruning unused Docker resources..."
 docker system prune -af
 
 echo "Restarting Docker service to ensure all ports are free..."
+systemctl is-active --quiet docker || sudo systemctl start docker
 sudo systemctl restart docker
 
 echo "Building and starting new containers..."
