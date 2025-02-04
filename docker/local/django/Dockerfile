@@ -1,4 +1,4 @@
-FROM docker.io/python:3.12.7-slim-bookworm as python
+FROM docker.io/python:3.12.7-slim-bookworm AS python
 
 # Stage 1: Build our dependency wheels
 FROM python AS python-build-stage
@@ -15,7 +15,7 @@ RUN pip wheel --wheel-dir /usr/src/app/wheels \
   -r ${BUILD_ENVIRONMENT}.txt
 
 # Stage 2: Python run stage.
-FROM python as python-run-stage
+FROM python AS python-run-stage
 ARG BUILD_ENVIRONMENT=local
 
 ARG APP_HOME=/app
@@ -30,6 +30,9 @@ WORKDIR ${APP_HOME}
 
 RUN apt-get update && apt-get install --no-install-recommends -y \  
   sudo git bash-completion nano ssh
+
+# Certificate Install (Update Certificates)
+# RUN apt-get update && apt-get install -y ca-certificates
 
 RUN addgroup --system django && \
   adduser --system --ingroup django django && \

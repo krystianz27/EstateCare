@@ -1,6 +1,5 @@
 import logging
 from typing import Literal
-from uuid import UUID
 
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
@@ -151,12 +150,6 @@ class IssueCreateAPIView(generics.CreateAPIView):
 
         if not apartment_id:
             raise ValidationError({"apartmentId": ["Apartment ID is required."]})
-
-        # try:
-        #     apartment_uuid = UUID((apartment_id))
-        # except ValueError:
-        #     logger.error(f"Invalid UUID: {apartment_id}")
-        #     raise ValidationError({"apartmentId": ["Invalid UUID format."]})
 
         try:
             apartment = Apartment.objects.get(id=apartment_id, tenant=self.request.user)
