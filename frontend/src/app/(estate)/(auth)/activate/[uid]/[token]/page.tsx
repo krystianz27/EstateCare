@@ -1,53 +1,28 @@
 "use client";
 
+import * as React from "react";
 import { useActivateUserMutation } from "@/lib/redux/features/auth/authApiSlice";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-// interface ActivationProps {
-//   params: {
-//     uid: string;
-//     token: string;
-//   };
-// }
+interface ActivationProps {
+  params: Promise<{
+    uid: string;
+    token: string;
+  }>;
+}
 
-// export default function ActivationPage({ params }: ActivationProps) {
-export default function ActivationPage() {
+export default function ActivationPage({ params }: ActivationProps) {
   const router = useRouter();
-  // const { uid, token } = params;
-  const searchParams = useSearchParams();
-  const [isParamsReady, setIsParamsReady] = useState(false);
-
-  const [uid, setUid] = useState<string | null>(null);
-  const [token, setToken] = useState<string | null>(null);
+  const { uid, token } = React.use(params);
 
   const [activateUser, { isLoading, isSuccess, isError, error }] =
     useActivateUserMutation();
 
   useEffect(() => {
-    const fetchedUid = searchParams?.get("uid");
-    const fetchedToken = searchParams?.get("token");
-
-    if (fetchedUid && fetchedToken) {
-      setUid(fetchedUid);
-      setToken(fetchedToken);
-      setIsParamsReady(true);
-    }
-  }, [searchParams]);
-
-  useEffect(() => {
-    if (uid && token) {
-      setIsParamsReady(true);
-    }
-  }, [uid, token]);
-
-  useEffect(() => {
-    // if (uid && token) {
-    if (isParamsReady && uid && token) {
-      activateUser({ uid, token });
-    }
-  }, [isParamsReady, activateUser, uid, token]);
+    activateUser({ uid, token });
+  }, [activateUser, uid, token]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -71,15 +46,15 @@ export default function ActivationPage() {
   } else if (isSuccess) {
     messageContent = (
       <div>
-        <span className="mr-2">✅</span>
         <span>Account Activated successfully!</span>
+        <span className="mr-2">✅</span>
       </div>
     );
   } else if (isError) {
     messageContent = (
       <div>
-        <span className="mr-2">❌</span>
-        <span>Your account has already been activated...</span>
+        <span>Your account has already been activated.</span>
+        <span className="mr-2">✅</span>
       </div>
     );
   }

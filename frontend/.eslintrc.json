@@ -14,6 +14,7 @@
     "no-unused-vars": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
     "tailwindcss/no-custom-classname": "off",
-    "tailwindcss/classnames-order": "warn"
+    "tailwindcss/classnames-order": "warn",
+    "@next/next/no-html-link-for-pages": "off"
   }
 }
