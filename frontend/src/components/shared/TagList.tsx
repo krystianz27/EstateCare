@@ -13,7 +13,7 @@ export default function TagList({ tags }: TagProps) {
         <Link
           key={index}
           href={`/tags/${tag}`}
-          className="bg-electricIndigo text-babyPowder mt-3.5 rounded-md px-4 py-2 text-sm uppercase"
+          className="mt-3.5 rounded-md bg-electricIndigo px-4 py-2 text-sm uppercase text-babyPowder"
         >
           <Badge>{tag}</Badge>
         </Link>

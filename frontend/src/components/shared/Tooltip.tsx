@@ -22,7 +22,7 @@ export default function Tooltip({
       {children}
 
       <div
-        className={`${positionClasses[position]} dark:bg-electricIndigo absolute hidden w-max rounded-md  bg-black p-2 text-xs text-white opacity-0 group-hover:block group-hover:opacity-100`}
+        className={`${positionClasses[position]} absolute hidden w-max rounded-md bg-black  p-2 text-xs text-white opacity-0 group-hover:block group-hover:opacity-100 dark:bg-electricIndigo`}
       >
         {content}
       </div>

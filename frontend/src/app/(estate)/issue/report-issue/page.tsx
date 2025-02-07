@@ -12,8 +12,8 @@ export default function ReportIssuePage() {
   return (
     <div>
       <AuthFormHeader title="Report an issue with your Apartment" />
-      <div className="mt-7 sm:mx-auto sm:w-full sm:max-w-[480px]">
-        <div className="bg-lightGrey dark:bg-deepBlueGrey rounded-xl px-6 py-12 shadow sm:rounded-lg sm:px-12 md:rounded-3xl">
+      <div className="mt-7 bg-inherit sm:mx-auto sm:w-full sm:max-w-[480px]">
+        <div className="rounded-xl bg-lightGrey px-6 py-12 shadow dark:bg-deepBlueGrey sm:rounded-lg sm:px-12 md:rounded-3xl">
           <IssueCreateForm />
         </div>
       </div>

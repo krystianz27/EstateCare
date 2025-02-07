@@ -36,7 +36,7 @@ export default function IssuesAsigned() {
 
   return (
     <TabsContent value="assigned-issues">
-      <h2 className="h2-semibold flex-center font-robotoSlab dark:text-pumpkin text-xl">
+      <h2 className="h2-semibold flex-center font-robotoSlab text-xl dark:text-pumpkin">
         Total: ({myAssignedIssues?.count || 0})
       </h2>
       <div

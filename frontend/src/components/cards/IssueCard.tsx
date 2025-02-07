@@ -29,7 +29,7 @@ export default function IssueCard({ issue }: IssueCardProps) {
     <Link href={`/issue/${issue.id}`} key={issue.id}>
       <Card
         key={issue.id}
-        className="hover:border-pumpkin dark:border-gray hover:dark:border-platinum rounded-xl border border-dashed"
+        className="rounded-xl border border-dashed hover:border-pumpkin dark:border-gray hover:dark:border-platinum"
       >
         <CardHeader>
           <CardTitle className="flex-center h3-semibold font-robotoSlab dark:text-lime-500">
@@ -58,7 +58,7 @@ export default function IssueCard({ issue }: IssueCardProps) {
           </CardDescription>
         </CardContent>
 
-        <CardFooter className="dark:text-babyPowder flex flex-row justify-between">
+        <CardFooter className="flex flex-row justify-between dark:text-babyPowder">
           <div>
             <span className="mr-0.5 font-bold">Status: </span>
             <Badge className="bg-eerieBlack text-babyPowder dark:bg-electricIndigo dark:text-babyPowder">
@@ -68,7 +68,7 @@ export default function IssueCard({ issue }: IssueCardProps) {
 
           <div>
             <span className="mr-0.5 font-bold">Priority: </span>
-            <Badge className="bg-eerieBlack text-babyPowder dark:text-veryBlack dark:bg-lime-500">
+            <Badge className="bg-eerieBlack text-babyPowder dark:bg-lime-500 dark:text-veryBlack">
               {issue.priority}
             </Badge>
           </div>

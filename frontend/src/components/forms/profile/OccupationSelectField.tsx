@@ -59,7 +59,7 @@ export default function OccupationSelectField({
         Occupation
       </label>
       <div className="mt-1 flex items-center space-x-3">
-        <Briefcase className="dark:text-babyPowder size-8" />
+        <Briefcase className="size-8 dark:text-babyPowder" />
         <ClientOnly>
           <Controller
             control={control}

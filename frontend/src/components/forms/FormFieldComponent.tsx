@@ -82,7 +82,7 @@ export function FormFieldComponent<TFieldValues extends FieldValues>({
   return (
     <div>
       <div className="mb-1 flex justify-between">
-        <label htmlFor={name} className="h4-semibold dark:text-babyPowder mb-1">
+        <label htmlFor={name} className="h4-semibold mb-1 dark:text-babyPowder">
           {label}
         </label>
         {link && (

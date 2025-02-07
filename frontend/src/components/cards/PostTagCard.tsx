@@ -37,7 +37,7 @@ export default function PostTagCard({ params }: SlugParamsProps) {
   if (posts.length === 0) {
     return (
       <div className="text-center">
-        <h2 className="dark:text-pumpkin text-2xl">
+        <h2 className="text-2xl dark:text-pumpkin">
           No posts available for this tag.
         </h2>
       </div>
@@ -46,18 +46,18 @@ export default function PostTagCard({ params }: SlugParamsProps) {
 
   return (
     <div>
-      <h1 className="flex-center font-robotoSlab dark:text-pumpkin text-4xl">
+      <h1 className="flex-center font-robotoSlab text-4xl dark:text-pumpkin">
         Posts tagged with{" "}
-        <span className="text-electricIndigo ml-1 dark:text-lime-500">
+        <span className="ml-1 text-electricIndigo dark:text-lime-500">
           &ldquo;{params.tagSlug}&rdquo;
         </span>
       </h1>
 
       <div className="mt-6 grid grid-cols-2 gap-6">
         {posts.map((post) => (
-          <Card key={post.id} className="dark:border-gray rounded-lg border">
-            <CardHeader className="dark:text-platinum w-full pb-4">
-              <CardTitle className="font-robotoSlab text-center text-2xl">
+          <Card key={post.id} className="rounded-lg border dark:border-gray">
+            <CardHeader className="w-full pb-4 dark:text-platinum">
+              <CardTitle className="text-center font-robotoSlab text-2xl">
                 {post.title.length > 30
                   ? `${post.title.slice(0, 30)}....`
                   : post.title}
@@ -67,13 +67,13 @@ export default function PostTagCard({ params }: SlugParamsProps) {
                 <div className="flex flex-row justify-between">
                   <div>
                     <span>Posted on</span>
-                    <span className="dark:text-pumpkin ml-1">
+                    <span className="ml-1 dark:text-pumpkin">
                       {formatDate(post.created_at).toString()}
                     </span>
                   </div>
                   <div>
                     <span>Last Updated</span>
-                    <span className="dark:text-pumpkin ml-1">
+                    <span className="ml-1 dark:text-pumpkin">
                       {formatDistanceToNow(parseISO(post.updated_at), {
                         addSuffix: true,
                       })}
@@ -83,7 +83,7 @@ export default function PostTagCard({ params }: SlugParamsProps) {
               </CardDescription>
             </CardHeader>
 
-            <CardContent className="border-t-deepBlueGrey dark:border-gray border-y py-4 text-sm">
+            <CardContent className="border-y border-t-deepBlueGrey py-4 text-sm dark:border-gray">
               <p className="dark:text-platinum">
                 {post.body.length > 65
                   ? `${post.body.substring(0, 65)}....`
@@ -101,12 +101,12 @@ export default function PostTagCard({ params }: SlugParamsProps) {
               </div>
 
               <div className="flex-row-center dark:text-platinum">
-                <EyeIcon className="post-icon text-electricIndigo mr-1" />
+                <EyeIcon className="post-icon mr-1 text-electricIndigo" />
                 {formatViewCount(post.view_count)}
               </div>
 
               <div className="flex-row-center dark:text-platinum">
-                <MessageSquareQuoteIcon className="post-icon text-electricIndigo mr-1" />
+                <MessageSquareQuoteIcon className="post-icon mr-1 text-electricIndigo" />
                 <span>{formatRepliesCount(post.replies_count)}</span>
               </div>
             </div>

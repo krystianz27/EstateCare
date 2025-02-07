@@ -86,7 +86,7 @@ export default function PostUpdateForm({ params }: PostUpdateFormProps) {
           name="title"
           register={register}
           errors={errors}
-          startIcon={<Text className="dark:text-babyPowder size-8" />}
+          startIcon={<Text className="size-8 dark:text-babyPowder" />}
         />
 
         <FormFieldComponent
@@ -99,7 +99,7 @@ export default function PostUpdateForm({ params }: PostUpdateFormProps) {
 
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText w-full text-white"
+          className="h4-semibold w-full bg-eerieBlack text-white dark:bg-pumpkin dark:text-amberText"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Update Post"}

@@ -67,7 +67,7 @@ export default function RatingCreateForm() {
           name="rated_user_username"
           register={register}
           errors={errors}
-          startIcon={<UserCog className="dark:text-babyPowder size-8" />}
+          startIcon={<UserCog className="size-8 dark:text-babyPowder" />}
           disabled
         />
 
@@ -104,7 +104,7 @@ export default function RatingCreateForm() {
 
         <Button
           type="submit"
-          className={`h4-semibold bg-eerieBlack dark:bg-pumpkin w-full text-white ${isLoading ? "opacity-50" : ""}`}
+          className={`h4-semibold w-full bg-eerieBlack text-white dark:bg-pumpkin ${isLoading ? "opacity-50" : ""}`}
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Add Rating"}

@@ -34,7 +34,7 @@ export default function PostsBookmarkedCard() {
   if (!bookmarks || bookmarks.results.length === 0) {
     return (
       <div>
-        <h1 className="flex-center font-robotoSlab dark:text-pumpkin mb-3.5 text-5xl">
+        <h1 className="flex-center mb-3.5 font-robotoSlab text-5xl dark:text-pumpkin">
           My Bookmarks - (0)
         </h1>
         <p className="h2-semibold dark:text-lime-500">
@@ -51,7 +51,7 @@ export default function PostsBookmarkedCard() {
 
   return (
     <div>
-      <h1 className="flex-center font-robotoSlab dark:text-pumpkin mb-3.5 text-5xl">
+      <h1 className="flex-center mb-3.5 font-robotoSlab text-5xl dark:text-pumpkin">
         My Bookmarks - ({bookmarks.results.length})
       </h1>
 
@@ -60,10 +60,10 @@ export default function PostsBookmarkedCard() {
           {sortedBookmarks.map((bookmarkItem) => (
             <Card
               key={bookmarkItem.id}
-              className="dark:border-gray rounded-lg border"
+              className="rounded-lg border dark:border-gray"
             >
-              <CardHeader className="dark:text-platinum w-full pb-4">
-                <CardTitle className="font-robotoSlab text-center text-2xl">
+              <CardHeader className="w-full pb-4 dark:text-platinum">
+                <CardTitle className="text-center font-robotoSlab text-2xl">
                   {bookmarkItem.title.length > 30
                     ? `${bookmarkItem.title.substring(0, 30)}....`
                     : bookmarkItem.title}
@@ -73,13 +73,13 @@ export default function PostsBookmarkedCard() {
                   <div className="flex flex-row justify-between">
                     <div>
                       <span>Posted on</span>
-                      <span className="dark:text-pumpkin ml-1">
+                      <span className="ml-1 dark:text-pumpkin">
                         {formatDate(bookmarkItem.created_at).toString()}
                       </span>
                     </div>
                     <div>
                       <span>Last Updated</span>
-                      <span className="dark:text-pumpkin ml-1">
+                      <span className="ml-1 dark:text-pumpkin">
                         {formatDistanceToNow(
                           parseISO(bookmarkItem.updated_at),
                           {
@@ -92,7 +92,7 @@ export default function PostsBookmarkedCard() {
                 </CardDescription>
               </CardHeader>
 
-              <CardContent className="border-t-deepBlueGrey dark:border-gray border-y py-4 text-sm">
+              <CardContent className="border-y border-t-deepBlueGrey py-4 text-sm dark:border-gray">
                 <p className="dark:text-platinum">
                   {bookmarkItem.body.length > 65
                     ? `${bookmarkItem.body.substring(0, 65)}....`
@@ -110,12 +110,12 @@ export default function PostsBookmarkedCard() {
                 </div>
 
                 <div className="flex-row-center dark:text-platinum">
-                  <EyeIcon className="post-icon text-electricIndigo mr-1" />
+                  <EyeIcon className="post-icon mr-1 text-electricIndigo" />
                   {formatViewCount(bookmarkItem.view_count)}
                 </div>
 
                 <div className="flex-row-center dark:text-platinum">
-                  <MessageSquareQuoteIcon className="post-icon text-electricIndigo mr-1" />
+                  <MessageSquareQuoteIcon className="post-icon mr-1 text-electricIndigo" />
                   <span>{formatRepliesCount(bookmarkItem.replies.length)}</span>
                 </div>
               </div>

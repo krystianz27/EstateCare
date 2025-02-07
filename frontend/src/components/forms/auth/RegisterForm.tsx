@@ -31,25 +31,25 @@ const formFields: FormFieldData[] = [
     label: "Username",
     name: "username",
     placeholder: "Username",
-    startIcon: <UserCheck2 className="dark:text-babyPowder size-8" />,
+    startIcon: <UserCheck2 className="size-8 dark:text-babyPowder" />,
   },
   {
     label: "First Name",
     name: "first_name",
     placeholder: "First Name",
-    startIcon: <Contact2Icon className="dark:text-babyPowder size-8" />,
+    startIcon: <Contact2Icon className="size-8 dark:text-babyPowder" />,
   },
   {
     label: "Last Name",
     name: "last_name",
     placeholder: "Last Name",
-    startIcon: <Contact2Icon className="dark:text-babyPowder size-8" />,
+    startIcon: <Contact2Icon className="size-8 dark:text-babyPowder" />,
   },
   {
     label: "Email Address",
     name: "email",
     placeholder: "Email Address",
-    startIcon: <MailIcon className="dark:text-babyPowder size-8" />,
+    startIcon: <MailIcon className="size-8 dark:text-babyPowder" />,
   },
   {
     label: "Password",
@@ -120,7 +120,7 @@ export default function RegisterForm() {
 
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText w-full text-white"
+          className="h4-semibold w-full bg-eerieBlack text-white dark:bg-pumpkin dark:text-amberText"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Submit"}

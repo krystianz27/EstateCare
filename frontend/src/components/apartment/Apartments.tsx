@@ -31,7 +31,7 @@ export default function Apartments() {
 
   return (
     <TabsContent value="my-apartments">
-      <h2 className="h2-semibold flex-center font-robotoSlab dark:text-pumpkin text-xl">
+      <h2 className="h2-semibold flex-center font-robotoSlab text-xl dark:text-pumpkin">
         Total: ({myApartments?.count || 0})
       </h2>
       <div

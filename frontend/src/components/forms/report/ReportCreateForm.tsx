@@ -54,7 +54,7 @@ export default function ReportCreateForm() {
             register={register}
             errors={errors}
             placeholder="Title"
-            startIcon={<FlagIcon className="dark:text-babyPowder size-8" />}
+            startIcon={<FlagIcon className="size-8 dark:text-babyPowder" />}
           />
           <FormFieldComponent
             label="Tenant's Username"
@@ -62,7 +62,7 @@ export default function ReportCreateForm() {
             register={register}
             errors={errors}
             placeholder="Add Tenants Username"
-            startIcon={<Contact2Icon className="dark:text-babyPowder size-8" />}
+            startIcon={<Contact2Icon className="size-8 dark:text-babyPowder" />}
           />
           <FormFieldComponent
             label="Description"
@@ -74,7 +74,7 @@ export default function ReportCreateForm() {
           />
           <Button
             type="submit"
-            className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText mt-2 w-full text-white"
+            className="h4-semibold mt-2 w-full bg-eerieBlack text-white dark:bg-pumpkin dark:text-amberText"
             disabled={isLoading}
             aria-live="polite"
           >

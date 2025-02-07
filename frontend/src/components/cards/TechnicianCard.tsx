@@ -45,7 +45,7 @@ export default function TechnicianCard() {
     return (
       <div>
         <UsersSearch />
-        <h1 className="flex-center font-robotoSlab dark:text-pumpkin text-5xl">
+        <h1 className="flex-center font-robotoSlab text-5xl dark:text-pumpkin">
           All Technicians - (0)
         </h1>
         <p className="h2-semibold dark:text-lime-500">No technicians found!</p>
@@ -56,14 +56,14 @@ export default function TechnicianCard() {
   return (
     <div>
       <UsersSearch />
-      <h1 className="flex-center font-robotoSlab dark:text-pumpkin text-5xl">
+      <h1 className="flex-center font-robotoSlab text-5xl dark:text-pumpkin">
         All Technicians - ({technicians.length})
       </h1>
 
       <div className="mt-4 grid cursor-pointer grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2">
         {technicians.map((technician) => (
           <Card key={technician.id}>
-            <CardContent className="dark:border-gray rounded-lg border">
+            <CardContent className="rounded-lg border dark:border-gray">
               <CardHeader className="flex-center w-full">
                 <Avatar>
                   <AvatarImage
@@ -106,7 +106,7 @@ export default function TechnicianCard() {
                 >
                   <Button
                     size="sm"
-                    className="electricIndigo-gradient text-babyPowder mt-3"
+                    className="electricIndigo-gradient mt-3 text-babyPowder"
                   >
                     Rate This Professional
                   </Button>

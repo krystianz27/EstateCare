@@ -29,13 +29,13 @@ export default function LoginPage() {
             linkHref="/register"
           />
           <div className="mt-7 sm:mx-auto sm:w-full sm:max-w-[480px]">
-            <div className="dark:bg-deepBlueGrey/70 rounded-xl bg-zinc-50/30 px-6 py-12 shadow sm:rounded-lg sm:px-12 md:rounded-3xl">
+            <div className="rounded-xl bg-zinc-50/30 px-6 py-12 shadow dark:bg-deepBlueGrey/70 sm:rounded-lg sm:px-12 md:rounded-3xl">
               <LoginForm />
 
               <div className="flex-center mt-5 space-x-2">
-                <div className="bg-richBlack dark:bg-platinum h-px flex-1"></div>
-                <span className="dark: text-platinum px-2 text-sm">Or</span>
-                <div className="bg-richBlack dark:bg-platinum h-px flex-1"></div>
+                <div className="h-px flex-1 bg-richBlack dark:bg-platinum"></div>
+                <span className="dark: px-2 text-sm text-platinum">Or</span>
+                <div className="h-px flex-1 bg-richBlack dark:bg-platinum"></div>
               </div>
               <OAuthButtons />
             </div>

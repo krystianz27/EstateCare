@@ -17,14 +17,14 @@ export default function PostBody({ body, slug }: PostBodyProps) {
     postResponse?.post.author_username === currentUser?.profile.username;
 
   return (
-    <CardContent className="border-b-eerieBlack dark:border-gray border-b border-dashed">
+    <CardContent className="border-b border-dashed border-b-eerieBlack dark:border-gray">
       <CardDescription className="mt-3">
         <div className="flex items-center space-x-2">
           <span className="text-lg-font-baby">{body}</span>
         </div>
         {canUpdate && (
           <Link href={`/posts/update-post/${slug}`}>
-            <Button className="lime-gradient text-babyPowder mt-3.5">
+            <Button className="lime-gradient mt-3.5 text-babyPowder">
               Update Post
             </Button>
           </Link>

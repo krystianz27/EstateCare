@@ -36,7 +36,7 @@ export default function PostHeader({
                   : "/assets/icons/user-profile-light-circle.svg")
               }
               alt="Author Avatar"
-              className="border-electricIndigo dark:border-pumpkin size-8 rounded-full border-2 sm:size-10"
+              className="size-8 rounded-full border-2 border-electricIndigo dark:border-pumpkin sm:size-10"
             />
           </Avatar>
           <span className="block text-2xl">@{author_username}</span>
@@ -45,7 +45,7 @@ export default function PostHeader({
 
       <CardDescription className="mt-2">
         <div className="flex items-center space-x-2">
-          <ClockIcon className="tab-icon text-electricIndigo hidden sm:block" />
+          <ClockIcon className="tab-icon hidden text-electricIndigo sm:block" />
           <span className="text-xl-font-baby">
             <span className="mr-1">Posted</span>
             {created_at

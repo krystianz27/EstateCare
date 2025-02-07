@@ -12,10 +12,10 @@ export default function LeftNavbar() {
 
   return (
     <section
-      className="light-border custom-scrollbar shadow-platinum 
-    light:bg-zinc-50 sticky left-0 top-0 flex h-screen flex-col 
-    justify-between overflow-y-auto border-r p-6 pt-36 
-    max-md:hidden lg:w-[297px] dark:shadow-none"
+      className="light-border custom-scrollbar light:bg-zinc-50 
+    sticky left-0 top-0 flex h-screen flex-col justify-between 
+    overflow-y-auto border-r p-6 pt-36 shadow-platinum 
+    dark:shadow-none max-md:hidden lg:w-[297px]"
     >
       <div className="mb-8 flex flex-1 flex-col gap-6">
         {filteredLeftNavLinks.map((linkItem, index) => {
@@ -28,7 +28,7 @@ export default function LeftNavbar() {
               key={linkItem.label}
               className={`${
                 isActive
-                  ? "electricIndigo-gradient text-babyPowder rounded-lg"
+                  ? "electricIndigo-gradient rounded-lg text-babyPowder"
                   : "text-baby_richBlack"
               } flex items-center justify-start gap-4 bg-transparent p-4 
                ${
@@ -58,7 +58,7 @@ export default function LeftNavbar() {
           <Button
             onClick={handleLogout}
             // className="lime-gradient small-medium light-border-2 btn-tertiary text-baby_ballon min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none"
-            className="dark:bg-amber dark:text-amberText w-full rounded-lg border bg-black px-4 py-3 text-white"
+            className="w-full rounded-lg border bg-black px-4 py-3 text-white dark:bg-amber dark:text-amberText"
           >
             Log Out
           </Button>

@@ -14,7 +14,7 @@ const UsersSearch = () => {
     dispatch(setSearchTerm(event.target.value));
   };
   return (
-    <div className="bg-gray dark:bg-eerieBlack mb-3 flex min-h-[56px] w-full grow rounded-full">
+    <div className="mb-3 flex min-h-[56px] w-full grow rounded-full bg-gray dark:bg-eerieBlack">
       <Image
         src="/assets/icons/search.svg"
         alt="Search"
@@ -27,7 +27,7 @@ const UsersSearch = () => {
         type="search"
         value={searchTerm}
         onChange={handleInputChange}
-        className="search-text no-focus dark:text-babyPowder border-none bg-transparent shadow-none outline-none"
+        className="search-text no-focus border-none bg-transparent shadow-none outline-none dark:text-babyPowder"
       />
     </div>
   );

@@ -36,14 +36,14 @@ const PaginationSection = ({ totalPages, entityType }: PaginationProps) => {
   };
 
   return (
-    <Pagination className="bg-platinum dark:bg-eerieBlack dark:text-platinum mt-4 rounded-full">
+    <Pagination className="mt-4 rounded-full bg-platinum dark:bg-eerieBlack dark:text-platinum">
       <PaginationContent>
         <PaginationItem className="cursor-pointer">
           <PaginationPrevious onClick={handlePreviousClick} />
         </PaginationItem>
 
         <PaginationItem>
-          <PaginationLink className="h3-semibold font-robotoSlab inline-flex items-center rounded-md border border-transparent bg-blue-700 text-white dark:text-white">
+          <PaginationLink className="h3-semibold inline-flex items-center rounded-md border border-transparent bg-blue-700 font-robotoSlab text-white dark:text-white">
             {currentPage}
           </PaginationLink>
         </PaginationItem>

@@ -21,13 +21,13 @@ export default function AuthFormHeader({
       dark:text-lime-500"
       />
       <h2
-        className="text-baby_richBlack h2-bold font-robotoSlab 
-      dark:text-pumpkin mt-3 text-center"
+        className="text-baby_richBlack h2-bold mt-3 
+      text-center font-robotoSlab dark:text-pumpkin"
       >
         {title}
       </h2>
       {linkHref && (
-        <p className="dark:text-platinum mt-4 text-center text-lg">
+        <p className="mt-4 text-center text-lg dark:text-platinum">
           {staticText && <span>{staticText}</span>}
           {linkText && (
             <Link

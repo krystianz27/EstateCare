@@ -49,7 +49,7 @@ function TenantCardContent() {
   return (
     <div>
       <UserSearch />
-      <h1 className="flex-center font-robotoSlab dark:text-pumpkin text-4xl sm:text-5xl">
+      <h1 className="flex-center font-robotoSlab text-4xl dark:text-pumpkin sm:text-5xl">
         All Tenants - ({data?.profiles.results.length})
       </h1>
 
@@ -59,7 +59,7 @@ function TenantCardContent() {
             <Card key={tenant.id}>
               <CardContent className="rounded-lg p-4">
                 <CardHeader className="flex-col-center text-center">
-                  <Avatar className="border-pumpkin mx-auto size-28 overflow-hidden rounded-full border-4 object-cover">
+                  <Avatar className="mx-auto size-28 overflow-hidden rounded-full border-4 border-pumpkin object-cover">
                     <AvatarImage
                       alt="User profile avatar"
                       src={

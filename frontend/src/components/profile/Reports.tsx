@@ -26,7 +26,7 @@ export default function Reports() {
   }
   return (
     <TabsContent value="my-reports">
-      <h2 className="h2-semibold flex-center font-robotoSlab dark:text-pumpkin text-xl">
+      <h2 className="h2-semibold flex-center font-robotoSlab text-xl dark:text-pumpkin">
         Total: ({myReport?.count})
       </h2>
       <div className="mt-4 grid cursor-pointer grid-cols-1 gap-4 p-1.5 md:grid-cols-2 lg:grid-cols-3">
@@ -34,7 +34,7 @@ export default function Reports() {
           myReport.results.map((report) => (
             <Card
               key={report.id}
-              className="hover:border-pumpkin dark:border-gray hover:dark:border-platinum rounded-xl border border-dashed"
+              className="rounded-xl border border-dashed hover:border-pumpkin dark:border-gray hover:dark:border-platinum"
             >
               <CardHeader>
                 <CardTitle className="flex-center h3-semibold font-robotoSlab dark:text-lime-500">
@@ -47,9 +47,9 @@ export default function Reports() {
                 </CardDescription>
               </CardContent>
 
-              <CardFooter className="dark:text-babyPowder flex flex-row justify-between">
+              <CardFooter className="flex flex-row justify-between dark:text-babyPowder">
                 <div>
-                  <span className="dark:text-pumpkin mr-0.5 font-bold">
+                  <span className="mr-0.5 font-bold dark:text-pumpkin">
                     Created On:{" "}
                   </span>
                   <Badge className="bg-eerieBlack text-babyPowder dark:bg-electricIndigo dark:text-babyPowder">

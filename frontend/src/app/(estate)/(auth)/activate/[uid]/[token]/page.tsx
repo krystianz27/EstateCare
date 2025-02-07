@@ -62,7 +62,7 @@ export default function ActivationPage({ params }: ActivationProps) {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="text-center">
-        <h3 className="dark:text-platinum font-robotoSlab text-2xl font-bold text-gray-800 sm:text-4xl md:text-5xl">
+        <h3 className="text-gray-800 font-robotoSlab text-2xl font-bold dark:text-platinum sm:text-4xl md:text-5xl">
           {messageContent}
         </h3>
       </div>

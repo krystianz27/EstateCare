@@ -17,7 +17,7 @@ function RatingStars({ rating }: { rating: number }) {
         return (
           <Star
             key={index}
-            className={`text-pumpkin fill-current ${!fullStar && halfStar ? "fill-opacity-50" : ""}`}
+            className={`fill-current text-pumpkin ${!fullStar && halfStar ? "fill-opacity-50" : ""}`}
           />
         );
       })}

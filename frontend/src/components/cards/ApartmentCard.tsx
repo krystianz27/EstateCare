@@ -28,7 +28,7 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
     <Link href={`/apartment/${apartment.id}`} key={apartment.id}>
       <Card
         key={apartment.id}
-        className="hover:border-pumpkin dark:border-gray hover:dark:border-platinum rounded-xl border border-dashed"
+        className="rounded-xl border border-dashed hover:border-pumpkin dark:border-gray hover:dark:border-platinum"
       >
         <CardHeader>
           <CardTitle className="flex-center h3-semibold font-robotoSlab dark:text-lime-500">
@@ -51,7 +51,7 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
           </CardDescription>
         </CardContent>
 
-        <CardFooter className="dark:text-babyPowder flex flex-row justify-between">
+        <CardFooter className="flex flex-row justify-between dark:text-babyPowder">
           <div>
             <span className="mr-0.5 font-bold">Created: </span>
             <Badge className="bg-eerieBlack text-babyPowder dark:bg-electricIndigo dark:text-babyPowder">

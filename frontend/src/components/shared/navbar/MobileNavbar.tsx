@@ -33,7 +33,7 @@ function LeftNavContent() {
               href={linkItem.path}
               className={`${
                 isActive
-                  ? "electricIndigo-gradient text-babyPowder rounded-lg"
+                  ? "electricIndigo-gradient rounded-lg text-babyPowder"
                   : "text-baby_richBlack"
               } items-justify-start flex gap-4 bg-transparent p-4`}
             >
@@ -108,8 +108,8 @@ export default function MobileNavbar() {
                   key="logout"
                   onClick={handleLogout}
                   className="electricIndigo-gradient small-medium light-border-2 
-                  btn-tertiary text-babyPowder mt-4 min-h-[41px] w-full 
-                  rounded-lg border px-4 py-3 shadow-none"
+                  btn-tertiary mt-4 min-h-[41px] w-full rounded-lg 
+                  border px-4 py-3 text-babyPowder shadow-none"
                 >
                   Logout
                 </Button>

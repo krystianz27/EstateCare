@@ -101,7 +101,7 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="Username"
-          startIcon={<UserCheck2 className="dark:text-babyPowder size-8" />}
+          startIcon={<UserCheck2 className="size-8 dark:text-babyPowder" />}
         />
 
         <FormFieldComponent
@@ -110,7 +110,7 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="First Name"
-          startIcon={<Contact2Icon className="dark:text-babyPowder size-8" />}
+          startIcon={<Contact2Icon className="size-8 dark:text-babyPowder" />}
         />
         <FormFieldComponent
           label="Last Name"
@@ -118,7 +118,7 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="Last Name"
-          startIcon={<Contact2Icon className="dark:text-babyPowder size-8" />}
+          startIcon={<Contact2Icon className="size-8 dark:text-babyPowder" />}
         />
 
         <GenderSelectField setValue={setValue} control={control} />
@@ -131,7 +131,7 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="What's your country"
-          startIcon={<Map className="dark:text-babyPowder size-8" />}
+          startIcon={<Map className="size-8 dark:text-babyPowder" />}
         />
 
         <FormFieldComponent
@@ -140,7 +140,7 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="City"
-          startIcon={<MapPinnedIcon className="dark:text-babyPowder size-8" />}
+          startIcon={<MapPinnedIcon className="size-8 dark:text-babyPowder" />}
         />
 
         <FormFieldComponent
@@ -160,7 +160,7 @@ export default function EditProfileForm() {
           <div className="grow" style={{ maxWidth: "90%" }}>
             <Input
               accept="image/*"
-              className="file:bg-eerieBlack dark:border-platinum dark:text-platinum cursor-pointer file:mr-3 file:rounded-md file:text-lime-500"
+              className="cursor-pointer file:mr-3 file:rounded-md file:bg-eerieBlack file:text-lime-500 dark:border-platinum dark:text-platinum"
               id="avatar"
               name="avatar"
               type="file"
@@ -177,7 +177,7 @@ export default function EditProfileForm() {
 
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText mt-2 w-full text-white"
+          className="h4-semibold mt-2 w-full bg-eerieBlack text-white dark:bg-pumpkin dark:text-amberText"
           disabled={isUpdating || uploading}
         >
           {isUpdating || uploading ? <Spinner size="sm" /> : "Update Profile"}

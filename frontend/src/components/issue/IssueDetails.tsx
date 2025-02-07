@@ -61,19 +61,19 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
   }
 
   return (
-    <Card className="dark:border-gray rounded-xl border border-dashed">
+    <Card className="rounded-xl border border-dashed dark:border-gray">
       <AuthFormHeader
         title={issue.title}
         linkText="Go back to profile"
         linkHref="/profile"
       />
 
-      <CardHeader className="border-b-eerieBlack flex flex-row justify-between gap-4 border-b p-4 sm:p-6 md:flex-row md:items-center md:gap-6">
+      <CardHeader className="flex flex-row justify-between gap-4 border-b border-b-eerieBlack p-4 sm:p-6 md:flex-row md:items-center md:gap-6">
         <div className="grid gap-0.5">
           <CardTitle className="dark:text-platinum">
             <p className="flex items-center space-x-2">
               <Hotel className="tab-icon" />
-              <span className="dark:text-babyPowder font-bold">
+              <span className="font-bold dark:text-babyPowder">
                 Apartment Number:{" "}
               </span>
               <span className="text-2xl">{issue.apartment_unit}</span>
@@ -93,7 +93,7 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
           {canUpdate && (
             <Link href={`/issue/update-issue/${id}`}>
               <Button
-                className="bg-electricIndigo text-babyPowder dark:bg-electricIndigo dark:text-babyPowder ml-auto h-10 max-w-[200px] sm:ml-0 md:max-w-[300px]"
+                className="ml-auto h-10 max-w-[200px] bg-electricIndigo text-babyPowder dark:bg-electricIndigo dark:text-babyPowder sm:ml-0 md:max-w-[300px]"
                 size="sm"
                 variant="outline"
               >
@@ -105,7 +105,7 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
           {canDelete && (
             <Button
               onClick={handleDeleteIssue}
-              className="text-babyPowder dark:text-babyPowder ml-auto h-10 max-w-[200px] bg-red-500 sm:ml-0 md:max-w-[300px] dark:bg-red-500"
+              className="ml-auto h-10 max-w-[200px] bg-red-500 text-babyPowder dark:bg-red-500 dark:text-babyPowder sm:ml-0 md:max-w-[300px]"
               size="sm"
               variant="outline"
             >
@@ -115,7 +115,7 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
         </div>
       </CardHeader>
 
-      <CardContent className="border-b-eerieBlack border-b">
+      <CardContent className="border-b border-b-eerieBlack">
         <CardDescription className="mt-3">
           <div className="flex items-center space-x-2">
             <CircleDot className="tab-icon" />
@@ -141,7 +141,7 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
         </p>
         <p className="flex flex-row items-center">
           <EyeIcon className="mr-1 size-5" />
-          <span className="dark:text-platinum text-lg">
+          <span className="text-lg dark:text-platinum">
             View Count:&nbsp; {issue.view_count}
           </span>
         </p>

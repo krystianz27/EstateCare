@@ -46,10 +46,3 @@ api-sh:
 api-sh-root:
 	docker-compose -f local.yml exec -u root api sh
 
-api-bash-root:
-	docker-compose -f local.yml exec -u root api bash
-
-client-sh-root:
-	docker-compose -f local.yml exec -u root client sh
-
-

@@ -58,7 +58,7 @@ export default function LoginForm() {
           register={register}
           errors={errors}
           placeholder="Email Address"
-          startIcon={<MailIcon className="dark:text-babyPowder size-8" />}
+          startIcon={<MailIcon className="size-8 dark:text-babyPowder" />}
         />
 
         <FormFieldComponent
@@ -72,7 +72,7 @@ export default function LoginForm() {
         />
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText w-full text-white"
+          className="h4-semibold w-full bg-eerieBlack text-white dark:bg-pumpkin dark:text-amberText"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Sign In"}

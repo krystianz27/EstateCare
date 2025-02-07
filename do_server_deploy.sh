@@ -17,11 +17,11 @@ trap cleanup_local EXIT
 echo "Packaging project files..."
 git archive --format tar --output ./project.tar main
 
-ENV_FILE="./.envs/.env.production"
+ENV_FILE="./backend/.envs/.env.production"
 if [ -f "$ENV_FILE" ]; then
   echo "Adding $ENV_FILE to archive..."
   # tar --append --file=project.tar -C ./.envs "$(basename "$ENV_FILE")"
-  tar --append --file=project.tar -C . ".envs/.env.production"
+  tar --append --file=project.tar -C . "backend/.envs/.env.production"
 else
   echo "Warning: $ENV_FILE not found!"
 fi

@@ -10,7 +10,7 @@ interface PostFooterProps {
 
 export default function PostFooter({ tags, replies_count }: PostFooterProps) {
   return (
-    <CardFooter className="border-b-eerieBlack dark:text-platinum flex items-center justify-between border-b border-dashed">
+    <CardFooter className="flex items-center justify-between border-b border-dashed border-b-eerieBlack dark:text-platinum">
       <TagList tags={tags ?? []} />
       {/* <div className="flex items-center">
         <MessageCircleMoreIcon className="tab-icon text-electricIndigo" />

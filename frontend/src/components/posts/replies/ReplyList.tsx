@@ -22,23 +22,23 @@ export default function RepliesList({ reply }: ReplyProps) {
               : "/assets/icons/user-profile-light-circle.svg")
           }
           alt="Author Avatar"
-          className="border-electricIndigo dark:border-pumpkin rounded-full border-2"
+          className="rounded-full border-2 border-electricIndigo dark:border-pumpkin"
           width={35}
           height={35}
         />
       </Avatar>
       <div>
         <p className="flex items-center space-x-2">
-          <span className="dark:text-platinum font-semibold">
+          <span className="font-semibold dark:text-platinum">
             @{reply.author_username}
           </span>
-          <span className="text-electricIndigo text-lg dark:text-lime-500">
+          <span className="text-lg text-electricIndigo dark:text-lime-500">
             {formatDistanceToNow(parseISO(reply.created_at), {
               addSuffix: true,
             })}
           </span>
         </p>
-        <p className="dark:text-platinum text-lg">{reply.body}</p>
+        <p className="text-lg dark:text-platinum">{reply.body}</p>
       </div>
     </div>
   );

@@ -117,7 +117,7 @@ export default function IssueCreateForm() {
           errors={errors}
           placeholder="Detailed Description of the issue"
           isTextArea
-          startIcon={<FlagIcon className="dark:text-babyPowder size-8" />}
+          startIcon={<FlagIcon className="size-8 dark:text-babyPowder" />}
         />
         <div>
           <label htmlFor="status" className="h4-semibold dark:text-babyPowder">
@@ -187,7 +187,7 @@ export default function IssueCreateForm() {
         </div>
         <Button
           type="submit"
-          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText mt-2 w-full text-white"
+          className="h4-semibold mt-2 w-full bg-eerieBlack text-white dark:bg-pumpkin dark:text-amberText"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Report"}

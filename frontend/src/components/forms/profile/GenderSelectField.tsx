@@ -55,7 +55,7 @@ export default function GenderSelectField({
         Gender
       </label>
       <div className="mt-1 flex items-center space-x-3">
-        <UserSearch className="dark:text-babyPowder size-8" />
+        <UserSearch className="size-8 dark:text-babyPowder" />
         <ClientOnly>
           <Controller
             control={control}

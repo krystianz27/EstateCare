@@ -4,8 +4,7 @@
 staticfiles/
 .envs/*
 !.envs/.env.example
-activate_venv.bat
-
+.ruff_cache/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -130,14 +129,19 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
-# Environments
-.env
+# backend/Environments
+backend/.envs/*
+# backend/.envs/
+!backend/.envs/.env.example
+
 .venv
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+
+# backend/staticfiles/
 
 # Spyder project settings
 .spyderproject
@@ -170,6 +174,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+######################## FRONTEND #########################
 # dependencies
 # NEXT.JS
 
@@ -203,7 +208,8 @@ frontend/yarn-debug.log*
 frontend/yarn-error.log*
 
 # local env files
-frontend/.env*.local
+/frontend/.env.local
+/frontend/.env.production
 
 # vercel
 frontend/.vercel

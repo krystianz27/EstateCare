@@ -27,7 +27,7 @@ const formatPostDate = (createdAt: string) => {
   return (
     <div>
       <span>Posted on</span>
-      <span className="dark:text-pumpkin ml-1">{formatDate(createdAt)}</span>
+      <span className="ml-1 dark:text-pumpkin">{formatDate(createdAt)}</span>
     </div>
   );
 };
@@ -36,7 +36,7 @@ const formatLastUpdated = (updatedAt: string) => {
   return (
     <div>
       <span>Last Updated</span>
-      <span className="dark:text-pumpkin ml-1">
+      <span className="ml-1 dark:text-pumpkin">
         {formatDistanceToNow(parseISO(updatedAt), { addSuffix: true })}
       </span>
     </div>
@@ -71,12 +71,12 @@ export default function PostCard() {
         href="/posts/create-post"
         className="flex justify-center max-sm:w-full sm:w-full"
       >
-        <Button className="h3-semibold electricIndigo-gradient text-babyPowder min-h-[46px] w-full min-w-60 px-4 py-3 sm:w-auto">
+        <Button className="h3-semibold electricIndigo-gradient min-h-[46px] w-full min-w-60 px-4 py-3 text-babyPowder sm:w-auto">
           Create a Post
         </Button>
       </Link>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
-        <h1 className="font-robotoSlab dark:text-pumpkin text-5xl">
+        <h1 className="font-robotoSlab text-5xl dark:text-pumpkin">
           All Posts - ({posts.length})
         </h1>
       </div>
@@ -95,9 +95,9 @@ export default function PostCard() {
           return (
             <Card
               key={postItem.id}
-              className="dark:border-gray rounded-3xl border dark:bg-zinc-900"
+              className="rounded-3xl border dark:border-gray dark:bg-zinc-900"
             >
-              <article className="dark:text-platinum w-full pb-4">
+              <article className="w-full pb-4 dark:text-platinum">
                 <CardHeader>
                   <CardTitle className="font-robotSlab text-center text-2xl">
                     {titlePreview}
@@ -108,18 +108,18 @@ export default function PostCard() {
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent className="border-t-deepBlueGrey dark:border-gray border-y py-4 text-sm">
+                <CardContent className="border-y border-t-deepBlueGrey py-4 text-sm dark:border-gray">
                   <p className="dark:text-platinum">{bodyPreview}</p>
                 </CardContent>
 
                 <div className="flex flex-col items-start gap-2 p-2">
                   <div className="flex-row-center dark:text-platinum">
-                    <EyeIcon className="post-icon text-electricIndigo mr-1" />
+                    <EyeIcon className="post-icon mr-1 text-electricIndigo" />
                     {formatViewCount(postItem.view_count)}
                   </div>
 
                   <div className="flex-row-center dark:text-platinum">
-                    <MessageSquareQuoteIcon className="post-icon text-electricIndigo mr-1" />
+                    <MessageSquareQuoteIcon className="post-icon mr-1 text-electricIndigo" />
                     <span>{formatRepliesCount(postItem.replies_count)}</span>
                   </div>
 
@@ -129,7 +129,7 @@ export default function PostCard() {
                   >
                     <Button
                       size="sm"
-                      className="lime-gradient text-babyPowder w-full sm:w-auto"
+                      className="lime-gradient w-full text-babyPowder sm:w-auto"
                     >
                       View Post
                     </Button>
