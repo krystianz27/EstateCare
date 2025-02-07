@@ -15,18 +15,31 @@ cleanup_local() {
 trap cleanup_local EXIT
 
 echo "Packaging project files..."
-git archive --format tar --output ./project.tar main
+git archive --format tar --output ./project.tar main # Create project.tar without files and directories that are in .gitignore
 
-ENV_FILE="./backend/.envs/.env.production"
-if [ -f "$ENV_FILE" ]; then
-  echo "Adding $ENV_FILE to archive..."
-  # tar --append --file=project.tar -C ./.envs "$(basename "$ENV_FILE")"
-  tar --append --file=project.tar -C . "backend/.envs/.env.production"
+BACKEND_ENV="./backend/.envs/.env.production"
+FRONTEND_ENV="./frontend/.env.production"
+ARCHIVE="project.tar"
+
+# Archive backend/.envs.env.production
+if [ -f "$BACKEND_ENV" ]; then
+  echo "Adding $BACKEND_ENV to archive..."
+  tar --append --file="$ARCHIVE" -C . "backend/.envs/.env.production"
 else
-  echo "Warning: $ENV_FILE not found!"
+  echo "Warning: $BACKEND_ENV not found!"
 fi
 
-echo "Uploading project to Digital Ocean..."
+# Archive frontend/.env.production
+if [ -f "$FRONTEND_ENV" ]; then
+  echo "Adding $FRONTEND_ENV to archive..."
+  tar --append --file="$ARCHIVE" -C . "frontend/.env.production"
+else
+  echo "Warning: $FRONTEND_ENV not found!"
+fi
+
+echo "Archiving complete.
+
+echo "Started uploading project.tar to Digital Ocean..."
 
 # rsync -avz --progress ./project.tar root@$DIGITAL_OCEAN_IP_ADDRESS:/tmp/project.tar
 scp ./project.tar root@$DIGITAL_OCEAN_IP_ADDRESS:/tmp/project.tar
