@@ -9,6 +9,8 @@ services:
     container_name: estate_local_api
     volumes:
       - ./backend:/app:z
+      # - estate_media:/app/media:z
+      - ./backend/media:/app/media
       # - ./backend/staticfiles:/app/staticfiles # Redundant
     # ports:
     #   - "8000:8000"
@@ -105,22 +107,6 @@ services:
       - "5555:5555"
     command: /start-flower
 
-  # nginx:
-  #   build:
-  #     context: ./backend/docker/local/nginx/
-  #     dockerfile: Dockerfile
-  #   restart: always
-  #   container_name: estate_local_nginx
-  #   ports:
-  #     - "8080:80"
-  #   volumes:
-  #     - ./backend/staticfiles:/app/staticfiles
-  #     - logs_store:/var/log/nginx
-  #   depends_on:
-  #     - api
-  #   networks:
-  #     - estate_prod_nw
-
   nginx:
     build:
       context: ./nginx/local
@@ -131,6 +117,8 @@ services:
       - "8080:80"
     volumes:
       - ./backend/staticfiles:/app/staticfiles
+      - ./backend/media:/app/media
+      # - estate_media:/app/media:z
       - logs_store:/var/log/nginx
     depends_on:
       - api
@@ -142,6 +130,7 @@ networks:
     external: true
 
 volumes:
+  # estate_media: {}
   estate_node_modules: {}
   estate_prod_postgres_data: {}
   estate_prod_mailpit_data: {}
