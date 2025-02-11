@@ -52,4 +52,7 @@ api-bash-root:
 client-sh-root:
 	docker-compose -f local.yml exec -u root client sh
 
+nginx-sh-root:
+	docker-compose -f local.yml exec -u root nginx sh
+
 
