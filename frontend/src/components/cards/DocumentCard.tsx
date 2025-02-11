@@ -27,7 +27,6 @@ export default function DocumentCard({ document }: DocumentCardProps) {
     window.document.body.appendChild(link);
     link.click();
     window.document.body.removeChild(link);
-    console.log(fileUrl);
   };
 
   // const handleDownload = () => {

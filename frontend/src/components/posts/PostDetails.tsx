@@ -34,12 +34,9 @@ function PostDetailsContent({ params }: PostDetailsProps) {
     }
   }, [params.slug]);
 
-  console.log(slug);
-
   const { data } = useGetSinglePostQuery(slug ?? "", { skip: !slug });
 
   const post = data?.post;
-  console.log(post?.title);
 
   const [upvotePost, { isLoading: isUpvoteLoading }] = useUpvotePostMutation();
 
@@ -73,14 +70,14 @@ function PostDetailsContent({ params }: PostDetailsProps) {
   };
 
   return (
-    <Card className="rounded-3xl border border-dashed dark:border-gray dark:bg-zinc-900">
+    <Card className="dark:border-gray rounded-3xl border border-dashed dark:bg-zinc-900">
       <AuthFormHeader linkText="Go back to Home" linkHref="/welcome" />
 
-      <h1 className="text-baby_richBlack text- mt-3 text-center font-robotoSlab text-3xl dark:text-pumpkin">
+      <h1 className="text-baby_richBlack text- font-robotoSlab dark:text-pumpkin mt-3 text-center text-3xl">
         {post?.title}
       </h1>
 
-      <CardHeader className="flex-start w-full flex-col border-b border-dashed border-b-eerieBlack dark:border-gray">
+      <CardHeader className="flex-start border-b-eerieBlack dark:border-gray w-full flex-col border-b border-dashed">
         <div className="flex w-full flex-col justify-between sm:flex-row sm:items-center sm:gap-2">
           <PostHeader
             title={post?.title}
@@ -107,9 +104,9 @@ function PostDetailsContent({ params }: PostDetailsProps) {
 
       <PostFooter tags={post?.tags} replies_count={post?.replies_count} />
 
-      <div className="ml-4 space-y-4 border-b border-dashed border-b-eerieBlack py-4 dark:border-gray dark:text-platinum">
-        <span className="flex flex-row items-center font-robotoSlab text-lg font-semibold dark:text-pumpkin">
-          <MessageCircleMoreIcon className="tab-icon mr-2 text-electricIndigo" />
+      <div className="border-b-eerieBlack dark:border-gray dark:text-platinum ml-4 space-y-4 border-b border-dashed py-4">
+        <span className="font-robotoSlab dark:text-pumpkin flex flex-row items-center text-lg font-semibold">
+          <MessageCircleMoreIcon className="tab-icon text-electricIndigo mr-2" />
           {formatRepliesCount(post?.replies_count)}
         </span>
 
@@ -122,8 +119,8 @@ function PostDetailsContent({ params }: PostDetailsProps) {
         )}
       </div>
 
-      <CardContent className="w-full border-b border-dashed border-b-eerieBlack dark:border-gray dark:text-platinum">
-        <h2 className="h2-semibold mt-3 dark:text-pumpkin">
+      <CardContent className="border-b-eerieBlack dark:border-gray dark:text-platinum w-full border-b border-dashed">
+        <h2 className="h2-semibold dark:text-pumpkin mt-3">
           Add your reply here
         </h2>
         <ReplyCreateForm slug={post?.slug} />
