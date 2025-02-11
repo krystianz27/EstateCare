@@ -59,6 +59,7 @@ LOCAL_APPS = [
     "core_apps.ratings",
     "core_apps.posts",
     "core_apps.apartments",
+    "core_apps.documents",
     "core_apps.reports",
 ]
 
