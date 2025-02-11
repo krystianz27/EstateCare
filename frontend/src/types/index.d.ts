@@ -10,3 +10,4 @@ export * from "./reply";
 export * from "./report";
 export * from "./tag";
 export * from "./user";
+export * from "./document";
