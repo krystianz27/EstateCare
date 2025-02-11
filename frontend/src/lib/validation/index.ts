@@ -37,3 +37,28 @@ export {
   technicianRatingCreateSchema,
   type TechnicianRatingCreateSchema,
 } from "./technicianSchema";
+
+export {
+  documentCreateSchema,
+  type DocumentCreateSchema,
+} from "./documentSchema";
+
+export {
+  documentUpdateSchema,
+  type DocumentUpdateSchema,
+} from "./documentSchema";
+
+export {
+  documentDeleteSchema,
+  type DocumentDeleteSchema,
+} from "./documentSchema";
+
+export {
+  documentShareSchema,
+  type DocumentShareSchema,
+} from "./documentSchema";
+
+export {
+  documentRevokeShareSchema,
+  type DocumentRevokeShareSchema,
+} from "./documentSchema";
