@@ -22,17 +22,17 @@ export const metadata: Metadata = {
 function ProfilePageContent() {
   return (
     <>
-      <div className="grid items-start gap-4 rounded-3xl  py-4 dark:bg-zinc-900 md:gap-6 md:px-6">
+      <div className="grid items-start gap-4 rounded-3xl  py-4 md:gap-6 md:px-6 dark:bg-zinc-900">
         <Header />
 
         <div className="w-full">
           <Tabs
-            className="space-y-6 rounded-lg border dark:border-eerieBlack"
+            className="dark:border-eerieBlack space-y-6 rounded-lg border"
             defaultValue="about"
           >
             <TabsList
               className="bg-baby_rich mb-6 grid min-h-40 grid-cols-2 gap-4 rounded-lg  px-4 
-              py-3 max-md:min-h-48 sm:gap-6 md:grid-cols-3 md:gap-4"
+              py-3 max-md:min-h-48 sm:gap-6 md:grid-cols-2 md:gap-4"
             >
               <TabsTrigger
                 value="about"
@@ -83,24 +83,24 @@ function ProfilePageContent() {
           </Tabs>
         </div>
       </div>
-      <div className="mt-6 flex cursor-pointer flex-col gap-4 rounded-3xl p-6 dark:bg-zinc-900 sm:flex-row sm:justify-between">
+      <div className="mt-6 grid w-full grid-cols-1 gap-4 rounded-3xl p-6 md:grid-cols-2 lg:grid-cols-4 dark:bg-zinc-900">
         <Link href="/profile/edit">
-          <Button className="h3-semibold  w-full rounded-lg bg-zinc-800 text-white dark:bg-amber dark:text-amberText sm:w-64">
+          <Button className="h3-semibold  dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
             Update Profile
           </Button>
         </Link>
         <Link href="/apartment">
-          <Button className="h3-semibold  w-full rounded-lg bg-zinc-800 text-white dark:bg-amber dark:text-amberText sm:w-64">
+          <Button className="h3-semibold  dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
             Add Your Apartment
           </Button>
         </Link>
         <Link href="/documents">
-          <Button className="h3-semibold  w-full rounded-lg bg-zinc-800 text-white dark:bg-amber dark:text-amberText sm:w-64">
+          <Button className="h3-semibold  dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
             Check Your Documents
           </Button>
         </Link>
         <Link href="/payments">
-          <Button className="h3-semibold  w-full rounded-lg bg-zinc-800 text-white dark:bg-amber dark:text-amberText sm:w-64">
+          <Button className="h3-semibold  dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
             Payment
           </Button>
         </Link>
