@@ -40,6 +40,12 @@ RUN addgroup --system django && \
   chown django:django ${APP_HOME}/staticfiles && \
   chmod 775 ${APP_HOME}/staticfiles
 
+# Media Files
+RUN mkdir -p ${APP_HOME}/media && \
+  chown -R django:django ${APP_HOME}/media && \
+  chmod -R 775 ${APP_HOME}/media
+
+
 RUN apt-get update && apt-get install --no-install-recommends -y \
   libpq-dev \
   gettext \

@@ -27,7 +27,7 @@ const formatPostDate = (createdAt: string) => {
   return (
     <div>
       <span>Posted on</span>
-      <span className="ml-1 dark:text-pumpkin">{formatDate(createdAt)}</span>
+      <span className="dark:text-pumpkin ml-1">{formatDate(createdAt)}</span>
     </div>
   );
 };
@@ -36,7 +36,7 @@ const formatLastUpdated = (updatedAt: string) => {
   return (
     <div>
       <span>Last Updated</span>
-      <span className="ml-1 dark:text-pumpkin">
+      <span className="dark:text-pumpkin ml-1">
         {formatDistanceToNow(parseISO(updatedAt), { addSuffix: true })}
       </span>
     </div>
@@ -47,9 +47,10 @@ export default function PostCard() {
   const page = useAppSelector((state: PostState) => state.post.page);
   const { data, isLoading } = useGetAllPostsQuery({ page });
 
+  const totalPosts = data?.posts.count;
   const posts = data?.posts.results ?? [];
   const totalCount = data?.posts.count || 0;
-  const totalPages = Math.ceil(totalCount / 9);
+  const totalPages = Math.ceil(totalCount / 10);
 
   const sortedPosts = sortByDateDescending(posts, "created_at");
 
@@ -71,13 +72,13 @@ export default function PostCard() {
         href="/posts/create-post"
         className="flex justify-center max-sm:w-full sm:w-full"
       >
-        <Button className="h3-semibold electricIndigo-gradient min-h-[46px] w-full min-w-60 px-4 py-3 text-babyPowder sm:w-auto">
+        <Button className="h3-semibold electricIndigo-gradient text-babyPowder min-h-[46px] w-full min-w-60 px-4 py-3 sm:w-auto">
           Create a Post
         </Button>
       </Link>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
-        <h1 className="font-robotoSlab text-5xl dark:text-pumpkin">
-          All Posts - ({posts.length})
+        <h1 className="font-robotoSlab dark:text-pumpkin text-5xl">
+          All Posts - ({totalPosts})
         </h1>
       </div>
       <div className="mt-7 grid grid-cols-1 gap-6">
@@ -95,9 +96,9 @@ export default function PostCard() {
           return (
             <Card
               key={postItem.id}
-              className="rounded-3xl border dark:border-gray dark:bg-zinc-900"
+              className="dark:border-gray rounded-3xl border dark:bg-zinc-900"
             >
-              <article className="w-full pb-4 dark:text-platinum">
+              <article className="dark:text-platinum w-full pb-4">
                 <CardHeader>
                   <CardTitle className="font-robotSlab text-center text-2xl">
                     {titlePreview}
@@ -108,18 +109,18 @@ export default function PostCard() {
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent className="border-y border-t-deepBlueGrey py-4 text-sm dark:border-gray">
+                <CardContent className="border-t-deepBlueGrey dark:border-gray border-y py-4 text-sm">
                   <p className="dark:text-platinum">{bodyPreview}</p>
                 </CardContent>
 
                 <div className="flex flex-col items-start gap-2 p-2">
                   <div className="flex-row-center dark:text-platinum">
-                    <EyeIcon className="post-icon mr-1 text-electricIndigo" />
+                    <EyeIcon className="post-icon text-electricIndigo mr-1" />
                     {formatViewCount(postItem.view_count)}
                   </div>
 
                   <div className="flex-row-center dark:text-platinum">
-                    <MessageSquareQuoteIcon className="post-icon mr-1 text-electricIndigo" />
+                    <MessageSquareQuoteIcon className="post-icon text-electricIndigo mr-1" />
                     <span>{formatRepliesCount(postItem.replies_count)}</span>
                   </div>
 
@@ -129,7 +130,7 @@ export default function PostCard() {
                   >
                     <Button
                       size="sm"
-                      className="lime-gradient w-full text-babyPowder sm:w-auto"
+                      className="lime-gradient text-babyPowder w-full sm:w-auto"
                     >
                       View Post
                     </Button>

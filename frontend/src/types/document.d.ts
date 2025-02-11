@@ -44,3 +44,9 @@ export interface ShareOrRevokeDocumentRequest {
   id: string;
   shared_with: string[];
 }
+
+export interface DocumentState {
+  document: {
+    page: number;
+  };
+}

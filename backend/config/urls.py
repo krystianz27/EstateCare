@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from drf_yasg import openapi
@@ -31,6 +32,8 @@ urlpatterns = [
     path("api/v1/ratings/", include("core_apps.ratings.urls")),
     path("api/v1/posts/", include("core_apps.posts.urls")),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = "Estate Care Apartment"
 admin.site.site_title = "Estate Care Admin Site"

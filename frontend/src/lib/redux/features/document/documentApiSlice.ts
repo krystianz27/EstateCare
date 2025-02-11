@@ -26,8 +26,20 @@ export const documentApiSlice = baseApiSlice.injectEndpoints({
       providesTags: ["Document"],
     }),
 
-    getMyDocuments: builder.query<MyDocumentsResponse, void>({
-      query: () => `/documents/?type=owned`,
+    getMyDocuments: builder.query<
+      MyDocumentsResponse,
+      { page?: number; type?: string }
+    >({
+      query: (params = {}) => {
+        const queryString = new URLSearchParams();
+        if (params.type) {
+          queryString.append("type", params.type.toString());
+        }
+        if (params.page) {
+          queryString.append("page", params.page.toString());
+        }
+        return `/documents/?${queryString.toString()}`;
+      },
       providesTags: ["Document"],
     }),
 
