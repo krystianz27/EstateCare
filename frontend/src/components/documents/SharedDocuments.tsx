@@ -35,7 +35,11 @@ export default function SharedDocuments() {
           <DocumentCard key={doc.id} document={doc} />
         ))}
       </div>
-      <PaginationLocal totalPages={totalPages} currentPage={currentPage} />
+      <PaginationLocal
+        totalPages={totalPages}
+        currentPage={currentPage}
+        type={type}
+      />
     </>
   );
 }

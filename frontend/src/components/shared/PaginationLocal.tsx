@@ -1,4 +1,4 @@
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Pagination,
   PaginationContent,
@@ -11,15 +11,22 @@ import {
 interface PaginationProps {
   totalPages: number;
   currentPage: number;
+  type?: string | number;
 }
 
-const PaginationLocal = ({ totalPages, currentPage }: PaginationProps) => {
+const PaginationLocal = ({
+  totalPages,
+  currentPage,
+  type,
+}: PaginationProps) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  //   const searchParams = useSearchParams();
 
   const handlePageChange = (newPage: number) => {
-    const type = searchParams.get("type") || "owned";
-    router.push(`?page=${newPage}&type=${type}`, { scroll: false });
+    // const type = searchParams.get("type");
+    const query = type ? `?page=${newPage}&type=${type}` : `?page=${newPage}`;
+
+    router.push(query, { scroll: false });
   };
 
   return (

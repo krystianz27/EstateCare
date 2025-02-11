@@ -34,7 +34,11 @@ export default function MyDocuments() {
           <DocumentCard key={doc.id} document={doc} />
         ))}
       </div>
-      <PaginationLocal totalPages={totalPages} currentPage={currentPage} />
+      <PaginationLocal
+        totalPages={totalPages}
+        currentPage={currentPage}
+        type={type}
+      />
     </>
   );
 }

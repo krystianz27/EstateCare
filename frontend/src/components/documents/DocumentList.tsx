@@ -34,6 +34,7 @@ export default function DocumentList() {
         defaultValue="my-documents"
         value={tab}
         onValueChange={handleTabChange}
+        // onValueChange={(value) => handleTabChange(value)}
       >
         <TabsList className="mb-6 grid min-h-20 w-full grid-cols-1 gap-6 rounded-lg bg-neutral-900 px-4 py-3 max-sm:min-h-40 sm:grid-cols-2">
           <TabsTrigger
