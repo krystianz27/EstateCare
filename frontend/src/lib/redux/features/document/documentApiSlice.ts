@@ -44,11 +44,32 @@ export const documentApiSlice = baseApiSlice.injectEndpoints({
     }),
 
     createDocument: builder.mutation<DocumentResponse, AddDocumentData>({
-      query: (documentData) => ({
-        url: "/documents/",
-        method: "POST",
-        body: documentData,
-      }),
+      query: (documentData) => {
+        console.log(documentData.file);
+        const formData = new FormData();
+        formData.append("title", documentData.title);
+
+        if (documentData.file) {
+          formData.append("file", documentData.file);
+        }
+
+        if (documentData.apartment_uuid) {
+          formData.append("apartment_uuid", documentData.apartment_uuid);
+        }
+
+        if (documentData.shared_with_users) {
+          formData.append(
+            "shared_with_users",
+            JSON.stringify(documentData.shared_with_users),
+          );
+        }
+
+        return {
+          url: "/documents/",
+          method: "POST",
+          body: formData,
+        };
+      },
       invalidatesTags: ["Document"],
     }),
 
@@ -105,4 +126,5 @@ export const {
   useUpdateDocumentMutation,
   useDeleteDocumentMutation,
   useShareDocumentMutation,
+  useRevokeShareDocumentMutation,
 } = documentApiSlice;

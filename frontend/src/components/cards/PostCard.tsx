@@ -73,11 +73,11 @@ export default function PostCard() {
         href="/posts/create-post"
         className="flex justify-center max-sm:w-full sm:w-full"
       >
-        <Button className="h3-semibold electricIndigo-gradient text-babyPowder min-h-[46px] w-full min-w-60 px-4 py-3 sm:w-auto">
+        <Button className="h3-semibold electricIndigo-gradient text-babyPowder mt-4 min-h-[46px] w-full min-w-60 px-4 py-3 sm:w-auto">
           Create a Post
         </Button>
       </Link>
-      <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
+      <div className="mt-6 flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="font-robotoSlab dark:text-pumpkin text-5xl">
           All Posts - ({totalPosts})
         </h1>

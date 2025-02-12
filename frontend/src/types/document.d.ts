@@ -11,7 +11,7 @@ export interface SharedWithUserData {
 export interface DocumentData {
   title: string;
   file: File;
-  apartment?: string | null;
+  apartment_uuid?: string | null;
   shared_with_users?: SharedWithUserData[];
 }
 
@@ -23,7 +23,7 @@ export interface DocumentResponseData {
   created_at: string;
   file_url: string;
   uploaded_by_user_data: UploadedByUserData;
-  apartment: string | null;
+  apartment_uuid: string | null;
   shared_with_users: SharedWithUserData[];
 }
 

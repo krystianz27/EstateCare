@@ -1,11 +1,25 @@
 import * as z from "zod";
 
+const fileValidation = z
+  .instanceof(File)
+  .refine((file) => file.size > 0, {
+    message: "File is required.",
+  })
+  .refine(
+    (file) =>
+      file.type.startsWith("application/") || file.type.startsWith("image/"),
+    {
+      message: "Only document or image files are allowed.",
+    },
+  );
+
 export const documentCreateSchema = z.object({
   title: z.string().trim().min(1, "Document must have a title"),
-  file: z.instanceof(File).refine((file) => file instanceof File, {
-    message: "A valid file must be provided",
-  }),
-  apartment: z.string().uuid("You must select a valid apartment").optional(),
+  file: fileValidation,
+  apartment_uuid: z
+    .string()
+    .uuid("You must select a valid apartment")
+    .optional(),
   shared_with: z.array(z.string().uuid("Invalid user ID")).optional(),
 });
 

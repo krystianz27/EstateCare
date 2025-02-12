@@ -22,7 +22,7 @@ export default function DocumentList() {
     <div className="mx-auto max-w-5xl">
       <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
         <h1 className="text-3xl font-bold">Documents</h1>
-        <Link href="/documents/create">
+        <Link href="/documents/add">
           <Button className="h3-semibold dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
             Add New Document
           </Button>
@@ -36,7 +36,7 @@ export default function DocumentList() {
         onValueChange={handleTabChange}
         // onValueChange={(value) => handleTabChange(value)}
       >
-        <TabsList className="mb-6 grid min-h-20 w-full grid-cols-1 gap-6 rounded-lg bg-neutral-900 px-4 py-3 max-sm:min-h-40 sm:grid-cols-2">
+        <TabsList className="mb-6 grid min-h-20 w-full grid-cols-1 gap-6 rounded-lg px-4 py-3 max-sm:min-h-40 sm:grid-cols-2 dark:bg-neutral-900">
           <TabsTrigger
             value="my-documents"
             className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
