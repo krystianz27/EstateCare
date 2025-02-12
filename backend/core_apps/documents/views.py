@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.db.models.query import QuerySet
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
+from core_apps.apartments.models import Apartment
 from core_apps.common.renderers import GenericJSONRenderer
 from core_apps.documents.permissions import (
     CanCreateAndListDocuments,
@@ -25,7 +27,13 @@ class DocumentListCreateAPIView(generics.ListCreateAPIView):
     object_label = "document"
 
     def perform_create(self, serializer):
-        serializer.save(uploaded_by=self.request.user)
+        apartment = None
+        apartment_uuid = self.request.data.get("apartment_uuid")  # type: ignore
+
+        if apartment_uuid:
+            apartment = get_object_or_404(Apartment, id=apartment_uuid)
+
+        serializer.save(uploaded_by=self.request.user, apartment=apartment)
 
     def get_queryset(self) -> QuerySet[Document]:  # type: ignore
         filter_type = self.request.query_params.get("type", "owned")  # type: ignore

@@ -9,6 +9,7 @@ class DocumentSerializer(serializers.ModelSerializer):
     uploaded_by_user_data = serializers.SerializerMethodField()
     shared_with_users = serializers.SerializerMethodField()
     file_url = serializers.SerializerMethodField()
+    apartment_uuid = serializers.SerializerMethodField()
 
     class Meta:
         model = Document
@@ -20,7 +21,7 @@ class DocumentSerializer(serializers.ModelSerializer):
             "file_url",
             "uploaded_by",
             "uploaded_by_user_data",
-            "apartment",
+            "apartment_uuid",
             "shared_with_users",
         ]
         read_only_fields = [
@@ -54,6 +55,9 @@ class DocumentSerializer(serializers.ModelSerializer):
             }
             for user in obj.shared_with.all()
         ]
+
+    def get_apartment_uuid(self, obj) -> str | None:
+        return str(obj.apartment.id) if obj.apartment else None
 
     def get_file_url(self, obj) -> str:
         return obj.file.url
