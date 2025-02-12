@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
+import Link from "next/link";
 import {
   useDeleteDocumentMutation,
   useRevokeShareDocumentMutation,
@@ -11,7 +12,6 @@ import {
 } from "@/lib/redux/features/document/documentApiSlice";
 import DocumentAccessDialog from "@/components/documents/DocumentAccessDialog";
 import { DocumentResponseData } from "@/types/document";
-import { toast } from "react-toastify";
 
 interface DocumentCardProps {
   document: DocumentResponseData;
@@ -49,9 +49,9 @@ export default function DocumentCard({ document }: DocumentCardProps) {
   const handleShare = async (userIds: string[]) => {
     try {
       await shareDocument({ id: document.id, shared_with: userIds }).unwrap();
-      toast.success("Document shared successfully.");
+      alert("Document shared successfully.");
     } catch (error) {
-      toast.error("Failed to share document.");
+      alert("Failed to share document.");
     }
   };
 
@@ -61,9 +61,9 @@ export default function DocumentCard({ document }: DocumentCardProps) {
         id: document.id,
         shared_with: userIds,
       }).unwrap();
-      toast.success("Access revoked.");
+      alert("Access revoked.");
     } catch (error) {
-      toast.error("Failed to revoke access.");
+      alert("Failed to revoke access.");
     }
   };
 
@@ -134,7 +134,7 @@ export default function DocumentCard({ document }: DocumentCardProps) {
         documentId={document.id}
         onShare={handleShare}
         onRevoke={handleRevokeAccess}
-        sharedWithUsers={document.shared_with_users}
+        sharedWithUsers={document.shared_with_users.map((user) => user.id)}
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)} // Funkcja do zamknięcia modala
       />
