@@ -95,7 +95,7 @@ export default function PostCard() {
           return (
             <Card
               key={postItem.id}
-              className="dark:border-gray rounded-3xl border dark:bg-zinc-900"
+              className="dark:border-gray rounded-3xl border bg-zinc-50 dark:bg-zinc-900"
             >
               <article className="dark:text-platinum w-full pb-4">
                 <CardHeader>
