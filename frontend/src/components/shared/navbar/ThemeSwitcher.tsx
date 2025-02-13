@@ -33,7 +33,7 @@ export default function ThemeSwitcher() {
           />
           <MoonIcon
             className={`absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 ${
-              theme === "light" ? "text-blue-400" : "text-gray-400 text-4xl"
+              theme === "light" ? "text-blue-400" : "text-4xl text-gray-400"
             }`}
             suppressHydrationWarning
           />
@@ -42,13 +42,22 @@ export default function ThemeSwitcher() {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="cursor-pointer rounded-md bg-babyPowder p-2 dark:bg-richBlack"
+        className="bg-babyPowder dark:bg-richBlack cursor-pointer rounded-md p-2"
       >
         {themeOptions.map(({ value, label }) => (
           <DropdownMenuItem
             key={value}
             onClick={() => setTheme(value)}
-            className={`cursor-pointer hover:bg-richBlack dark:hover:bg-gray ${theme === "light" && value === "light" ? "text-pumpkin" : theme === "dark" && value === "dark" ? "text-blue-400" : theme === "light" ? "text-richBlack hover:text-babyPowder" : "text-babyPowder"}`}
+            className={`hover:bg-richBlack dark:hover:bg-gray cursor-pointer text-slate-950
+              ${
+                theme === "system" || theme === "light" // Sprawdzamy, czy tryb to systemowy lub light
+                  ? value === "light"
+                    ? "text-pumpkin"
+                    : "text-richBlack hover:text-babyPowder" // To samo, co dla trybu light
+                  : theme === "dark" && value === "dark"
+                    ? "text-blue-400"
+                    : "text-babyPowder"
+              }`}
           >
             {label}
           </DropdownMenuItem>
