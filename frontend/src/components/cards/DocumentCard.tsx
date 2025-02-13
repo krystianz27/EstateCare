@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ConfirmationModal from "@/components/shared/ConfirmationModal";
 import { format } from "date-fns";
 import {
   useDeleteDocumentMutation,
@@ -15,14 +16,22 @@ import { toast } from "react-toastify";
 
 interface DocumentCardProps {
   document: DocumentResponseData;
+  isShared: boolean;
 }
 
-export default function DocumentCard({ document }: DocumentCardProps) {
+export default function DocumentCard({
+  document,
+  isShared,
+}: DocumentCardProps) {
   const [deleteDocument] = useDeleteDocumentMutation();
   const [shareDocument] = useShareDocumentMutation();
   const [revokeShareDocument] = useRevokeShareDocumentMutation();
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // Stan dla otwarcia dialogu
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false); // Stan dla otwarcia dialogu
+  const handleCancelDelete = () => {
+    setIsConfirmDeleteOpen(false); // Zamknięcie modala bez usuwania
+  };
 
   const handleDownload = () => {
     const fileUrl = document.file_url.startsWith("/")
@@ -68,7 +77,7 @@ export default function DocumentCard({ document }: DocumentCardProps) {
   };
 
   return (
-    <Card className="rounded-lg border border-zinc-600 p-4 shadow-sm hover:bg-zinc-800">
+    <Card className="rounded-lg border border-zinc-600 p-4 shadow-sm hover:bg-zinc-100 dark:hover:bg-zinc-800">
       <div className="flex flex-col">
         <h3 className="text-lg font-semibold">{document.title}</h3>
         <p className="text-xs text-gray-400">
@@ -80,63 +89,52 @@ export default function DocumentCard({ document }: DocumentCardProps) {
           {document.uploaded_by_user_data.username})
         </p>
 
-        <div className="mt-4 flex justify-between gap-2">
-          {/* Przycisk do otwierania modala */}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsDialogOpen(true)} // Otwórz modal po kliknięciu
-            className="border-blue-600 bg-blue-600 text-white transition-colors duration-200 hover:border-blue-700 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            Manage Access
-          </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleDownload}
+          className="mt-4 border-green-600 bg-green-600 text-white transition-colors duration-200 hover:border-green-700 hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        >
+          Download
+        </Button>
 
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleDownload}
-            className="border-green-600 bg-green-600 text-white transition-colors duration-200 hover:border-green-700 hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-          >
-            Download
-          </Button>
+        <div className="flex w-full flex-col gap-6 py-6">
+          {!isShared && (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsDialogOpen(true)}
+                className="w-full border-blue-600 bg-blue-600 text-white transition-colors duration-200 hover:border-blue-700 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              >
+                Manage Access
+              </Button>
 
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsDialogOpen(true)} // Otwórz modal po kliknięciu
-            className="border-yellow-600 bg-yellow-600 text-white transition-colors duration-200 hover:border-yellow-700 hover:bg-yellow-700 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
-          >
-            Share
-          </Button>
-
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsDialogOpen(true)} // Otwórz modal po kliknięciu
-            className="border-red-600 bg-red-600 text-white transition-colors duration-200 hover:border-red-700 hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-          >
-            Revoke Access
-          </Button>
-
-          <Button
-            className="border-red-800 bg-red-800 text-white transition-colors duration-200 hover:border-red-900 hover:bg-red-900 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-            variant="destructive"
-            size="sm"
-            onClick={handleDelete}
-          >
-            Delete
-          </Button>
+              <Button
+                className="w-full border-red-800 bg-red-800 text-white transition-colors duration-200 hover:border-red-900 hover:bg-red-900 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                variant="destructive"
+                size="sm"
+                onClick={() => setIsConfirmDeleteOpen(true)}
+              >
+                Delete
+              </Button>
+            </>
+          )}
         </div>
       </div>
 
-      {/* Modal do zarządzania dostępem */}
       <DocumentAccessDialog
         documentId={document.id}
         onShare={handleShare}
         onRevoke={handleRevokeAccess}
         sharedWithUsers={document.shared_with_users}
         isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)} // Funkcja do zamknięcia modala
+        onClose={() => setIsDialogOpen(false)}
+      />
+      <ConfirmationModal
+        isOpen={isConfirmDeleteOpen}
+        onConfirm={handleDelete}
+        onCancel={handleCancelDelete}
       />
     </Card>
   );

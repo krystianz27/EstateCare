@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
+  DialogOverlay,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -71,7 +71,8 @@ const DocumentAccessDialog: React.FC<DocumentAccessDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogOverlay className="bg-black/60" />
+      <DialogContent className="bg-slate-100 dark:bg-zinc-900">
         <DialogHeader>
           <DialogTitle>Manage Document Access</DialogTitle>
           <DialogDescription>
@@ -126,7 +127,7 @@ const DocumentAccessDialog: React.FC<DocumentAccessDialogProps> = ({
             </div>
           ))}
         </div>
-        <Button variant="destructive" onClick={handleRevoke}>
+        <Button variant="outline" onClick={handleRevoke}>
           Revoke Access
         </Button>
       </DialogContent>

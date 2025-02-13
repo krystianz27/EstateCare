@@ -32,7 +32,7 @@ export default function SharedDocuments() {
     <>
       <div className="grid grid-cols-1 gap-4">
         {documents.map((doc) => (
-          <DocumentCard key={doc.id} document={doc} />
+          <DocumentCard key={doc.id} document={doc} isShared={true} />
         ))}
       </div>
       <PaginationLocal

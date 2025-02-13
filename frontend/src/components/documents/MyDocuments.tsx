@@ -31,7 +31,7 @@ export default function MyDocuments() {
     <>
       <div className="grid grid-cols-1 gap-4">
         {documents.map((doc) => (
-          <DocumentCard key={doc.id} document={doc} />
+          <DocumentCard key={doc.id} document={doc} isShared={false} />
         ))}
       </div>
       <PaginationLocal
