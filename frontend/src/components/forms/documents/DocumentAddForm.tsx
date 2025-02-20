@@ -14,11 +14,11 @@ import {
   DocumentCreateSchema,
 } from "@/lib/validation/documentSchema";
 import { useCreateDocumentMutation } from "@/lib/redux/features/document/documentApiSlice";
-import { useGetMyApartmentQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
 import Select from "react-select";
 import customStyles from "../selectStyles";
+import { useGetAllMyApartmentsQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
 
-const ClientOnly = dynamic<{ children: React.ReactNode }>( // Zastosowanie dynamicznego importu
+const ClientOnly = dynamic<{ children: React.ReactNode }>(
   () => Promise.resolve(({ children }) => <>{children}</>),
   { ssr: false },
 );
@@ -27,11 +27,12 @@ export default function DocumentAddForm() {
   const router = useRouter();
   const [createDocument, { isLoading }] = useCreateDocumentMutation();
 
-  const { data: apartmentData } = useGetMyApartmentQuery();
+  const { data } = useGetAllMyApartmentsQuery({ page: 1 });
   const apartmentOptions =
-    apartmentData?.apartments.results.map((apartment) => ({
+    data?.apartment.results.map((apartment) => ({
       value: apartment.id,
-      label: `${apartment.unit_number}, ${apartment.building}, Floor ${apartment.floor}`,
+      label: `${apartment.street} ${apartment.building_number || ""} 
+          ${apartment.apartment_number ? `, ${apartment.apartment_number}` : ""}, ${apartment.city}`,
     })) || [];
 
   const {

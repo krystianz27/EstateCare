@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetMyApartmentQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
+import { useGetAllMyApartmentsQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
 import { useReportIssueMutation } from "@/lib/redux/features/issue/issueApiSlice";
 import { issueCreateSchema, IssueCreateSchema } from "@/lib/validation";
 import { extractErrorMessage } from "@/utils";
@@ -24,11 +24,12 @@ const ClientOnly = dynamic<{ children: React.ReactNode }>(
 );
 
 export default function IssueCreateForm() {
-  const { data } = useGetMyApartmentQuery();
+  const { data } = useGetAllMyApartmentsQuery({ page: 1 });
   const apartmentOptions =
-    data?.apartments.results.map((apartment) => ({
+    data?.apartment.results.map((apartment) => ({
       value: apartment.id,
-      label: `${apartment.unit_number}, ${apartment.building}, Floor ${apartment.floor}`,
+      label: `${apartment.street} ${apartment.building_number || ""} 
+          ${apartment.apartment_number ? `, ${apartment.apartment_number}` : ""}, ${apartment.city}`,
     })) || [];
 
   const [reportIssue, { isLoading }] = useReportIssueMutation();
@@ -117,7 +118,7 @@ export default function IssueCreateForm() {
           errors={errors}
           placeholder="Detailed Description of the issue"
           isTextArea
-          startIcon={<FlagIcon className="size-8 dark:text-babyPowder" />}
+          startIcon={<FlagIcon className="dark:text-babyPowder size-8" />}
         />
         <div>
           <label htmlFor="status" className="h4-semibold dark:text-babyPowder">
@@ -187,7 +188,7 @@ export default function IssueCreateForm() {
         </div>
         <Button
           type="submit"
-          className="h4-semibold mt-2 w-full bg-eerieBlack text-white dark:bg-pumpkin dark:text-amberText"
+          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText mt-2 w-full text-white"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Report"}

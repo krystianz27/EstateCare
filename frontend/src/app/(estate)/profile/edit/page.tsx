@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 export default function EditProfilePage() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <section className="w-full max-w-[480px] rounded-xl bg-lightGrey px-6 py-12 shadow dark:bg-deepBlueGrey sm:px-12 md:rounded-3xl">
+    <main className="flex min-h-screen items-center justify-center py-4">
+      <section className="bg-lightGrey dark:bg-deepBlueGrey w-full max-w-[480px] rounded-xl px-6 py-4 shadow sm:px-12 md:rounded-3xl">
         <AuthFormHeader title="Update Profile" />
-        <div className="mt-7">
+        <div className="mt-4">
           <EditProfileForm />
         </div>
       </section>

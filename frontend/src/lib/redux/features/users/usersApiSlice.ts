@@ -13,12 +13,12 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
       query: (params = {}) => {
         const queryString = new URLSearchParams();
 
-        if (params.page) {
-          queryString.append("page", params.page.toString());
-        }
         if (params.searchTerm) {
           queryString.append("search", params.searchTerm);
+        } else if (params.page) {
+          queryString.append("page", params.page.toString());
         }
+
         return `/profiles/all/?${queryString.toString()}`;
       },
       providesTags: ["User"],
@@ -42,11 +42,10 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
       query: (params = {}) => {
         const queryString = new URLSearchParams();
 
-        if (params.page) {
-          queryString.append("page", params.page.toString());
-        }
         if (params.searchTerm) {
           queryString.append("search", params.searchTerm);
+        } else if (params.page) {
+          queryString.append("page", params.page.toString());
         }
         return `/profiles/non-tenant-profiles/?${queryString.toString()}`;
       },

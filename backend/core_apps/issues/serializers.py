@@ -4,6 +4,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from rest_framework import serializers
 
+from core_apps.apartments.models import Apartment
+from core_apps.apartments.serializers import ApartmentSerializer
 from core_apps.common.models import ContentView
 
 from .emails import send_resolution_email
@@ -12,8 +14,23 @@ from .models import Issue
 logger = logging.getLogger(__name__)
 
 
+class ApartmentForIssueSerializer(ApartmentSerializer):
+    class Meta:  # type: ignore
+        model = Apartment
+        fields = [
+            "id",
+            "street",
+            "building_number",
+            "apartment_number",
+            "city",
+            "postal_code",
+            "country",
+            "owner",
+        ]
+
+
 class IssueSerializer(serializers.ModelSerializer):
-    apartment_unit = serializers.ReadOnlyField(source="apartment.unit_number")
+    apartment_unit = ApartmentForIssueSerializer(source="apartment", read_only=True)
     reported_by = serializers.ReadOnlyField(source="reported_by.get_user_full_name")
     assigned_to = serializers.ReadOnlyField(source="assigned_to.get_user_full_name")
     view_count = serializers.SerializerMethodField()

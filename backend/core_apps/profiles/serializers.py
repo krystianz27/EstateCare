@@ -45,7 +45,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             return None
 
     def get_apartment(self, obj: Profile) -> dict | list | None:
-        apartment = obj.user.apartment.first()
+        apartment = obj.user.owned_apartments.first()  # type: ignore
         if apartment:
             return ApartmentSerializer(apartment).data
         return None

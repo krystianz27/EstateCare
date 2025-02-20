@@ -3,7 +3,7 @@
 import { useGetAllUsersQuery } from "@/lib/redux/features/users/usersApiSlice";
 import { useTheme } from "next-themes";
 
-import React from "react";
+import React, { useState } from "react";
 import Spinner from "../shared/Spinner";
 import UserSearch from "../shared/search/UsersSearch";
 import {
@@ -25,15 +25,21 @@ import {
 import { formatDate } from "@/utils";
 import ProtectedRoute from "../shared/ProtectedRoutes";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import { useAppSelector } from "@/lib/redux/hooks/typedHooks";
-import PaginationSection from "../shared/Pagination";
+import PaginationLocal from "../shared/PaginationLocal";
+import { useSearchParams } from "next/navigation";
 
 function TenantCardContent() {
   const { theme } = useTheme();
-  const searchTerm = useAppSelector((state) => state.user.searchTerm);
-  const page = useAppSelector((state) => state.user.page);
 
-  const { data, isLoading } = useGetAllUsersQuery({ searchTerm, page });
+  const searchParams = useSearchParams();
+  const currentPage = Number(searchParams.get("page")) || 1;
+
+  const [searchUserTerm, setUserSearchTerm] = useState<string>("");
+
+  const { data, isLoading } = useGetAllUsersQuery({
+    searchTerm: searchUserTerm,
+    page: currentPage,
+  });
 
   const totalCount = data?.profiles.count || 0;
   const totalPages = totalCount > 0 ? Math.ceil(totalCount / 9) : 1;
@@ -48,9 +54,9 @@ function TenantCardContent() {
 
   return (
     <div>
-      <UserSearch />
-      <h1 className="flex-center font-robotoSlab text-4xl dark:text-pumpkin sm:text-5xl">
-        All Tenants - ({data?.profiles.results.length})
+      <UserSearch setSearchTerm={setUserSearchTerm} />
+      <h1 className="flex-center font-robotoSlab dark:text-pumpkin text-4xl sm:text-5xl">
+        All Tenants - ({data?.profiles.count})
       </h1>
 
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
@@ -59,7 +65,7 @@ function TenantCardContent() {
             <Card key={tenant.id}>
               <CardContent className="rounded-lg p-4">
                 <CardHeader className="flex-col-center text-center">
-                  <Avatar className="mx-auto size-28 overflow-hidden rounded-full border-4 border-pumpkin object-cover">
+                  <Avatar className="border-pumpkin mx-auto size-28 overflow-hidden rounded-full border-4 object-cover">
                     <AvatarImage
                       alt="User profile avatar"
                       src={
@@ -124,7 +130,7 @@ function TenantCardContent() {
           <p>No tenants found</p>
         )}
       </div>
-      <PaginationSection entityType="user" totalPages={totalPages} />
+      <PaginationLocal totalPages={totalPages} currentPage={currentPage} />
     </div>
   );
 }

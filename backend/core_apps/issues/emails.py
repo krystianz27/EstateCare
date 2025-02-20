@@ -1,10 +1,9 @@
 import logging
 
+from config.settings.local import DEFAULT_FROM_EMAIL, SITE_NAME
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-
-from config.settings.local import DEFAULT_FROM_EMAIL, SITE_NAME
 
 from .models import Issue
 
@@ -22,7 +21,7 @@ def send_issue_confirmation_email(issue: Issue) -> None:
         email = EmailMultiAlternatives(subject, text_email, from_email, to)
         email.attach_alternative(html_email, "text/html")
         email.send()
-        logger.info(f"Email sent to {issue.reported_by.email}")
+        # logger.info(f"Email sent to {issue.reported_by.email}")
     except Exception as e:
         logger.error(
             f"Error sending issue confirmation email for issue '{issue.title}': {str(e)}",

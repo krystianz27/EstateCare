@@ -5,6 +5,7 @@ import {
 } from "@/lib/redux/features/users/usersApiSlice";
 import { ProfileSchema } from "@/lib/validation";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -101,7 +102,7 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="Username"
-          startIcon={<UserCheck2 className="size-8 dark:text-babyPowder" />}
+          startIcon={<UserCheck2 className="dark:text-babyPowder size-8" />}
         />
 
         <FormFieldComponent
@@ -110,7 +111,7 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="First Name"
-          startIcon={<Contact2Icon className="size-8 dark:text-babyPowder" />}
+          startIcon={<Contact2Icon className="dark:text-babyPowder size-8" />}
         />
         <FormFieldComponent
           label="Last Name"
@@ -118,7 +119,7 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="Last Name"
-          startIcon={<Contact2Icon className="size-8 dark:text-babyPowder" />}
+          startIcon={<Contact2Icon className="dark:text-babyPowder size-8" />}
         />
 
         <GenderSelectField setValue={setValue} control={control} />
@@ -131,7 +132,7 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="What's your country"
-          startIcon={<Map className="size-8 dark:text-babyPowder" />}
+          startIcon={<Map className="dark:text-babyPowder size-8" />}
         />
 
         <FormFieldComponent
@@ -140,7 +141,7 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="City"
-          startIcon={<MapPinnedIcon className="size-8 dark:text-babyPowder" />}
+          startIcon={<MapPinnedIcon className="dark:text-babyPowder size-8" />}
         />
 
         <FormFieldComponent
@@ -160,7 +161,7 @@ export default function EditProfileForm() {
           <div className="grow" style={{ maxWidth: "90%" }}>
             <Input
               accept="image/*"
-              className="cursor-pointer file:mr-3 file:rounded-md file:bg-eerieBlack file:text-lime-500 dark:border-platinum dark:text-platinum"
+              className="file:bg-eerieBlack dark:border-platinum dark:text-platinum cursor-pointer file:mr-3 file:rounded-md file:text-lime-500"
               id="avatar"
               name="avatar"
               type="file"
@@ -177,12 +178,22 @@ export default function EditProfileForm() {
 
         <Button
           type="submit"
-          className="h4-semibold mt-2 w-full bg-eerieBlack text-white dark:bg-pumpkin dark:text-amberText"
+          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText mt-2 w-full text-white"
           disabled={isUpdating || uploading}
         >
           {isUpdating || uploading ? <Spinner size="sm" /> : "Update Profile"}
         </Button>
       </form>
+      <div className="mt-4 p-2 text-center">
+        <Link href="/profile" className="inline-flex max-w-max">
+          <Button
+            type="button"
+            className="w-full bg-gray-300 text-black dark:bg-gray-700 dark:text-white"
+          >
+            Return to Profile
+          </Button>
+        </Link>
+      </div>
     </main>
   );
 }

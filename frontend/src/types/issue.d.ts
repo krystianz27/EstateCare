@@ -1,6 +1,10 @@
+import { Apartment } from "./apartment";
+
+export type ApartmentWithoutTenants = Omit<Apartment, "tenants">;
+
 export interface Issue {
   id: string;
-  apartment_unit: string;
+  apartment_unit: ApartmentWithoutTenants;
   reported_by: string;
   title: string;
   description: string;

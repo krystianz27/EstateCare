@@ -1,20 +1,31 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { setSearchTerm } from "@/lib/redux/features/users/userSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks/typedHooks";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const UsersSearch = () => {
-  const dispatch = useAppDispatch();
-  const searchTerm = useAppSelector((state) => state.user.searchTerm);
+interface UsersSearchProps {
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const UsersSearch: React.FC<UsersSearchProps> = ({ setSearchTerm }) => {
+  const [localSearchTerm, setLocalSearchTerm] = useState<string>("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchTerm(localSearchTerm);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [localSearchTerm, setSearchTerm]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchTerm(event.target.value));
+    const value = event.target.value;
+    setLocalSearchTerm(value);
   };
+
   return (
-    <div className="mb-3 flex min-h-[56px] w-full grow rounded-full bg-gray dark:bg-eerieBlack">
+    <div className="bg-gray dark:bg-eerieBlack mb-3 flex min-h-[56px] w-full grow rounded-full">
       <Image
         src="/assets/icons/search.svg"
         alt="Search"
@@ -25,9 +36,9 @@ const UsersSearch = () => {
       <Input
         placeholder="Search by username, first or last name"
         type="search"
-        value={searchTerm}
+        value={localSearchTerm}
         onChange={handleInputChange}
-        className="search-text no-focus border-none bg-transparent shadow-none outline-none dark:text-babyPowder"
+        className="search-text no-focus dark:text-babyPowder border-none bg-transparent shadow-none outline-none"
       />
     </div>
   );

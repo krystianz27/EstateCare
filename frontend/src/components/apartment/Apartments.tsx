@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetMyApartmentQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
+import { useGetMyApartmentsQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
 import React from "react";
 import Spinner from "../shared/Spinner";
 import { TabsContent } from "../ui/tabs";
@@ -8,8 +8,9 @@ import ApartmentCard from "../cards/ApartmentCard";
 import clsx from "clsx";
 
 export default function Apartments() {
-  const { data, isLoading, isError } = useGetMyApartmentQuery();
-  const myApartments = data?.apartments;
+  const { data, isLoading, isError } = useGetMyApartmentsQuery({ page: 1 });
+  const myApartments = data?.apartment.results;
+  const totalApartments = data?.apartment.count || 0;
 
   if (isLoading) {
     return (
@@ -31,19 +32,18 @@ export default function Apartments() {
 
   return (
     <TabsContent value="my-apartments">
-      <h2 className="h2-semibold flex-center font-robotoSlab text-xl dark:text-pumpkin">
-        Total: ({myApartments?.count || 0})
+      <h2 className="h2-semibold flex-center font-robotoSlab dark:text-pumpkin text-xl">
+        Total: ({totalApartments || 0})
       </h2>
       <div
         className={clsx("m-4 grid cursor-pointer gap-4 p-1.5", {
-          "grid-cols-1": !myApartments || myApartments.results.length === 0,
-          "md:grid-cols-2 lg:grid-cols-3":
-            myApartments && myApartments.results.length > 0,
+          "grid-cols-1": !myApartments || totalApartments === 0,
+          "md:grid-cols-2 lg:grid-cols-3": myApartments && totalApartments > 0,
         })}
       >
         {" "}
-        {myApartments && myApartments.results.length > 0 ? (
-          myApartments.results.map((apartment) => (
+        {myApartments && totalApartments > 0 ? (
+          myApartments.map((apartment) => (
             <ApartmentCard key={apartment.id} apartment={apartment} />
           ))
         ) : (

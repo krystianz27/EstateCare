@@ -1,5 +1,6 @@
 import { AuthFormHeader } from "@/components/forms/auth";
 import IssueCreateForm from "@/components/forms/issue/IssueCreateForm";
+import ProtectedRoute from "@/components/shared/ProtectedRoutes";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,13 +11,15 @@ export const metadata: Metadata = {
 
 export default function ReportIssuePage() {
   return (
-    <div>
-      <AuthFormHeader title="Report an issue with your Apartment" />
-      <div className="mt-7 bg-inherit sm:mx-auto sm:w-full sm:max-w-[480px]">
-        <div className="rounded-xl bg-lightGrey px-6 py-12 shadow dark:bg-deepBlueGrey sm:rounded-lg sm:px-12 md:rounded-3xl">
-          <IssueCreateForm />
+    <ProtectedRoute>
+      <div>
+        <AuthFormHeader title="Report an issue with your Apartment" />
+        <div className="mt-7 bg-inherit sm:mx-auto sm:w-full sm:max-w-[480px]">
+          <div className="bg-lightGrey dark:bg-deepBlueGrey rounded-xl px-6 py-12 shadow sm:rounded-lg sm:px-12 md:rounded-3xl">
+            <IssueCreateForm />
+          </div>
         </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 }

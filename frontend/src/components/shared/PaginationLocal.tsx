@@ -26,7 +26,7 @@ const PaginationLocal = ({
     // const type = searchParams.get("type");
     const query = type ? `?page=${newPage}&type=${type}` : `?page=${newPage}`;
 
-    router.push(query, { scroll: false });
+    router.push(query, { scroll: true });
   };
 
   return (

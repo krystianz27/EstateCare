@@ -1,22 +1,45 @@
 export interface ApartmentData {
-  unit_number: string;
-  building: string;
-  floor: number;
+  street?: string;
+  building_number?: string | null;
+  apartment_number?: string | null;
+  city?: string;
+  postal_code?: string | null;
+  country?: string;
+}
+
+export interface UserData {
+  id: string;
+  username: string;
+  first_name: string;
+  last_name: string;
 }
 
 export interface Apartment {
   id: string;
-  created_at: string;
-  unit_number: string;
-  building: string;
-  floor: number;
+  street: string;
+  building_number: string | null;
+  apartment_number: string | null;
+  city: string;
+  postal_code: string | null;
+  country: string;
+  owner: UserData;
+  tenants: UserData[];
 }
 
 export interface ApartmentResponse {
-  apartments: {
+  apartment: Apartment;
+}
+
+export interface ApartmentsResponse {
+  apartment: {
     count: number;
     next: null | string;
     previous: null | string;
     results: Apartment[];
   };
+}
+
+export interface TenantUpdateData {
+  add?: string[];
+  remove?: string[];
 }

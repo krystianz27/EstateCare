@@ -5,10 +5,6 @@ from rest_framework.permissions import SAFE_METHODS, BasePermission
 
 
 class CanCreateAndListDocuments(BasePermission):
-    """
-    Pozwala na tworzenie i listowanie dokumentów tylko użytkownikom zalogowanym.
-    """
-
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:  # GET, HEAD, OPTIONS
             return (
@@ -53,10 +49,6 @@ class IsDocumentOwner(BasePermission):
 
 
 class CanViewSharedDocuments(BasePermission):
-    """
-    Pozwala na wyświetlanie dokumentów tylko właścicielowi i użytkownikom, którym zostały one udostępnione.
-    """
-
     def has_object_permission(self, request, view, obj):
         return (
             obj.uploaded_by == request.user

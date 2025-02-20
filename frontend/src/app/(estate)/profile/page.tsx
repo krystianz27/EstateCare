@@ -89,7 +89,7 @@ function ProfilePageContent() {
             Update Profile
           </Button>
         </Link>
-        <Link href="/apartment">
+        <Link href="/apartment/add">
           <Button className="h3-semibold  dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
             Add Your Apartment
           </Button>

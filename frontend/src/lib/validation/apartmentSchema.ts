@@ -1,12 +1,19 @@
 import * as z from "zod";
 
-export const apartmentCreateSchema = z.object({
-  unit_number: z.string().trim().min(1, "An Apartment unit number is required"),
-  building: z.string().trim().min(1, "A building name is required"),
-  floor: z
-    .number()
-    .nonnegative({ message: "The building floor can't be negative" })
-    .max(200, { message: "The Floor in the building can't be more than 200" }),
+export const apartmentSchema = z.object({
+  street: z.string().trim().min(1, "Street is required"),
+  building_number: z.string().trim().nullable(),
+  apartment_number: z.string().trim().nullable().optional(),
+  city: z.string().trim().min(1, "City is required"),
+  postal_code: z.string().trim().nullable().optional(),
+  country: z.string().trim().min(1, "Country is required"),
 });
 
-export type ApartmentCreateSchema = z.infer<typeof apartmentCreateSchema>;
+export type ApartmentSchema = z.infer<typeof apartmentSchema>;
+
+export const tenantUpdateSchema = z.object({
+  add: z.array(z.string().uuid("Invalid UUID format")).optional(),
+  remove: z.array(z.string().uuid("Invalid UUID format")).optional(),
+});
+
+export type TenantUpdateSchema = z.infer<typeof tenantUpdateSchema>;

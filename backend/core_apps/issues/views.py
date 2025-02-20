@@ -1,115 +1,26 @@
 import logging
-from typing import Literal
 
 from django.contrib.contenttypes.models import ContentType
-from django.http import Http404
+from django.db.models import Q
 from django.utils import timezone
-from rest_framework import generics, permissions
+from rest_framework import generics
 from rest_framework.exceptions import PermissionDenied, ValidationError
 
 from core_apps.apartments.models import Apartment
 from core_apps.common.models import ContentView
 from core_apps.common.renderers import GenericJSONRenderer
+from core_apps.issues.permissions import (
+    IsAssignedUserOrStaff,
+    IsReportedByUserOrAssignedUserOrStaff,
+    IsReportedByUserOrStaff,
+    IsStaffOrSuperUser,
+)
 
 from .emails import send_issue_confirmation_email, send_issue_resolved_email
 from .models import Issue
 from .serializers import IssueSerializer, IssueStatusUpdateSerializer
 
 logger = logging.getLogger(__name__)
-
-
-class IsStaffOrSuperUser(permissions.BasePermission):
-    """Permission class for staff or superuser access."""
-
-    message = "Access to this information is restricted to staff and admin users only."
-
-    def has_permission(self, request, view) -> Literal[True]:
-        user = request.user
-
-        if user.is_authenticated and (user.is_staff or user.is_superuser):
-            return True
-
-        logger.warning(
-            f"Unauthorized access attempt by user {user.get_user_full_name} (username: {user.username}) "
-            f"to {view.__class__.__name__} view. Required: staff or superuser permissions."
-        )
-
-        raise PermissionDenied(self.message)
-
-
-class IsReportedByUserOrAssignedUserOrStaff(permissions.BasePermission):
-    """Permission class for users who reported, are assigned, or are staff."""
-
-    message = "You do not have permission to view or modify this issue."
-
-    def has_permission(self, request, view) -> Literal[True]:
-        user = request.user
-
-        try:
-            issue = view.get_object()
-        except Http404:
-            raise PermissionDenied(self.message)
-
-        if not (
-            user.is_authenticated
-            and (
-                user.is_staff or user == issue.reported_by or user == issue.assigned_to
-            )
-        ):
-            logger.warning(
-                f"Unauthorized access attempt by user {user.get_user_full_name()} to issue {issue.title} "
-                f"(Issue ID: {issue.id})"
-            )
-            raise PermissionDenied(self.message)
-
-        return True
-
-
-class IsAssignedUserOrStaff(permissions.BasePermission):
-    """Permission class for users assigned to an issue or staff users."""
-
-    message = "You do not have permission to modify this issue."
-
-    def has_permission(self, request, view) -> Literal[True]:
-        user = request.user
-        try:
-            issue = view.get_object()
-        except Http404:
-            raise PermissionDenied(self.message)
-
-        if not (user.is_authenticated and (user.is_staff or user == issue.assigned_to)):
-            logger.warning(
-                f"Unauthorized access attempt by user {user.get_full_name()} "
-                f"to issue {issue.title} (Issue ID: {issue.id})"
-            )
-            raise PermissionDenied(self.message)
-
-        return True
-
-
-class IsReportedByUserOrStaff(permissions.BasePermission):
-    """Permission class for users who reported the issue or staff."""
-
-    message = "You do not have permission to view or modify this issue."
-
-    def has_permission(self, request, view) -> Literal[True]:
-        user = request.user
-        try:
-            issue = view.get_object()
-        except Http404:
-            logger.warning(
-                f"Attempted to access non-existing issue by {user.get_full_name}"
-            )
-            raise PermissionDenied(self.message)
-
-        if not (user.is_authenticated and (user.is_staff or user == issue.reported_by)):
-            logger.warning(
-                f"Unauthorized access attempt by user {user.get_full_name()} "
-                f"to issue {issue.title} (Issue ID: {issue.id})"
-            )
-            raise PermissionDenied(self.message)
-
-        return True
 
 
 class IssueListAPIView(generics.ListAPIView):
@@ -125,7 +36,7 @@ class AssignedIssuesListView(generics.ListAPIView):
     renderer_classes = [GenericJSONRenderer]
     object_label = "assigned_issues"
 
-    def get_queryset(self):
+    def get_queryset(self):  # type: ignore
         return Issue.objects.filter(assigned_to=self.request.user)
 
 
@@ -135,7 +46,7 @@ class MyIssuesListAPIView(generics.ListAPIView):
     renderer_classes = [GenericJSONRenderer]
     object_label = "my_issues"
 
-    def get_queryset(self):
+    def get_queryset(self):  # type: ignore
         return Issue.objects.filter(reported_by=self.request.user)
 
 
@@ -152,14 +63,23 @@ class IssueCreateAPIView(generics.CreateAPIView):
             raise ValidationError({"apartmentId": ["Apartment ID is required."]})
 
         try:
-            apartment = Apartment.objects.get(id=apartment_id, tenant=self.request.user)
+            apartment = Apartment.objects.filter(
+                Q(id=apartment_id)
+                & (Q(owner=self.request.user) | Q(tenants=self.request.user))
+            ).first()
+
+            if not apartment:
+                raise PermissionDenied(
+                    "You do not have permission to report an issue for this apartment."
+                )
+
         except Apartment.DoesNotExist:
             raise PermissionDenied(
                 "You do not have permission to report an issue for this apartment."
             )
 
         issue = serializer.save(reported_by=self.request.user, apartment=apartment)
-        logger.info(f"Issue {issue.title} created. Sending confirmation email...")
+        # logger.info(f"Issue {issue.title} created. Sending confirmation email...")
 
         send_issue_confirmation_email(issue)
 

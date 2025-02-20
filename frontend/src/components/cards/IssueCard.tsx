@@ -10,15 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Hotel } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-
-interface Issue {
-  id: string;
-  title: string;
-  description: string;
-  apartment_unit: string;
-  status: string;
-  priority: string;
-}
+import { Issue } from "@/types";
 
 interface IssueCardProps {
   issue: Issue;
@@ -29,7 +21,7 @@ export default function IssueCard({ issue }: IssueCardProps) {
     <Link href={`/issue/${issue.id}`} key={issue.id}>
       <Card
         key={issue.id}
-        className="rounded-xl border border-dashed hover:border-pumpkin dark:border-gray hover:dark:border-platinum"
+        className="hover:border-pumpkin dark:border-gray hover:dark:border-platinum rounded-xl border border-dashed"
       >
         <CardHeader>
           <CardTitle className="flex-center h3-semibold font-robotoSlab dark:text-lime-500">
@@ -53,12 +45,38 @@ export default function IssueCard({ issue }: IssueCardProps) {
             <p className="flex items-center space-x-2">
               <Hotel className="tab-icon" />
               <span className="tab-font">Apartment Number: </span>
-              <span className="text-lg">{issue.apartment_unit}</span>
+              <span className="text-lg">
+                {issue.apartment_unit.apartment_number}
+              </span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="tab-font">Street: </span>
+              <span className="text-lg">{issue.apartment_unit.street}</span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="tab-font">Building Number: </span>
+              <span className="text-lg">
+                {issue.apartment_unit.building_number || "N/A"}
+              </span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="tab-font">City: </span>
+              <span className="text-lg">{issue.apartment_unit.city}</span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="tab-font">Postal Code: </span>
+              <span className="text-lg">
+                {issue.apartment_unit.postal_code || "N/A"}
+              </span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="tab-font">Country: </span>
+              <span className="text-lg">{issue.apartment_unit.country}</span>
             </p>
           </CardDescription>
         </CardContent>
 
-        <CardFooter className="flex flex-row justify-between dark:text-babyPowder">
+        <CardFooter className="dark:text-babyPowder flex flex-row justify-between">
           <div>
             <span className="mr-0.5 font-bold">Status: </span>
             <Badge className="bg-eerieBlack text-babyPowder dark:bg-electricIndigo dark:text-babyPowder">
@@ -68,9 +86,16 @@ export default function IssueCard({ issue }: IssueCardProps) {
 
           <div>
             <span className="mr-0.5 font-bold">Priority: </span>
-            <Badge className="bg-eerieBlack text-babyPowder dark:bg-lime-500 dark:text-veryBlack">
+            <Badge className="bg-eerieBlack text-babyPowder dark:text-veryBlack dark:bg-lime-500">
               {issue.priority}
             </Badge>
+          </div>
+
+          <div>
+            <span className="mr-0.5 font-bold">View Count: </span>
+            <span className="dark:text-platinum text-lg">
+              {issue.view_count}
+            </span>
           </div>
         </CardFooter>
       </Card>

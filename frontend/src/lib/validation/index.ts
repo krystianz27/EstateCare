@@ -17,10 +17,9 @@ export {
 
 export { profileSchema, type ProfileSchema } from "./profileSchema";
 
-export {
-  apartmentCreateSchema,
-  type ApartmentCreateSchema,
-} from "./apartmentSchema";
+export { apartmentSchema, type ApartmentSchema } from "./apartmentSchema";
+
+export { tenantUpdateSchema, type TenantUpdateSchema } from "./apartmentSchema";
 
 export { issueCreateSchema, type IssueCreateSchema } from "./issueSchema";
 export { issueUpdateSchema, type IssueUpdateSchema } from "./issueSchema";

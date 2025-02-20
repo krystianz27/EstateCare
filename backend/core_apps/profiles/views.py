@@ -21,7 +21,7 @@ User = get_user_model()
 
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 9
+    page_size = 10
     page_size_query_param = "page_size"
     max_page_size = 100
 
@@ -39,9 +39,10 @@ class ProfileListAPIView(generics.ListAPIView):
         self,
     ) -> QuerySet[Profile]:
         return (
-            Profile.objects.exclude(user__is_staff=True)
-            .exclude(user__is_superuser=True)
-            .filter(occupation=Profile.Occupation.TENANT)
+            Profile.objects.exclude(user__is_staff=True).exclude(
+                user__is_superuser=True
+            )
+            # .filter(occupation=Profile.Occupation.TENANT)
         )
 
 
