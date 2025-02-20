@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 function ProfilePageContent() {
   return (
     <>
-      <div className="grid items-start gap-4 rounded-3xl  py-4 md:gap-6 md:px-6 dark:bg-zinc-900">
+      <div className="grid items-start gap-4 rounded-3xl py-4 max-md:my-2 md:gap-6 md:px-6 dark:bg-zinc-900">
         <Header />
 
         <div className="w-full">

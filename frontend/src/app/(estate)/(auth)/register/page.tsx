@@ -20,8 +20,8 @@ export default function RegisterPage() {
         />
       </div>
 
-      <div className="relative z-10 mb-10 flex min-h-screen items-center justify-center overflow-auto px-4">
-        <div className=" w-full sm:max-w-[480px]">
+      <div className="relative z-10 my-4 mb-10 flex min-h-screen items-center justify-center overflow-auto px-4">
+        <div className="dark:bg-deepBlueGrey/90 w-full  rounded-2xl  bg-zinc-50/90 sm:max-w-[480px]">
           <AuthFormHeader
             title="Sign up"
             staticText="Already have an account?"
@@ -29,17 +29,13 @@ export default function RegisterPage() {
             linkHref="/login"
           />
 
-          <div
-            className="mt-7 rounded-xl bg-zinc-50/30
-            px-6 py-12 shadow
-            dark:bg-deepBlueGrey/70 sm:rounded-lg sm:px-12 md:rounded-3xl"
-          >
+          <div className="rounded-xl px-6 py-12 shadow sm:rounded-lg sm:px-12 md:rounded-3xl">
             <RegisterForm />
 
             <div className="flex-center mt-5 space-x-2">
-              <div className="h-px flex-1 bg-richBlack dark:bg-platinum"></div>
-              <span className="dark: px-2 text-sm text-platinum">Or</span>
-              <div className="h-px flex-1 bg-richBlack dark:bg-platinum"></div>
+              <div className="bg-richBlack dark:bg-platinum h-px flex-1"></div>
+              <span className="dark:text-platinum px-2 text-sm">Or</span>
+              <div className="bg-richBlack dark:bg-platinum h-px flex-1"></div>
             </div>
             <OAuthButtons />
           </div>

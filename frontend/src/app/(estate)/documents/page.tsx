@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function DocumentsPage() {
   return (
-    <div className="my-4 rounded-3xl p-4 dark:bg-zinc-900">
+    <div className="rounded-3xl p-4 max-md:my-2 dark:bg-zinc-900">
       <DocumentList />
     </div>
   );
