@@ -11,12 +11,14 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import UserAutocomplete from "../shared/search/UserAutocomplete";
+import { SharedWithUserData } from "@/types";
 
 interface DocumentAccessDialogProps {
   documentId: string;
   onShare: (userIds: string[]) => void;
   onRevoke: (userIds: string[]) => void;
-  sharedWithUsers: { id: string }[]; // Mamy tylko id użytkownika
+  sharedWithUsers: SharedWithUserData[];
   isOpen: boolean;
   onClose: () => void;
 }
@@ -29,44 +31,36 @@ const DocumentAccessDialog: React.FC<DocumentAccessDialogProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [selectedUsers, setSelectedUsers] = useState<string[]>([]); // Lista wybranych użytkowników do usunięcia
-  const [newUserId, setNewUserId] = useState<string>("");
-  const [pendingUsers, setPendingUsers] = useState<string[]>([]); // Lista oczekujących użytkowników
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
+  const [tenantIdsToAdd, setTenantIdsToAdd] = useState<string[]>([]);
 
-  // Funkcja do dodawania lub usunięcia użytkownika z listy
   const handleUserChange = (userId: string) => {
-    setSelectedUsers(
-      (prev) =>
-        prev.includes(userId)
-          ? prev.filter((id) => id !== userId) // Usunięcie użytkownika
-          : [...prev, userId], // Dodanie użytkownika
+    setSelectedUsers((prev) =>
+      prev.includes(userId)
+        ? prev.filter((id) => id !== userId)
+        : [...prev, userId],
     );
   };
 
-  // Funkcja do dodawania nowego użytkownika po wpisaniu ID
-  const handleAddUser = () => {
-    if (newUserId && !pendingUsers.includes(newUserId)) {
-      setPendingUsers((prev) => [...prev, newUserId]); // Dodanie nowego użytkownika do listy oczekujących
-      setNewUserId(""); // Resetowanie pola po dodaniu
+  const handleSelectUserToAdd = (username: string) => {
+    if (!tenantIdsToAdd.includes(username)) {
+      setTenantIdsToAdd([...tenantIdsToAdd, username]);
     }
   };
 
-  // Funkcja do resetowania listy oczekujących
-  const resetPendingUsers = () => {
-    setPendingUsers([]); // Resetowanie listy oczekujących użytkowników
-  };
-
-  // Funkcja do obsługi przycisku Share
   const handleShare = () => {
-    onShare(pendingUsers); // Wywołanie funkcji z użytkownikami oczekującymi na dostęp
-    resetPendingUsers(); // Resetowanie listy oczekujących
-    onClose(); // Zamknięcie dialogu po wykonaniu akcji
+    if (tenantIdsToAdd.length > 0) {
+      onShare(tenantIdsToAdd);
+      setTenantIdsToAdd([]);
+      onClose();
+    }
   };
 
-  // Funkcja do obsługi przycisku Revoke
   const handleRevoke = () => {
-    onRevoke(selectedUsers); // Wywołanie funkcji do usunięcia dostępu dla wybranych użytkowników
-    onClose(); // Zamknięcie dialogu po wykonaniu akcji
+    if (selectedUsers.length > 0) {
+      onRevoke(selectedUsers);
+      onClose();
+    }
   };
 
   return (
@@ -81,29 +75,30 @@ const DocumentAccessDialog: React.FC<DocumentAccessDialogProps> = ({
         </DialogHeader>
 
         <div>
-          <input
-            type="text"
-            value={newUserId}
-            onChange={(e) => setNewUserId(e.target.value)}
-            placeholder="Enter user ID"
-            className="mb-2 border p-2"
+          <UserAutocomplete
+            onSelectUser={handleSelectUserToAdd}
+            placeholder="Enter username or email"
           />
-          <Button variant="outline" onClick={handleAddUser}>
-            Add User to Pending List
-          </Button>
         </div>
 
+        <h3>Users waiting to be granted an access:</h3>
         <div className="mt-2">
-          <h3 className="text-sm font-semibold">Users Waiting to be Added:</h3>
-          {pendingUsers.map((userId) => (
-            <div key={userId}>
-              <input
-                type="checkbox"
-                id={userId}
-                checked={true}
-                onChange={() => handleUserChange(userId)}
-              />
-              <label htmlFor={userId}>{`User ID: ${userId}`}</label>
+          {tenantIdsToAdd.map((username) => (
+            <div
+              key={username}
+              className="mb-2 flex items-center justify-between rounded-md bg-gray-100 p-2 dark:bg-gray-800"
+            >
+              <span>{username}</span>
+              <button
+                onClick={() =>
+                  setTenantIdsToAdd(
+                    tenantIdsToAdd.filter((id) => id !== username),
+                  )
+                }
+                className="ml-2 text-red-500 hover:text-red-700"
+              >
+                ✕
+              </button>
             </div>
           ))}
         </div>
@@ -112,18 +107,20 @@ const DocumentAccessDialog: React.FC<DocumentAccessDialogProps> = ({
           Share to Selected Users
         </Button>
 
-        {/* Wyświetlanie listy obecnie dodanych użytkowników */}
         <div className="mt-2">
-          <h3 className="text-sm font-semibold">Currently Added Users:</h3>
+          <h3 className="text-sm font-semibold">
+            Users who have access to this document:
+          </h3>
           {sharedWithUsers.map((user) => (
             <div key={user.id}>
               <input
                 type="checkbox"
                 id={user.id}
-                // checked={false} // Domyślnie checkboxy dla "Currently Added Users" nie są zaznaczone
-                onChange={() => handleUserChange(user.id)} // Zmiana stanu użytkownika
+                onChange={() => handleUserChange(user.id)}
               />
-              <label htmlFor={user.id}>{`User ID: ${user.id}`}</label>
+              <label htmlFor={user.id}>
+                {user.full_name} (@{user.username})
+              </label>
             </div>
           ))}
         </div>

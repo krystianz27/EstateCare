@@ -6,6 +6,8 @@ export interface UploadedByUserData {
 
 export interface SharedWithUserData {
   id: string;
+  username: string;
+  full_name: string;
 }
 
 export interface DocumentData {

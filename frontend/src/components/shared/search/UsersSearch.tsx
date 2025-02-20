@@ -25,7 +25,7 @@ const UsersSearch: React.FC<UsersSearchProps> = ({ setSearchTerm }) => {
   };
 
   return (
-    <div className="bg-gray dark:bg-eerieBlack mb-3 flex min-h-[56px] w-full grow rounded-full">
+    <div className="bg-gray mb-3 flex min-h-[56px] w-full grow rounded-full dark:bg-zinc-800">
       <Image
         src="/assets/icons/search.svg"
         alt="Search"

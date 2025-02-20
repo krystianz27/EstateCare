@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 import { useGetAllUsersQuery } from "@/lib/redux/features/users/usersApiSlice";
-import { Input } from "@/components/ui/input";
+import UserSearch from "@/components/shared/search/UsersSearch";
 
 interface UserAutocompleteProps {
   onSelectUser: (username: string) => void;
@@ -20,13 +20,7 @@ const UserAutocomplete: React.FC<UserAutocompleteProps> = ({
 
   return (
     <div className="relative">
-      <Input
-        type="text"
-        placeholder={placeholder || "Search for a user..."}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="mt-2 w-full rounded-md border p-2"
-      />
+      <UserSearch setSearchTerm={setSearchTerm} />
 
       {searchTerm && (
         <div className="absolute left-0 top-full z-50 mt-1 w-full rounded-md bg-white shadow-md dark:bg-gray-800">
