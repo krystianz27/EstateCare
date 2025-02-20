@@ -82,16 +82,19 @@ class DocumentShareAPIView(generics.GenericAPIView):
     def post(self, request, id=None):
         document = self.get_object()
 
-        users_uuid_list = request.data.get("shared_with", [])
+        # users_uuid_list = request.data.get("shared_with", [])
+        users_username_list = request.data.get("shared_with", [])
 
-        if not users_uuid_list:
+        if not users_username_list:
             return Response(
                 {"detail": "No users specified to share with."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         user_pkid_list = list(
-            User.objects.filter(id__in=users_uuid_list).values_list("pkid", flat=True)
+            User.objects.filter(username__in=users_username_list).values_list(
+                "pkid", flat=True
+            )
         )
 
         document.shared_with.add(*user_pkid_list)

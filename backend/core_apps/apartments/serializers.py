@@ -33,26 +33,6 @@ class ApartmentSerializer(serializers.ModelSerializer):
         ]
 
 
-# class AddDeleteTenantSerializer(serializers.ModelSerializer):
-#     add = serializers.ListField(
-#         child=serializers.UUIDField(format="hex"),
-#         required=False,
-#         allow_empty=True,
-#         write_only=True,
-#     )
-
-#     remove = serializers.ListField(
-#         child=serializers.UUIDField(format="hex"),
-#         required=False,
-#         allow_empty=True,
-#         write_only=True,
-#     )
-
-#     class Meta:
-#         model = Apartment
-#         fields = ["add", "remove"]
-
-
 class AddDeleteTenantSerializer(serializers.ModelSerializer):
     add = serializers.ListField(
         child=serializers.CharField(),

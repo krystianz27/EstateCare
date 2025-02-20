@@ -50,8 +50,8 @@ class DocumentSerializer(serializers.ModelSerializer):
         return [
             {
                 "id": str(user.id),
-                # "username": user.username,
-                # "full_name": user.get_user_full_name,
+                "username": user.username,
+                "full_name": user.get_user_full_name,
             }
             for user in obj.shared_with.all()
         ]
