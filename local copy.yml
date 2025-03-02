@@ -35,8 +35,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      # - estate_prod_postgres_data:/var/lib/postgresql/data
-      - estate_test_postgres_data:/var/lib/postgresql/data
+      - estate_prod_postgres_data:/var/lib/postgresql/data
     env_file:
       - ./backend/.envs/.env.local
     networks:
@@ -133,8 +132,7 @@ networks:
 volumes:
   # estate_media: {}
   estate_node_modules: {}
-  # estate_prod_postgres_data: {}
-  estate_test_postgres_data: {}
+  estate_prod_postgres_data: {}
   estate_prod_mailpit_data: {}
   logs_store: {}
   estate_redis_prod_data: {}

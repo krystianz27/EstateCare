@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetAllMyApartmentsQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
+import { useGetAllMyApartmentsFullQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
 import { useReportIssueMutation } from "@/lib/redux/features/issue/issueApiSlice";
 import { issueCreateSchema, IssueCreateSchema } from "@/lib/validation";
 import { extractErrorMessage } from "@/utils";
@@ -24,7 +24,7 @@ const ClientOnly = dynamic<{ children: React.ReactNode }>(
 );
 
 export default function IssueCreateForm() {
-  const { data } = useGetAllMyApartmentsQuery({ page: 1 });
+  const { data } = useGetAllMyApartmentsFullQuery({ page: 1 });
   const apartmentOptions =
     data?.apartment.results.map((apartment) => ({
       value: apartment.id,

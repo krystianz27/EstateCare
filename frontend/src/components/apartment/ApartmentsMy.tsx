@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetMyApartmentsQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
+import { useGetAllMyApartmentsQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
 import React from "react";
 import Spinner from "../shared/Spinner";
 import ApartmentCard from "../cards/ApartmentCard";
@@ -13,7 +13,7 @@ export default function Apartments() {
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
 
-  const { data, isLoading, isError } = useGetMyApartmentsQuery({
+  const { data, isLoading, isError } = useGetAllMyApartmentsQuery({
     page: currentPage,
   });
   const myApartments = data?.apartment.results;

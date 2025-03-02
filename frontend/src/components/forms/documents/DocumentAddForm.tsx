@@ -16,7 +16,7 @@ import {
 import { useCreateDocumentMutation } from "@/lib/redux/features/document/documentApiSlice";
 import Select from "react-select";
 import customStyles from "../selectStyles";
-import { useGetAllMyApartmentsQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
+import { useGetAllMyApartmentsFullQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
 
 const ClientOnly = dynamic<{ children: React.ReactNode }>(
   () => Promise.resolve(({ children }) => <>{children}</>),
@@ -27,7 +27,7 @@ export default function DocumentAddForm() {
   const router = useRouter();
   const [createDocument, { isLoading }] = useCreateDocumentMutation();
 
-  const { data } = useGetAllMyApartmentsQuery({ page: 1 });
+  const { data } = useGetAllMyApartmentsFullQuery({ page: 1 });
   const apartmentOptions =
     data?.apartment.results.map((apartment) => ({
       value: apartment.id,

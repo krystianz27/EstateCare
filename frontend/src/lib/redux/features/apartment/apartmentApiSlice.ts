@@ -10,6 +10,18 @@ import { baseApiSlice } from "../api/baseApiSlice";
 
 export const apartmentApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getAllMyApartments: builder.query<ApartmentsResponse, PaginationParams>({
+      query: ({ page } = {}) => {
+        const queryString = new URLSearchParams();
+
+        if (page) {
+          queryString.append("page", page.toString());
+        }
+
+        return `/apartments/?${queryString.toString()}`;
+      },
+      providesTags: ["Apartment"],
+    }),
     getMyApartments: builder.query<ApartmentsResponse, PaginationParams>({
       query: ({ page } = {}) => {
         const queryString = new URLSearchParams();
@@ -82,44 +94,48 @@ export const apartmentApiSlice = baseApiSlice.injectEndpoints({
     //   providesTags: ["Apartment"],
     // }),
 
-    getAllMyApartments: builder.query<ApartmentsResponse, PaginationParams>({
-      query: ({ page = 1 }: PaginationParams) => {
-        const queryString = new URLSearchParams();
-        queryString.append("page", page.toString());
-
-        return `/apartments/?${queryString.toString()}`;
-      },
-      transformResponse: async (initialResponse: ApartmentsResponse) => {
-        let allApartments: Apartment[] = [...initialResponse.apartment.results];
-
-        let currentPage = 1;
-        const totalPages = Math.ceil(initialResponse.apartment.count / 10); // 10 to przykładowa liczba wyników na stronę
-
-        while (currentPage < totalPages) {
-          currentPage += 1;
-
+    getAllMyApartmentsFull: builder.query<ApartmentsResponse, PaginationParams>(
+      {
+        query: ({ page = 1 }: PaginationParams) => {
           const queryString = new URLSearchParams();
-          queryString.append("page", currentPage.toString());
+          queryString.append("page", page.toString());
 
-          const response = await fetch(
-            `/api/v1/apartments/?${queryString.toString()}`,
-          );
-          const data: ApartmentsResponse = await response.json();
+          return `/apartments/?${queryString.toString()}`;
+        },
+        transformResponse: async (initialResponse: ApartmentsResponse) => {
+          let allApartments: Apartment[] = [
+            ...initialResponse.apartment.results,
+          ];
 
-          allApartments = [...allApartments, ...data.apartment.results];
-        }
+          let currentPage = 1;
+          const totalPages = Math.ceil(initialResponse.apartment.count / 10); // 10 to przykładowa liczba wyników na stronę
 
-        return {
-          apartment: {
-            results: allApartments,
-            next: null,
-            previous: null,
-            count: allApartments.length,
-          },
-        };
+          while (currentPage < totalPages) {
+            currentPage += 1;
+
+            const queryString = new URLSearchParams();
+            queryString.append("page", currentPage.toString());
+
+            const response = await fetch(
+              `/api/v1/apartments/?${queryString.toString()}`,
+            );
+            const data: ApartmentsResponse = await response.json();
+
+            allApartments = [...allApartments, ...data.apartment.results];
+          }
+
+          return {
+            apartment: {
+              results: allApartments,
+              next: null,
+              previous: null,
+              count: allApartments.length,
+            },
+          };
+        },
+        providesTags: ["Apartment"],
       },
-      providesTags: ["Apartment"],
-    }),
+    ),
 
     getApartmentById: builder.query<ApartmentResponse, string>({
       query: (id) => `/apartments/${id}/`,
@@ -162,10 +178,11 @@ export const apartmentApiSlice = baseApiSlice.injectEndpoints({
 });
 
 export const {
+  useGetAllMyApartmentsQuery,
   useGetMyApartmentsQuery,
   useGetMyRentedApartmentsQuery,
   useGetApartmentByIdQuery,
-  useGetAllMyApartmentsQuery,
+  useGetAllMyApartmentsFullQuery,
   useCreateApartmentMutation,
   useUpdateApartmentMutation,
   useUpdateTenantsMutation,

@@ -31,6 +31,7 @@ urlpatterns = [
     path("api/v1/reports/", include("core_apps.reports.urls")),
     path("api/v1/ratings/", include("core_apps.ratings.urls")),
     path("api/v1/posts/", include("core_apps.posts.urls")),
+    path("api/v1/chat/", include("core_apps.chat.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

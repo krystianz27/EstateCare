@@ -49,6 +49,7 @@ THIRD_PARTY_APPS = [
     "djcelery_email",
     "cloudinary",
     "django_celery_beat",
+    "channels",
 ]
 
 LOCAL_APPS = [
@@ -61,6 +62,7 @@ LOCAL_APPS = [
     "core_apps.apartments",
     "core_apps.documents",
     "core_apps.reports",
+    "core_apps.chat",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -94,6 +96,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
+ASGI_APPLICATION = "config.asgi.application"
 
 
 # Database
@@ -292,3 +295,14 @@ AUTHENTICATION_BACKENDS = [
     "social_core.backends.google.GoogleOAuth2",
     "django.contrib.auth.backends.ModelBackend",
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        # "BACKEND": "channels.layers.InMemoryChannelLayer",  # RAM
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            # "hosts": [(getenv("REDIS_HOST", "localhost"), 6379)],
+            "hosts": [("redis", 6379)],
+        },
+    }
+}
