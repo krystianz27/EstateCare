@@ -13,4 +13,4 @@ python manage.py collectstatic --no-input
 
 # exec python manage.py runserver 0.0.0.0:8000
 # exec daphne -b 0.0.0.0 -p 8000 config.asgi:application
-exec watchfiles "daphne -b 0.0.0.0 -p 8000 config.asgi:application" --filter python
+exec watchfiles "daphne -b 0.0.0.0 -p 8000 config.asgi:application" --filter python 

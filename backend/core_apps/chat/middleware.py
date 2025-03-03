@@ -15,12 +15,9 @@ logger = logging.getLogger(__name__)
 
 
 class TokenAuthenticator(JWTAuthentication):
-    """Obsługa autoryzacji JWT w Django Channels"""
-
     async def authenticate_scope(self, scope) -> Optional[Tuple[User, Token]]:
-        """Asynchroniczna wersja authenticate dla WebSocketów"""
+        """Asynchronous version of authenticate for WebSockets"""
         headers = dict(scope.get("headers", []))
-        print("Headers: ", headers)
 
         raw_token = None
 
@@ -35,8 +32,6 @@ class TokenAuthenticator(JWTAuthentication):
             }
             raw_token = cookies.get(settings.COOKIE_NAME)
 
-        print("RAW token: ", raw_token)
-
         if raw_token:
             try:
                 validated_token = await self.get_validated_token_async(raw_token)
@@ -44,18 +39,16 @@ class TokenAuthenticator(JWTAuthentication):
                 if user is not None:
                     return user, validated_token
             except TokenError as e:
-                logger.error(f"Token validation error: {str(e)}")
-
+                # logger.error(f"Token validation error: {str(e)}")
+                return None
         return None
 
     @sync_to_async
     def get_validated_token_async(self, raw_token: str) -> Token:
-        """Asynchroniczna walidacja tokena JWT"""
         return self.get_validated_token(raw_token.encode())
 
     @sync_to_async
     def get_user_async(self, validated_token: Token) -> Optional[User]:
-        """Asynchroniczne pobranie użytkownika"""
         return self.get_user(validated_token)
 
 
@@ -67,7 +60,6 @@ class WebSocketAuthMiddleware(BaseMiddleware):
     async def __call__(self, scope, receive, send):
         auth_result = await self.authenticator.authenticate_scope(scope)
         user, _ = auth_result if auth_result else (AnonymousUser(), None)
-        print("User", user)
         scope["user"] = user
 
         return await super().__call__(scope, receive, send)
