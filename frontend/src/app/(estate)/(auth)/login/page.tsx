@@ -5,9 +5,13 @@ import OAuthButtons from "@/components/shared/OAuthButtons";
 import { useRedirectIfAuthenticated } from "@/hooks";
 import buildingImage from "@/../public/assets/images/photo18.webp";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
-  useRedirectIfAuthenticated();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/welcome";
+  useRedirectIfAuthenticated(redirectUrl);
+
   return (
     <>
       <div className="relative mt-0 min-h-screen overflow-hidden">

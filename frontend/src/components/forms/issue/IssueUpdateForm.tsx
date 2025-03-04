@@ -57,11 +57,11 @@ export default function IssueUpdateForm({ params }: UpdateParamsProps) {
     }
   };
   return (
-    <main>
+    <main className="my-10 flex h-screen items-start justify-center bg-gray-100 dark:bg-gray-800">
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full max-w-md flex-col gap-4 dark:text-black"
+        className="w-full max-w-md rounded-3xl bg-white p-6 shadow-lg dark:bg-slate-900 dark:text-black"
       >
         <div>
           <label htmlFor="Status" className="h4-semibold dark:text-babyPowder">
@@ -96,7 +96,7 @@ export default function IssueUpdateForm({ params }: UpdateParamsProps) {
 
         <Button
           type="submit"
-          className="h4-semibold mt-2 w-full bg-eerieBlack text-white dark:bg-pumpkin dark:text-amberText"
+          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText mt-4 w-full text-white"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Update Status"}

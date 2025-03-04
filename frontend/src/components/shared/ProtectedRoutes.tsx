@@ -2,13 +2,14 @@
 import { setAuth, setLogout } from "@/lib/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/lib/redux/hooks/typedHooks";
 import { getCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Spinner from "@/components/shared/Spinner";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -17,16 +18,16 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
       if (!isLoggedIn) {
         dispatch(setLogout());
-        router.push("/login");
+        router.push(`/login?redirect=${encodeURIComponent(pathname)}`);
+        // return;
       } else {
         dispatch(setAuth());
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     };
 
     handleAuthState();
-  }, [dispatch, router]);
+  }, [dispatch, router, pathname]);
 
   if (isLoading) {
     return (

@@ -1,14 +1,15 @@
 import { useAppSelector } from "@/lib/redux/hooks/typedHooks";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export const useRedirectIfAuthenticated = () => {
+export const useRedirectIfAuthenticated = (redirectUrl?: string) => {
   const router = useRouter();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/welcome");
+    if (isAuthenticated && pathname !== "/login") {
+      router.push(redirectUrl || "/welcome");
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, router, redirectUrl, pathname]);
 };

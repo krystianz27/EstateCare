@@ -159,7 +159,7 @@ export default function DocumentAddForm() {
           className="dark:bg-amber dark:text-amberText w-full bg-black text-white"
           disabled={isLoading}
         >
-          {isLoading ? <Spinner size="sm" /> : "Create Document"}
+          {isLoading ? <Spinner size="sm" /> : "Add Document"}
         </Button>
       </form>
 

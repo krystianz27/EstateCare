@@ -3,11 +3,15 @@
 import { AuthFormHeader, RegisterForm } from "@/components/forms/auth";
 import OAuthButtons from "@/components/shared/OAuthButtons";
 import { useRedirectIfAuthenticated } from "@/hooks";
+
 import Image from "next/image";
 import buildingImage from "@/../public/assets/images/photo15.webp";
+import { useSearchParams } from "next/navigation";
 
 export default function RegisterPage() {
-  useRedirectIfAuthenticated();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/welcome";
+  useRedirectIfAuthenticated(redirectUrl);
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div className="absolute inset-0 z-0">

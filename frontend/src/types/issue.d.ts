@@ -21,6 +21,11 @@ export interface IssueData {
   priority: "low" | "medium" | "high";
 }
 
+export interface IssueForApartmentResponse extends IssueData {
+  id: string;
+  resolved_on: string | null;
+}
+
 export interface ReportIssueData extends IssueData {
   apartmentId: string;
 }

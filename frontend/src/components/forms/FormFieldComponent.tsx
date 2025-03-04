@@ -28,7 +28,11 @@ type FormFieldComponentProps<TFieldValues extends FieldValues> = {
   };
   className?: string;
   disabled?: boolean;
+  inputProps?:
+    | React.InputHTMLAttributes<HTMLInputElement>
+    | React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 };
+
 export function FormFieldComponent<TFieldValues extends FieldValues>({
   label,
   name,
@@ -44,6 +48,7 @@ export function FormFieldComponent<TFieldValues extends FieldValues>({
   className,
   isPassword = false,
   isTextArea = false,
+  inputProps,
 }: FormFieldComponentProps<TFieldValues>) {
   const errorMessage = errors[name]?.message as unknown as string;
 
@@ -54,6 +59,7 @@ export function FormFieldComponent<TFieldValues extends FieldValues>({
           {...register(name, { required })}
           placeholder={placeholder}
           className={`dark:text-babyPowder ${className}`}
+          {...(inputProps as React.TextareaHTMLAttributes<HTMLTextAreaElement>)} // Typowanie dla Textarea
         />
       );
     } else if (isPassword) {
@@ -61,6 +67,7 @@ export function FormFieldComponent<TFieldValues extends FieldValues>({
         <PasswordInput
           {...register(name, { required })}
           placeholder={placeholder}
+          {...(inputProps as React.InputHTMLAttributes<HTMLInputElement>)} // Typowanie dla PasswordInput
         />
       );
     } else {
@@ -74,6 +81,7 @@ export function FormFieldComponent<TFieldValues extends FieldValues>({
           endIcon={endIcon}
           disabled={disabled}
           className={`dark:text-babyPowder ${className}`}
+          {...(inputProps as React.InputHTMLAttributes<HTMLInputElement>)} // Typowanie dla Input
         />
       );
     }
@@ -82,7 +90,7 @@ export function FormFieldComponent<TFieldValues extends FieldValues>({
   return (
     <div>
       <div className="mb-1 flex justify-between">
-        <label htmlFor={name} className="h4-semibold mb-1 dark:text-babyPowder">
+        <label htmlFor={name} className="h4-semibold dark:text-babyPowder mb-1">
           {label}
         </label>
         {link && (

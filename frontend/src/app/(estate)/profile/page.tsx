@@ -83,24 +83,24 @@ function ProfilePageContent() {
           </Tabs>
         </div>
       </div>
-      <div className="mt-6 grid w-full grid-cols-1 gap-4 rounded-3xl p-6 md:grid-cols-2 lg:grid-cols-4 dark:bg-zinc-900">
+      <div className="mt-6 grid w-full grid-cols-1 gap-4 rounded-3xl p-6 md:grid-cols-2 xl:grid-cols-2 dark:bg-zinc-900">
         <Link href="/profile/edit">
-          <Button className="h3-semibold  dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
+          <Button className="h3-semibold dark:bg-amber dark:text-amberText w-full min-w-full max-w-xs rounded-lg bg-zinc-800 text-white sm:w-64">
             Update Profile
           </Button>
         </Link>
         <Link href="/apartment/add">
-          <Button className="h3-semibold  dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
+          <Button className="h3-semibold dark:bg-amber dark:text-amberText w-full min-w-full max-w-xs rounded-lg bg-zinc-800 text-white sm:w-64">
             Add Your Apartment
           </Button>
         </Link>
         <Link href="/documents">
-          <Button className="h3-semibold  dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
+          <Button className="h3-semibold dark:bg-amber dark:text-amberText w-full min-w-full max-w-xs rounded-lg bg-zinc-800 text-white sm:w-64">
             Check Your Documents
           </Button>
         </Link>
         <Link href="/payments">
-          <Button className="h3-semibold  dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
+          <Button className="h3-semibold dark:bg-amber dark:text-amberText w-full min-w-full max-w-xs rounded-lg bg-zinc-800 text-white sm:w-64">
             Payment
           </Button>
         </Link>

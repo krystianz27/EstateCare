@@ -65,9 +65,20 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
     <Card className="dark:border-gray rounded-xl border border-dashed">
       <AuthFormHeader
         title={issue.title}
-        linkText="Go back to profile"
+        linkText="Back to profile"
         linkHref="/profile"
       />
+
+      <div className="my-4 text-center">
+        <Link
+          href="/apartment"
+          className="ml-1 font-semibold text-indigo-600
+          hover:text-indigo-500 dark:text-lime-500
+          dark:hover:text-indigo-500"
+        >
+          Back to Apartments
+        </Link>
+      </div>
 
       <CardHeader className="border-b-eerieBlack flex flex-row justify-between gap-4 border-b p-4 sm:p-6 md:flex-row md:items-center md:gap-6">
         <div className="grid gap-0.5">

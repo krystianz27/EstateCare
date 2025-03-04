@@ -1,7 +1,7 @@
-from uuid import UUID
-
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+
+from core_apps.issues.models import Issue
 
 from .models import Apartment
 
@@ -14,9 +14,16 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["id", "username", "first_name", "last_name"]
 
 
+class IssueForApartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Issue
+        fields = ["id", "title", "description", "status", "priority", "resolved_on"]
+
+
 class ApartmentSerializer(serializers.ModelSerializer):
     owner = UserSerializer(required=False, read_only=True)
     tenants = UserSerializer(many=True, required=False, read_only=True)
+    issues = IssueForApartmentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Apartment
@@ -30,6 +37,7 @@ class ApartmentSerializer(serializers.ModelSerializer):
             "country",
             "owner",
             "tenants",
+            "issues",
         ]
 
 

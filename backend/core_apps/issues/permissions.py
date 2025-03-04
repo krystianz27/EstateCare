@@ -43,7 +43,11 @@ class IsReportedByUserOrAssignedUserOrStaff(permissions.BasePermission):
         if not (
             user.is_authenticated
             and (
-                user.is_staff or user == issue.reported_by or user == issue.assigned_to
+                user.is_staff
+                or user == issue.reported_by
+                or user == issue.assigned_to
+                or user == issue.apartment.owner
+                or issue.apartment.tenants.filter(id=user.id).exists()
             )
         ):
             logger.warning(

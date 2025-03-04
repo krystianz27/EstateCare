@@ -39,8 +39,8 @@ export default function Apartments() {
   const totalPages = myApartments ? Math.ceil(data?.apartment.count / 10) : 0;
 
   return (
-    <div className="rounded-2xl bg-zinc-50 py-4 max-md:my-2 dark:bg-zinc-900">
-      <div className="flex items-center justify-center">
+    <div className="my-4 flex-col rounded-2xl bg-zinc-50 py-4 max-md:my-4 dark:bg-zinc-900">
+      <div className="mb-6 flex items-center justify-center">
         <Link href="/apartment/add">
           <Button className="h3-semibold dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
             Add New Apartment
@@ -48,11 +48,11 @@ export default function Apartments() {
         </Link>
       </div>
 
-      <h2 className="h2-semibold flex-center font-robotoSlab dark:text-pumpkin text-xl">
+      <h2 className="h2-semibold flex-center font-robotoSlab dark:text-pumpkin mt-4 text-xl">
         Total: {data?.apartment.count}
       </h2>
 
-      <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mb-4 mt-7 grid flex-1 grid-cols-1 gap-6 overflow-y-auto sm:grid-cols-2 lg:grid-cols-3">
         {myApartments && data.apartment.count > 0 ? (
           myApartments.map((apartment) => (
             <ApartmentCard key={apartment.id} apartment={apartment} />
@@ -62,7 +62,9 @@ export default function Apartments() {
         )}
       </div>
 
-      <PaginationLocal totalPages={totalPages} currentPage={currentPage} />
+      <div className="mt-4 flex justify-center">
+        <PaginationLocal totalPages={totalPages} currentPage={currentPage} />
+      </div>
     </div>
   );
 }

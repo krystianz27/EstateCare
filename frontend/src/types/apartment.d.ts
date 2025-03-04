@@ -1,3 +1,5 @@
+import { IssueForApartmentResponse } from "./issue";
+
 export interface ApartmentData {
   street?: string;
   building_number?: string | null;
@@ -24,6 +26,7 @@ export interface Apartment {
   country: string;
   owner: UserData;
   tenants: UserData[];
+  issues: IssueForApartmentResponse[];
 }
 
 export interface ApartmentResponse {

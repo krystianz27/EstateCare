@@ -10,6 +10,7 @@ import Spinner from "../shared/Spinner";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import UserAutocomplete from "../shared/search/UserAutocomplete";
+import IssueList from "@/components/issue/IssuesList";
 
 interface ApartmentDetailContentProps {
   apartmentId: string;
@@ -138,7 +139,9 @@ const ApartmentDetailContent: React.FC<ApartmentDetailContentProps> = ({
         </ul>
       </section>
 
-      <section className="mb-8">
+      <IssueList issues={apartment.issues} />
+
+      <section className="my-8">
         <Button onClick={handleReportIssue} className="bg-red-500 text-white">
           Report Issue
         </Button>
