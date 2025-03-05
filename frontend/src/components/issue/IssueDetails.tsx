@@ -72,22 +72,18 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
       <div className="my-4 text-center">
         <Link
           href="/apartment"
-          className="ml-1 font-semibold text-indigo-600
-          hover:text-indigo-500 dark:text-lime-500
-          dark:hover:text-indigo-500"
+          className="ml-1 font-semibold text-indigo-600 hover:text-indigo-500 dark:text-lime-500 dark:hover:text-indigo-500"
         >
           Back to Apartments
         </Link>
       </div>
 
-      <CardHeader className="border-b-eerieBlack flex flex-row justify-between gap-4 border-b p-4 sm:p-6 md:flex-row md:items-center md:gap-6">
+      <CardHeader className="border-b-eerieBlack flex flex-col justify-between gap-4 border-b p-4 sm:p-6 md:flex-row md:items-center md:gap-6">
         <div className="grid gap-0.5">
           <CardTitle className="dark:text-platinum">
             <p className="flex items-center space-x-2">
               <Hotel className="tab-icon" />
-              <span className="dark:text-babyPowder font-bold">
-                Apartment:{" "}
-              </span>
+              <span className="dark:text-babyPowder font-bold">Apartment:</span>
               <span className="text-2xl">
                 {issue.apartment_unit?.apartment_number}{" "}
                 {issue.apartment_unit?.street},{" "}
@@ -96,83 +92,48 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
             </p>
           </CardTitle>
 
-          <CardDescription className="mt-2">
-            <p className="flex items-center space-x-2">
-              <CheckCheck className="tab-icon" />
-              <span className="text-xl-font-baby">Reported By: </span>
-              <span className="text-xl-font-baby">{issue.reported_by}</span>
-            </p>
+          <CardDescription className="mt-2 flex items-center space-x-2">
+            <CheckCheck className="tab-icon" />
+            <span className="text-xl-font-baby">Reported By:</span>
+            <span className="text-xl-font-baby">{issue.reported_by}</span>
           </CardDescription>
 
-          <CardDescription className="mt-2">
-            <p className="flex items-center space-x-2">
-              <CheckCheck className="tab-icon" />
-              <span className="text-xl-font-baby">City: </span>
-              <span className="text-xl-font-baby">
-                {issue.apartment_unit?.city}
-              </span>
-            </p>
+          <CardDescription className="mt-2 flex items-center space-x-2">
+            <CheckCheck className="tab-icon" />
+            <span className="text-xl-font-baby">City:</span>
+            <span className="text-xl-font-baby">
+              {issue.apartment_unit?.city}
+            </span>
           </CardDescription>
 
-          <CardDescription className="mt-2">
-            <p className="flex items-center space-x-2">
-              <CheckCheck className="tab-icon" />
-              <span className="text-xl-font-baby">Postal Code: </span>
-              <span className="text-xl-font-baby">
-                {issue.apartment_unit?.postal_code}
-              </span>
-            </p>
+          <CardDescription className="mt-2 flex items-center space-x-2">
+            <CheckCheck className="tab-icon" />
+            <span className="text-xl-font-baby">Postal Code:</span>
+            <span className="text-xl-font-baby">
+              {issue.apartment_unit?.postal_code}
+            </span>
           </CardDescription>
 
-          <CardDescription className="mt-2">
-            <p className="flex items-center space-x-2">
-              <CheckCheck className="tab-icon" />
-              <span className="text-xl-font-baby">Country: </span>
-              <span className="text-xl-font-baby">
-                {issue.apartment_unit?.country}
-              </span>
-            </p>
+          <CardDescription className="mt-2 flex items-center space-x-2">
+            <CheckCheck className="tab-icon" />
+            <span className="text-xl-font-baby">Country:</span>
+            <span className="text-xl-font-baby">
+              {issue.apartment_unit?.country}
+            </span>
           </CardDescription>
-        </div>
-
-        <div className="flex flex-col gap-y-3">
-          {canUpdate && (
-            <Link href={`/issue/update-issue/${id}`}>
-              <Button
-                className="bg-electricIndigo text-babyPowder dark:bg-electricIndigo dark:text-babyPowder ml-auto h-10 max-w-[200px] sm:ml-0 md:max-w-[300px]"
-                size="sm"
-                variant="outline"
-              >
-                Update Issue
-              </Button>
-            </Link>
-          )}
-
-          {canDelete && (
-            <Button
-              onClick={handleDeleteIssue}
-              className="text-babyPowder dark:text-babyPowder ml-auto h-10 max-w-[200px] bg-red-500 sm:ml-0 md:max-w-[300px] dark:bg-red-500"
-              size="sm"
-              variant="outline"
-            >
-              Delete Issue
-            </Button>
-          )}
         </div>
       </CardHeader>
 
       <CardContent className="border-b-eerieBlack border-b">
-        <CardDescription className="mt-3">
-          <div className="flex items-center space-x-2">
-            <CircleDot className="tab-icon" />
-            <span className="text-xl-font-baby">{issue.description}</span>
-          </div>
+        <CardDescription className="mt-3 flex items-center space-x-2">
+          <CircleDot className="tab-icon" />
+          <span className="text-xl-font-baby">{issue.description}</span>
         </CardDescription>
       </CardContent>
 
-      <CardFooter className="mt-2 flex flex-row justify-between dark:text-lime-500">
+      <CardFooter className="mt-2 flex flex-col gap-4 text-center sm:flex-col sm:text-left dark:text-lime-500">
         <p className="text-lg">
-          assigned to:&nbsp;
+          Assigned to:&nbsp;
           <span className="dark:text-platinum">
             {issue.assigned_to ?? "Not assigned Yet!"}
           </span>
@@ -185,13 +146,38 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
           Priority:&nbsp;
           <span className="dark:text-platinum">{issue.priority}</span>
         </p>
-        <p className="flex flex-row items-center">
+        <p className="flex items-center">
           <EyeIcon className="mr-1 size-5" />
           <span className="dark:text-platinum text-lg">
             View Count:&nbsp; {issue.view_count}
           </span>
         </p>
       </CardFooter>
+
+      <div className="mt-4 flex flex-col gap-y-3">
+        {canUpdate && (
+          <Link href={`/issue/update-issue/${id}`} className="w-full">
+            <Button
+              className="bg-electricIndigo text-babyPowder dark:bg-electricIndigo dark:text-babyPowder h-10 w-full"
+              size="sm"
+              variant="outline"
+            >
+              Update Issue
+            </Button>
+          </Link>
+        )}
+
+        {canDelete && (
+          <Button
+            onClick={handleDeleteIssue}
+            className="text-babyPowder dark:text-babyPowder h-10 w-full bg-red-500 dark:bg-red-500"
+            size="sm"
+            variant="outline"
+          >
+            Delete Issue
+          </Button>
+        )}
+      </div>
     </Card>
   );
 }

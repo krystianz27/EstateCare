@@ -46,12 +46,14 @@ export interface IssueResponse {
   issue: Issue;
 }
 
-export interface IssueStatusData {
-  status: string;
-}
+// export interface IssueStatusData {
+//   status: string;
+// }
 
-export interface UpdateIssueData extends IssueStatusData {
+export interface UpdateIssueData {
   issueId: string;
+  status?: string;
+  assigned_to?: string;
 }
 
 export interface MyIssuesResponse {
