@@ -6,9 +6,13 @@ import React, { useEffect, useState } from "react";
 
 interface UsersSearchProps {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  placeholder?: string;
 }
 
-const UsersSearch: React.FC<UsersSearchProps> = ({ setSearchTerm }) => {
+const UsersSearch: React.FC<UsersSearchProps> = ({
+  setSearchTerm,
+  placeholder,
+}) => {
   const [localSearchTerm, setLocalSearchTerm] = useState<string>("");
 
   useEffect(() => {
@@ -34,7 +38,7 @@ const UsersSearch: React.FC<UsersSearchProps> = ({ setSearchTerm }) => {
         className="mx-3"
       />
       <Input
-        placeholder="Search by username, first or last name"
+        placeholder={placeholder || "Search by username, first or last name"}
         type="search"
         value={localSearchTerm}
         onChange={handleInputChange}

@@ -20,7 +20,7 @@ const UserAutocomplete: React.FC<UserAutocompleteProps> = ({
 
   return (
     <div className="relative">
-      <UserSearch setSearchTerm={setSearchTerm} />
+      <UserSearch setSearchTerm={setSearchTerm} placeholder={placeholder} />
 
       {searchTerm && (
         <div className="absolute left-0 top-full z-50 mt-1 w-full rounded-md bg-white shadow-md dark:bg-gray-800">
