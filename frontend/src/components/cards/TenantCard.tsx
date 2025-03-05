@@ -103,7 +103,7 @@ function TenantCardContent() {
                       icon={CalendarDays}
                     />
                   </div>
-                  {tenant.apartment && (
+                  {/* {tenant.apartment && (
                     <>
                       <TenantInfo
                         label="Building"
@@ -121,7 +121,7 @@ function TenantCardContent() {
                         icon={BrickWall}
                       />
                     </>
-                  )}
+                  )} */}
                 </CardDescription>
               </CardContent>
             </Card>
