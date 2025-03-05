@@ -27,7 +27,7 @@ class IsStaffOrSuperUser(permissions.BasePermission):
         raise PermissionDenied(self.message)
 
 
-class IsReportedByUserOrAssignedUserOrStaff(permissions.BasePermission):
+class IsReportedByUserOrAssignedUserOrIsTenant(permissions.BasePermission):
     """Permission class for users who reported, are assigned, or are staff."""
 
     message = "You do not have permission to view or modify this issue."
@@ -59,7 +59,7 @@ class IsReportedByUserOrAssignedUserOrStaff(permissions.BasePermission):
         return True
 
 
-class IsAssignedUserOrStaff(permissions.BasePermission):
+class IsAssignedUserOrTenantOrOwner(permissions.BasePermission):
     """Permission class for users assigned to an issue or staff users."""
 
     message = "You do not have permission to modify this issue."
@@ -71,7 +71,16 @@ class IsAssignedUserOrStaff(permissions.BasePermission):
         except Http404:
             raise PermissionDenied(self.message)
 
-        if not (user.is_authenticated and (user.is_staff or user == issue.assigned_to)):
+        if not (
+            user.is_authenticated
+            and (
+                user.is_staff
+                or user == issue.reported_by
+                or user == issue.assigned_to
+                or user == issue.apartment.owner
+                or issue.apartment.tenants.filter(id=user.id).exists()
+            )
+        ):
             logger.warning(
                 f"Unauthorized access attempt by user {user.get_full_name()} "
                 f"to issue {issue.title} (Issue ID: {issue.id})"

@@ -10,8 +10,8 @@ from core_apps.apartments.models import Apartment
 from core_apps.common.models import ContentView
 from core_apps.common.renderers import GenericJSONRenderer
 from core_apps.issues.permissions import (
-    IsAssignedUserOrStaff,
-    IsReportedByUserOrAssignedUserOrStaff,
+    IsAssignedUserOrTenantOrOwner,
+    IsReportedByUserOrAssignedUserOrIsTenant,
     IsReportedByUserOrStaff,
     IsStaffOrSuperUser,
 )
@@ -57,7 +57,7 @@ class IssueCreateAPIView(generics.CreateAPIView):
     object_label = "issue"
 
     def perform_create(self, serializer: IssueSerializer) -> None:
-        apartment_id = self.request.data.get("apartmentId")
+        apartment_id = self.request.data.get("apartmentId")  # type: ignore
 
         if not apartment_id:
             raise ValidationError({"apartmentId": ["Apartment ID is required."]})
@@ -89,7 +89,7 @@ class IssueDetailAPIView(generics.RetrieveAPIView):
     serializer_class = IssueSerializer
     lookup_field = "id"
     renderer_classes = [GenericJSONRenderer]
-    permission_classes = [IsReportedByUserOrAssignedUserOrStaff]
+    permission_classes = [IsReportedByUserOrAssignedUserOrIsTenant]
     object_label = "issue"
 
     def retrieve(self, request, *args, **kwargs):
@@ -124,7 +124,7 @@ class IssueUpdateAPIView(generics.UpdateAPIView):
     lookup_field = "id"
     serializer_class = IssueStatusUpdateSerializer
     renderer_classes = [GenericJSONRenderer]
-    permission_classes = [IsAssignedUserOrStaff]
+    permission_classes = [IsAssignedUserOrTenantOrOwner]
     object_label = "issue"
 
     def perform_update(self, serializer):

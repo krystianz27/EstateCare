@@ -1,5 +1,6 @@
 import logging
 
+from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from rest_framework import serializers
@@ -12,6 +13,8 @@ from .emails import send_resolution_email
 from .models import Issue
 
 logger = logging.getLogger(__name__)
+
+User = get_user_model()
 
 
 class ApartmentForIssueSerializer(ApartmentSerializer):
@@ -67,6 +70,7 @@ class IssueStatusUpdateSerializer(serializers.ModelSerializer):
     apartment = serializers.ReadOnlyField(source="apartment.unit_number")
     reported_by = serializers.ReadOnlyField(source="reported_by.get_user_full_name")
     resolved_by = serializers.ReadOnlyField(source="assigned_to.get_user_full_name")
+    assigned_to = serializers.CharField(write_only=True, required=False)
 
     class Meta:
         model = Issue
@@ -78,14 +82,23 @@ class IssueStatusUpdateSerializer(serializers.ModelSerializer):
             "status",
             "resolved_by",
             "resolved_on",
+            "assigned_to",
         ]
 
     def update(self, instance: Issue, validated_data: dict) -> Issue:
+        assigned_username = validated_data.pop("assigned_to", None)
+        if assigned_username:
+            try:
+                assigned_user = User.objects.get(username=assigned_username)
+                instance.assigned_to = assigned_user
+            except User.DoesNotExist:
+                raise serializers.ValidationError({"assigned_to": "User not found."})
+
         if (
             validated_data.get("status") == Issue.IssueStatus.RESOLVED
             and instance.status != Issue.IssueStatus.RESOLVED
         ):
             instance.resolved_on = timezone.now().date()
-            instance.save()
             send_resolution_email(instance)
+
         return super().update(instance, validated_data)
