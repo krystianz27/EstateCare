@@ -18,7 +18,7 @@ export default function LoginForm() {
   const [loginUser, { isLoading }] = useLoginUserMutation();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get("redirect") || "/";
+  const redirectUrl = searchParams.get("redirect") || "/profile";
   const dispatch = useAppDispatch();
 
   const {
