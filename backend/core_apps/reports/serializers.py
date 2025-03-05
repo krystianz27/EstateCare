@@ -13,17 +13,16 @@ class ReportSerializer(serializers.ModelSerializer):
         model = Report
         fields = ["id", "title", "description", "reported_user_username", "created_at"]
 
-        def validate_reported_user_username(self, value: str):
-            try:
-                reported_user = User.objects.get(username=value)
-            except User.DoesNotExist:
-                raise serializers.ValidationError(
-                    "The provided username does not exist"
-                )
-            return reported_user
+    def validate_reported_user_username(self, value: str):
+        try:
+            reported_user = User.objects.get(username=value)
+        except User.DoesNotExist:
+            raise serializers.ValidationError("The provided username does not exist")
+        return reported_user
 
     def create(self, validated_data: dict) -> Report:
         reported_user = validated_data.pop("reported_user_username")
+        print(reported_user)
 
         report = Report.objects.create(reported_user=reported_user, **validated_data)
         return report
