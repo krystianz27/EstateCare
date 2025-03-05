@@ -10,6 +10,7 @@ import { baseApiSlice } from "../api/baseApiSlice";
 
 export const apartmentApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    // You are either an owner or a tenant
     getAllMyApartments: builder.query<ApartmentsResponse, PaginationParams>({
       query: ({ page } = {}) => {
         const queryString = new URLSearchParams();
@@ -22,6 +23,7 @@ export const apartmentApiSlice = baseApiSlice.injectEndpoints({
       },
       providesTags: ["Apartment"],
     }),
+    // You are an owner
     getMyApartments: builder.query<ApartmentsResponse, PaginationParams>({
       query: ({ page } = {}) => {
         const queryString = new URLSearchParams();
@@ -34,7 +36,7 @@ export const apartmentApiSlice = baseApiSlice.injectEndpoints({
       },
       providesTags: ["Apartment"],
     }),
-
+    // You are a tenant
     getMyRentedApartments: builder.query<ApartmentsResponse, PaginationParams>({
       query: ({ page } = {}) => {
         const queryString = new URLSearchParams();

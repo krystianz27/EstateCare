@@ -22,17 +22,17 @@ export const metadata: Metadata = {
 function ProfilePageContent() {
   return (
     <>
-      <div className="grid items-start gap-4 rounded-3xl py-4 max-md:my-2 md:gap-6 md:px-6 dark:bg-zinc-900">
+      <div className="grid items-start gap-4 rounded-3xl bg-slate-200 py-4 max-md:my-2 md:gap-6 md:px-6 dark:bg-zinc-900">
         <Header />
 
         <div className="w-full">
           <Tabs
-            className="dark:border-eerieBlack space-y-6 rounded-lg border"
+            className="dark:border-eerieBlack space-y-6 rounded-lg"
             defaultValue="about"
           >
             <TabsList
-              className="bg-baby_rich mb-6 grid min-h-40 grid-cols-2 gap-4 rounded-lg  px-4 
-              py-3 max-md:min-h-48 sm:gap-6 md:grid-cols-2 md:gap-4"
+              className="mb-6 grid min-h-40 grid-cols-2 gap-4 rounded-lg bg-slate-200 px-4  py-3 
+              max-md:min-h-48 sm:gap-6 md:grid-cols-2 md:gap-4 dark:border-slate-900 dark:bg-zinc-900"
             >
               <TabsTrigger
                 value="about"
@@ -44,7 +44,7 @@ function ProfilePageContent() {
                 value="posts"
                 className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
               >
-                Posts
+                My Posts
               </TabsTrigger>
               <TabsTrigger
                 value="my-apartments"
@@ -83,7 +83,7 @@ function ProfilePageContent() {
           </Tabs>
         </div>
       </div>
-      <div className="mt-6 grid w-full grid-cols-1 gap-4 rounded-3xl p-6 md:grid-cols-2 xl:grid-cols-2 dark:bg-zinc-900">
+      <div className="mt-6 grid w-full grid-cols-1 gap-4 rounded-3xl bg-slate-200 p-6 md:grid-cols-2 xl:grid-cols-2 dark:bg-zinc-900">
         <Link href="/profile/edit">
           <Button className="h3-semibold dark:bg-amber dark:text-amberText w-full min-w-full max-w-xs rounded-lg bg-zinc-800 text-white sm:w-64">
             Update Profile

@@ -20,7 +20,7 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
     <Link href={`/apartment/${apartment.id}`} key={apartment.id}>
       <Card
         key={apartment.id}
-        className="hover:border-pumpkin dark:border-gray hover:dark:border-platinum rounded-xl border border-dashed"
+        className="dark:border-gray hover:dark:border-platinum rounded-xl border border-dashed hover:border-slate-300"
       >
         <CardHeader>
           <CardTitle className="flex-center h3-semibold font-robotoSlab dark:text-lime-500">

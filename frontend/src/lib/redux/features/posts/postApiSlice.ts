@@ -35,8 +35,15 @@ export const postApiSlice = baseApiSlice.injectEndpoints({
       providesTags: ["Post"],
     }),
 
-    getMyPosts: builder.query<MyPostsResponse, void>({
-      query: () => "/posts/my-posts/",
+    getMyPosts: builder.query<MyPostsResponse, PostQueryParams>({
+      query: (params = {}) => {
+        const queryString = new URLSearchParams();
+
+        if (params.page) {
+          queryString.append("page", params.page.toString());
+        }
+        return `/posts/my-posts/?${queryString.toString()}`;
+      },
       providesTags: ["Post"],
     }),
 
