@@ -26,15 +26,20 @@ export function useAuthNavigation() {
 
   const filteredLeftNavLinks = leftNavLinks.filter((link) => {
     if (
+      link.path === "/welcome" ||
       link.path === "/profile" ||
+      link.path === "/apartment" ||
+      link.path === "/posts" ||
+      link.path === "/documents" ||
       link.path === "/tenants" ||
-      link.path === "/posts/bookmark" ||
+      link.path === "/technician" ||
       link.path === "/issue/report-issue" ||
       link.path === "/report/report-tenant" ||
-      link.path === "/technicians" ||
+      link.path === "/posts/bookmark" ||
       link.path === "/posts/create-post"
     ) {
-      return isAuthenticated;
+      // return isAuthenticated;
+      return true;
     }
     return true;
   });

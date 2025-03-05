@@ -9,7 +9,7 @@ export const useRedirectIfAuthenticated = (redirectUrl?: string) => {
 
   useEffect(() => {
     if (isAuthenticated && pathname !== "/login") {
-      router.push(redirectUrl || "/welcome");
+      router.push(redirectUrl || "/profile");
     }
   }, [isAuthenticated, router, redirectUrl, pathname]);
 };
