@@ -66,7 +66,7 @@ function CreatePostFormContent() {
     try {
       await createPost(values).unwrap();
       toast.success("Your post has been successfully added!");
-      router.push("/welcome");
+      router.push("/posts");
     } catch (error) {
       const errorMessage = extractErrorMessage(error);
       toast.error(
@@ -88,7 +88,7 @@ function CreatePostFormContent() {
           register={register}
           errors={errors}
           placeholder="Post Title"
-          startIcon={<FileText className="size-8 dark:text-babyPowder" />}
+          startIcon={<FileText className="dark:text-babyPowder size-8" />}
         />
         <FormFieldComponent
           label="Body"
@@ -110,7 +110,7 @@ function CreatePostFormContent() {
                 {field.value.map((tag: string, index: number) => (
                   <Badge
                     key={index}
-                    className="mb-2 mr-2 inline-flex items-center border border-veryBlack dark:border-pumpkin dark:text-lime-500"
+                    className="border-veryBlack dark:border-pumpkin mb-2 mr-2 inline-flex items-center border dark:text-lime-500"
                   >
                     {tag}
                     <button
@@ -140,7 +140,7 @@ function CreatePostFormContent() {
 
         <Button
           type="submit"
-          className="h4-semibold w-full bg-eerieBlack text-white dark:bg-pumpkin dark:text-amberText"
+          className="h4-semibold bg-eerieBlack dark:bg-pumpkin dark:text-amberText w-full text-white"
           disabled={isLoading}
         >
           {isLoading ? <Spinner size="sm" /> : "Create Your Post"}
