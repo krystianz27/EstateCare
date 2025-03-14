@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from core_apps.issues.models import Issue
 
-from .models import Apartment
+from .models import Apartment, RentalContract
 
 User = get_user_model()
 
@@ -58,3 +58,23 @@ class AddDeleteTenantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Apartment
         fields = ["add", "remove"]
+
+
+class RentalContractSerializer(serializers.ModelSerializer):
+    apartment = ApartmentSerializer(required=False, read_only=True)
+    owner = UserSerializer(required=False, read_only=True)
+
+    class Meta:
+        model = RentalContract
+        fields = [
+            "id",
+            "apartment",
+            "owner",
+            "tenant",
+            "start_date",
+            "end_date",
+            "rent_amount",
+            "deposit",
+            "status",
+        ]
+        read_only_fields = ["id", "owner"]

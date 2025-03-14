@@ -68,3 +68,60 @@ class Apartment(TimeStampedModel):
 
     def is_owner(self, user):
         return self.owner == user
+
+
+class RentalContract(TimeStampedModel):
+    class Status(models.TextChoices):
+        ACTIVE = "active", _("Active")
+        EXPIRED = "expired", _("Expired")
+        TERMINATED = "terminated", _("Terminated")
+
+    apartment = models.ForeignKey(
+        Apartment,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="rental_contracts",
+        verbose_name=_("Apartment"),
+    )
+
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="owner_contracts",
+        verbose_name=_("Owner"),
+    )
+    tenant = models.CharField(
+        max_length=150,
+        verbose_name=_("Tenant"),
+    )
+    start_date = models.DateField(verbose_name=_("Start Date"))
+    end_date = models.DateField(verbose_name=_("End Date"))
+    rent_amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name=_("Rent Amount"),
+        blank=True,
+        null=True,
+    )
+    deposit = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name=_("Deposit"),
+        blank=True,
+        null=True,
+    )
+    status = models.CharField(
+        max_length=10,
+        choices=Status.choices,
+        default=Status.ACTIVE,
+        verbose_name=_("Contract Status"),
+    )
+
+    def __str__(self):
+        return f"Rental contract for {self.apartment} between {self.owner} and {self.tenant}"
+
+    class Meta(TimeStampedModel.Meta):
+        verbose_name = _("Rental Contract")
+        verbose_name_plural = _("Rental Contracts")
+        ordering = ["start_date"]

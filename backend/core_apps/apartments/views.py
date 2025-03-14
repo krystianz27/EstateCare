@@ -3,15 +3,19 @@ import logging
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from rest_framework import generics, status
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from core_apps.common.renderers import GenericJSONRenderer
 
-from .models import Apartment
+from .models import Apartment, RentalContract
 from .permissions import IsApartmentOwner, IsApartmentOwnerOrTenant
-from .serializers import AddDeleteTenantSerializer, ApartmentSerializer
+from .serializers import (
+    AddDeleteTenantSerializer,
+    ApartmentSerializer,
+    RentalContractSerializer,
+)
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -142,3 +146,75 @@ class AddDeleteTenantView(generics.GenericAPIView):
         return Response(
             {"detail": "Tenants updated successfully"}, status=status.HTTP_200_OK
         )
+
+
+logger = logging.getLogger(__name__)
+
+
+class RentalContractListCreateView(generics.ListCreateAPIView):
+    queryset = RentalContract.objects.all()
+    serializer_class = RentalContractSerializer
+    permission_classes = [IsAuthenticated, IsApartmentOwner]
+    renderer_classes = [GenericJSONRenderer]
+    object_label = "rental_contract"
+
+    def get_queryset(self):  # type: ignore
+        user = self.request.user
+        status_filter = self.request.query_params.get("status")  # type: ignore
+
+        filters = Q(owner=user)
+
+        if status_filter:
+            filters &= Q(status=status_filter)
+
+        return RentalContract.objects.filter(filters)
+
+    def perform_create(self, serializer):
+        apartment_id = self.request.data.get("apartment")  # type: ignore
+        if apartment_id:
+            try:
+                apartment = Apartment.objects.get(id=apartment_id)
+            except Apartment.DoesNotExist:
+                raise NotFound(f"Apartment with id {apartment_id} not found.")
+            serializer.save(owner=self.request.user, apartment=apartment)
+        else:
+            serializer.save(owner=self.request.user)
+
+
+class RentalContractRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = RentalContract.objects.all()
+    serializer_class = RentalContractSerializer
+    permission_classes = [IsAuthenticated]
+    renderer_classes = [GenericJSONRenderer]
+    lookup_field = "id"
+    object_label = "rental_contract"
+
+    def get_permissions(self):
+        if self.request.method in ["PUT", "PATCH", "DELETE"]:
+            self.permission_classes = [IsApartmentOwner]
+        return super().get_permissions()
+
+
+# Already implemented by PATCH in RentalContractRetrieveUpdateDestroyView
+# class UpdateRentalContractStatusView(generics.GenericAPIView):
+#     queryset = RentalContract.objects.all()
+#     permission_classes = [IsAuthenticated, IsApartmentOwner]
+#     renderer_classes = [GenericJSONRenderer]
+#     serializer_class = RentalContractSerializer
+#     lookup_field = "id"
+#     object_label = "rental_contract"
+
+#     def patch(self, request, *args, **kwargs):
+#         contract = self.get_object()
+#         status_value = request.data.get("status")
+
+#         if status_value not in dict(RentalContract.Status.choices):
+#             raise ValidationError({"status": ["Invalid status value."]})
+
+#         contract.status = status_value
+#         contract.save()
+
+#         return Response(
+#             {"detail": "Rental contract status updated successfully"},
+#             status=status.HTTP_200_OK,
+#         )
