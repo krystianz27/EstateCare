@@ -38,7 +38,10 @@ class ApartmentListCreateView(generics.ListCreateAPIView):
             return Apartment.objects.filter(tenants=user)
 
         else:
-            return Apartment.objects.filter(Q(owner=user) | Q(tenants=user))
+            return Apartment.objects.filter(
+                Q(owner=user)
+                | Q(pkid__in=Apartment.objects.filter(tenants=user).values("pkid"))
+            )
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
