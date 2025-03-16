@@ -1,10 +1,12 @@
 import { baseApiSlice } from "@/lib/redux/features/api/baseApiSlice";
 import {
   NonTenantResponse,
-  ProfileData,
   ProfileResponse,
   ProfilesResponse,
+  ProfileUpdateData,
+  ProfileUpdateResponse,
   QueryParams,
+  TenantsResponse,
 } from "@/types";
 
 export const usersApiSlice = baseApiSlice.injectEndpoints({
@@ -29,7 +31,10 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
       providesTags: ["User"],
     }),
 
-    updateUserProfile: builder.mutation<ProfileData, ProfileData>({
+    updateUserProfile: builder.mutation<
+      ProfileUpdateResponse,
+      ProfileUpdateData
+    >({
       query: (formData) => ({
         url: "/profiles/user/update/",
         method: "PATCH",
@@ -51,6 +56,20 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
       },
       providesTags: ["User"],
     }),
+    getMyTenants: builder.query<TenantsResponse, QueryParams>({
+      query: (params = {}) => {
+        const queryString = new URLSearchParams();
+
+        if (params.searchTerm) {
+          queryString.append("search", params.searchTerm);
+        } else if (params.page) {
+          queryString.append("page", params.page.toString());
+        }
+
+        return `/profiles/my-tenants/?${queryString.toString()}`;
+      },
+      providesTags: ["User"],
+    }),
   }),
 });
 
@@ -59,4 +78,5 @@ export const {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
   useGetAllTechniciansQuery,
+  useGetMyTenantsQuery,
 } = usersApiSlice;

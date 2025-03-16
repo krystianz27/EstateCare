@@ -1,32 +1,29 @@
 import { LeftNavLink } from "@/types/navigation";
 
-type OptionType = {
-  value: "reported" | "resolved" | "in_progress" | "low" | "medium" | "high";
-  label: string;
-};
+export type StatusValue = "reported" | "resolved" | "in_progress";
+export type PriorityValue = "low" | "medium" | "high";
 
-export const statusOptions: OptionType[] = [
+export const statusOptions: { value: StatusValue; label: string }[] = [
   { value: "reported", label: "Reported" },
   { value: "resolved", label: "Resolved" },
   { value: "in_progress", label: "In Progress" },
 ];
 
-export const priorityOptions: OptionType[] = [
+export const priorityOptions: { value: PriorityValue; label: string }[] = [
   { value: "low", label: "Low" },
   { value: "medium", label: "Medium" },
   { value: "high", label: "High" },
 ];
 
 export const occupationOptions = [
-  { value: "mason", label: "Mason" },
-  { value: "carpenter", label: "Carpenter" },
   { value: "plumber", label: "Plumber" },
-  { value: "roofer", label: "Roofer" },
-  { value: "painter", label: "Painter" },
   { value: "electrician", label: "Electrician" },
-  { value: "gardener", label: "Gardener" },
   { value: "hvac", label: "HVAC" },
+  { value: "locksmith", label: "Locksmith" },
+  { value: "handyman", label: "Handyman" },
+  { value: "appliance_repair", label: "Appliance Repair Technician" },
   { value: "tenant", label: "Tenant" },
+  { value: "owner", label: "Owner" },
 ];
 
 export const leftNavLinks: LeftNavLink[] = [
@@ -45,11 +42,11 @@ export const leftNavLinks: LeftNavLink[] = [
     label: "Apartments",
     imgLocation: "/assets/icons/apartments.svg",
   },
-  {
-    path: "/posts",
-    label: "Posts",
-    imgLocation: "/assets/icons/posts.svg",
-  },
+  // {
+  //   path: "/posts",
+  //   label: "Posts",
+  //   imgLocation: "/assets/icons/posts.svg",
+  // },
   {
     path: "/documents",
     label: "Documents",
@@ -72,19 +69,19 @@ export const leftNavLinks: LeftNavLink[] = [
     imgLocation: "/assets/icons/report-issue.svg",
   },
 
-  {
-    path: "/report/report-tenant",
-    label: "Report a Tenant",
-    imgLocation: "/assets/icons/report-tenant.svg",
-  },
-  {
-    path: "/posts/bookmark",
-    label: "Bookmarked Posts",
-    imgLocation: "/assets/icons/bookmark.svg",
-  },
-  {
-    path: "/posts/create-post",
-    label: "Create a Post....",
-    imgLocation: "/assets/icons/create-post.svg",
-  },
+  // {
+  //   path: "/report/report-tenant",
+  //   label: "Report a Tenant",
+  //   imgLocation: "/assets/icons/report-tenant.svg",
+  // },
+  // {
+  //   path: "/posts/bookmark",
+  //   label: "Bookmarked Posts",
+  //   imgLocation: "/assets/icons/bookmark.svg",
+  // },
+  // {
+  //   path: "/posts/create-post",
+  //   label: "Create a Post....",
+  //   imgLocation: "/assets/icons/create-post.svg",
+  // },
 ];

@@ -5,10 +5,19 @@ export const issueCreateSchema = z.object({
   title: z.string().trim().min(1, "An Issue must have a title"),
   description: z.string().min(1, "An Issue must have a description"),
   priority: z.enum(["low", "medium", "high"]),
-  status: z.enum(["reported", "resolved", "in_progress"]),
 });
 
 export type IssueCreateSchema = z.infer<typeof issueCreateSchema>;
+
+export const issueCreateWithApartmentSchema = z.object({
+  title: z.string().trim().min(1, "An Issue must have a title"),
+  description: z.string().min(1, "An Issue must have a description"),
+  priority: z.enum(["low", "medium", "high"]),
+});
+
+export type IssueCreateWithApartmentSchema = z.infer<
+  typeof issueCreateWithApartmentSchema
+>;
 
 export const issueUpdateSchema = z.object({
   status: z.enum(["reported", "resolved", "in_progress"]).optional(),

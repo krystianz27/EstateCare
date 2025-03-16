@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 "use client";
 import {
   useGetUserProfileQuery,
@@ -27,6 +28,7 @@ export default function EditProfileForm() {
   const router = useRouter();
 
   const profile = data?.profile;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [avatar, setAvatar] = useState<{ message: string } | null>(null);
   const [uploading, setUploading] = useState(false);
 
@@ -41,7 +43,29 @@ export default function EditProfileForm() {
 
   useEffect(() => {
     if (profile) {
-      reset({ ...profile });
+      const {
+        first_name,
+        last_name,
+        username,
+        gender,
+        bio,
+        country_of_origin,
+        city_of_origin,
+        occupations,
+        phone_number,
+      } = profile;
+      reset({
+        first_name,
+        last_name,
+        username,
+        gender,
+        bio,
+        country_of_origin,
+        city_of_origin,
+        occupations_input:
+          occupations?.map((occupation) => occupation.name) || [],
+        phone_number,
+      });
     }
   }, [profile, reset]);
 
@@ -76,7 +100,11 @@ export default function EditProfileForm() {
 
   const onSubmit = async (values: ProfileSchema) => {
     try {
-      await updateUserProfile(values).unwrap();
+      const updatedValues = {
+        ...values,
+        occupations_input: values.occupations_input?.join(", ") || "",
+      };
+      await updateUserProfile(updatedValues).unwrap();
       toast.success("Update Successful");
       router.push("/profile");
     } catch (error) {
@@ -119,6 +147,15 @@ export default function EditProfileForm() {
           register={register}
           errors={errors}
           placeholder="Last Name"
+          startIcon={<Contact2Icon className="dark:text-babyPowder size-8" />}
+        />
+
+        <FormFieldComponent
+          label="Phone Number"
+          name="phone_number"
+          register={register}
+          errors={errors}
+          placeholder="Phone Number"
           startIcon={<Contact2Icon className="dark:text-babyPowder size-8" />}
         />
 

@@ -58,7 +58,8 @@ export default function IssueUpdateForm({ params }: UpdateParamsProps) {
       toast.success("The Issue has been updated successfully.");
       reset();
       setSelectedUser(null);
-      router.push("/profile");
+      // router.push("/profile");
+      router.push(`/issue/${issueId}`);
     } catch (error) {
       toast.error(extractErrorMessage(error));
     }
@@ -89,6 +90,9 @@ export default function IssueUpdateForm({ params }: UpdateParamsProps) {
                 )}
                 isClearable
                 placeholder="Select status... (optional)"
+                onChange={(selectedOption) =>
+                  setValue("status", selectedOption?.value)
+                }
                 styles={customStyles}
               />
             )}

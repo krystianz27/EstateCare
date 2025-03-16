@@ -2,17 +2,8 @@ import * as z from "zod";
 
 export const profileSchema = z.object({
   gender: z.enum(["male", "female", "other"]),
-  occupation: z.enum([
-    "mason",
-    "carpenter",
-    "plumber",
-    "roofer",
-    "painter",
-    "electrician",
-    "gardener",
-    "hvac",
-    "tenant",
-  ]),
+
+  occupations_input: z.array(z.string()).optional(),
   country_of_origin: z.string().min(1, "Country of origin is required"),
   city_of_origin: z.string().min(1, "City of origin is required"),
   bio: z.string().optional(),

@@ -71,23 +71,34 @@ function AboutContent() {
           <ProfileItem
             icon={<Briefcase className="tab-icon" />}
             label="Occupation"
-            value={capitalizeFirstLetter(profile?.occupation || "")}
+            value={
+              profile?.occupations.length
+                ? profile.occupations
+                    .map((o) => capitalizeFirstLetter(o.name))
+                    .join(", ")
+                : ""
+            }
           />
+
           <ProfileItem
             icon={<Home className="tab-icon" />}
             label="Apartment"
-            value={profile?.apartment?.unit_number || "None"}
+            value={
+              profile?.apartment
+                ? ` ${profile.apartment.country}, ${profile.apartment.street} ${profile.apartment.building_number || "None"}`
+                : "None"
+            }
           />
-          <ProfileItem
+          {/* <ProfileItem
             icon={<Hotel className="tab-icon" />}
             label="Building"
-            value={`${profile?.apartment?.building || "None"}, Floor: ${profile?.apartment?.floor || "None"}`}
-          />
-          <ProfileItem
+            value={`${profile?.apartment?.building || "None"} `}
+          /> */}
+          {/* <ProfileItem
             icon={<Star className="tab-icon" />}
             label="Average Rating"
             value={profile?.average_rating?.toString() || ""}
-          />
+          /> */}
 
           <div className="prose max-w-none">
             <p>

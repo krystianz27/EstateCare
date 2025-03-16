@@ -16,22 +16,33 @@ def get_user_username(instance: "Profile") -> str:
     return instance.user.username
 
 
+class Occupation(TimeStampedModel):
+    class OccupationChoices(models.TextChoices):
+        PLUMBER = "plumber", _("Plumber")
+        ELECTRICIAN = "electrician", _("Electrician")
+        HVAC = "hvac", _("HVAC")
+        LOCKSMITH = "locksmith", _("Locksmith")
+        HANDYMAN = "handyman", _("Handyman")
+        APPLIANCE_REPAIR = "appliance_repair", _("Appliance Repair Technician")
+        TENANT = "tenant", _("Tenant")
+        OWNER = "owner", _("Owner")
+
+    name = models.CharField(
+        max_length=20,
+        choices=OccupationChoices.choices,
+        unique=True,
+        default=OccupationChoices.TENANT,
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class Profile(TimeStampedModel):
     class Gender(models.TextChoices):
         MALE = ("male", _("Male"))
         FEMALE = ("female", _("Female"))
         OTHER = ("other", _("Other"))
-
-    class Occupation(models.TextChoices):
-        Mason = ("mason", _("Masson"))
-        Carpenter = ("carpenter", _("Carpenter"))
-        Plumber = ("plumber", _("Plumber"))
-        Roofer = ("roofer", _("Roofer"))
-        Painter = ("painter", _("Painter"))
-        Electrician = ("electrician", _("Electrician"))
-        Gardener = ("gardener", _("Gardener"))
-        HVAC = ("hvac", _("HVAC"))
-        TENANT = ("tenant", _("Tenant"))
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     avatar = CloudinaryField(verbose_name=_("Avatar"), blank=True, null=True)
@@ -42,11 +53,10 @@ class Profile(TimeStampedModel):
         default=Gender.OTHER,
     )
     bio = models.TextField(verbose_name=_("Bio"), blank=True, null=True)
-    occupation = models.CharField(
-        verbose_name=_("Occupation"),
-        max_length=20,
-        choices=Occupation.choices,
-        default=Occupation.TENANT,
+    occupations = models.ManyToManyField(
+        Occupation,
+        verbose_name=_("Occupations"),
+        blank=True,
     )
     phone_number = PhoneNumberField(
         verbose_name=_("Phone Number"), max_length=30, blank=True, null=True

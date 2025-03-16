@@ -14,6 +14,7 @@ export function useAuthNavigation() {
 
   const handleLogout = async () => {
     try {
+      localStorage.removeItem("role");
       await logoutUser().unwrap();
       dispatch(setLogout());
       router.push("/login");

@@ -1,6 +1,7 @@
 import { occupationOptions } from "@/constant";
 import { useGetUserProfileQuery } from "@/lib/redux/features/users/usersApiSlice";
 import { ProfileSchema } from "@/lib/validation";
+import { Occupation } from "@/types";
 import { Briefcase } from "lucide-react";
 import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
@@ -13,6 +14,10 @@ const ClientOnly = dynamic<{ children: React.ReactNode }>(
   { ssr: false },
 );
 
+function isOccupation(value: unknown): value is Occupation {
+  return occupationOptions.some((option) => option.value === value);
+}
+
 interface OccupationSelectFieldProps {
   setValue: UseFormSetValue<ProfileSchema>;
   control: Control<ProfileSchema>;
@@ -23,23 +28,24 @@ export default function OccupationSelectField({
   control,
 }: OccupationSelectFieldProps) {
   const { data } = useGetUserProfileQuery();
+
   const profile = data?.profile;
 
   useEffect(() => {
-    if (profile?.occupations) {
-      const occupations = profile.occupations.map(
-        (occupation) => occupation.name,
+    if (profile?.occupation) {
+      const occupationValue = occupationOptions.find(
+        (option) => option.value === profile.occupation,
       );
-      setValue("occupations_input", occupations);
+
+      if (occupationValue && isOccupation(occupationValue.value)) {
+        setValue("occupation", occupationValue.value);
+      }
     }
   }, [profile, setValue]);
 
   return (
     <div>
-      <label
-        htmlFor="occupations_input"
-        className="h4-semibold dark:text-babyPowder"
-      >
+      <label htmlFor="occupation" className="h4-semibold dark:text-babyPowder">
         Occupation
       </label>
       <div className="mt-1 flex items-center space-x-3">
@@ -47,22 +53,16 @@ export default function OccupationSelectField({
         <ClientOnly>
           <Controller
             control={control}
-            name="occupations_input"
+            name="occupation"
             render={({ field }) => (
               <Select
-                isMulti
                 className="mt-1 w-full"
                 {...field}
                 options={occupationOptions}
-                value={occupationOptions.filter((option) =>
-                  field.value?.includes(option.value),
+                value={occupationOptions.find(
+                  (option) => option.value === field.value,
                 )}
-                onChange={(selectedOptions) => {
-                  const selectedValues = selectedOptions.map(
-                    (option) => option.value,
-                  );
-                  setValue("occupations_input", selectedValues);
-                }}
+                onChange={(option) => field.onChange(option?.value)}
                 instanceId="occupation-select"
                 styles={customStyles}
               />

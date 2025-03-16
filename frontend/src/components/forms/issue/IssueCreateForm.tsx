@@ -13,10 +13,11 @@ import { toast } from "react-toastify";
 import { FormFieldComponent } from "../FormFieldComponent";
 import { FlagIcon } from "lucide-react";
 import Select from "react-select";
-import { priorityOptions, statusOptions } from "@/constant";
+import { priorityOptions } from "@/constant";
 import customStyles from "../selectStyles";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/shared/Spinner";
+import { ReportIssueData } from "@/types";
 
 const ClientOnly = dynamic<{ children: React.ReactNode }>(
   () => Promise.resolve(({ children }) => <>{children}</>),
@@ -49,7 +50,12 @@ export default function IssueCreateForm() {
 
   const onSubmit = async (formValues: IssueCreateSchema) => {
     try {
-      await reportIssue(formValues).unwrap();
+      const valuesToSend: ReportIssueData = {
+        ...formValues,
+        status: "reported",
+      };
+
+      await reportIssue(valuesToSend).unwrap();
       toast.success(
         "Your issue has been reported. A confirmation email has been sent to you.",
       );
@@ -109,7 +115,6 @@ export default function IssueCreateForm() {
           register={register}
           errors={errors}
           placeholder="Issue Title"
-          // startIcon={<FlagIcon className="dark:text-babyPowder size-8" />}
         />
         <FormFieldComponent
           label="Description"
@@ -120,37 +125,6 @@ export default function IssueCreateForm() {
           isTextArea
           startIcon={<FlagIcon className="dark:text-babyPowder size-8" />}
         />
-        <div>
-          <label htmlFor="status" className="h4-semibold dark:text-babyPowder">
-            Status
-          </label>
-          <div className="mt-1 flex items-center space-x-3 text-sm">
-            <ClientOnly>
-              <Controller
-                name="status"
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <Select
-                    className="mt-1 w-full"
-                    options={statusOptions}
-                    value={statusOptions.find(
-                      (option) => option.value === value,
-                    )}
-                    onChange={(val) => onChange(val?.value)}
-                    onBlur={onBlur}
-                    placeholder="Select Reported if you are reportign an issue"
-                    instanceId="status-select"
-                    styles={customStyles}
-                  />
-                )}
-              />
-            </ClientOnly>
-          </div>
-          {errors.status && (
-            <p className="mt-2 text-sm text-red-500">{errors.status.message}</p>
-          )}
-        </div>
-
         <div>
           <label
             htmlFor="priority"

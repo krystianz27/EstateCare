@@ -1,12 +1,11 @@
 import logging
 from typing import Any, Type
 
-# from django.db.models.base import Model
-from django.db.models.signals import post_save
+from config.settings.base import AUTH_USER_MODEL
+from django.db.models.signals import post_migrate, post_save
 from django.dispatch import receiver
 
-from config.settings.base import AUTH_USER_MODEL
-from core_apps.profiles.models import Profile
+from core_apps.profiles.models import Occupation, Profile
 from core_apps.users.models import User
 
 logger = logging.getLogger(__name__)
@@ -23,3 +22,13 @@ def create__user_profile(
         )
     else:
         logger.info(f"Profile already exists for user {instance.first_name}")
+
+
+@receiver(post_migrate)
+def populate_occupations(sender, **kwargs):
+    if sender.name == "core_apps.profiles":  # Only populate if the app is installed
+        for choice in Occupation.OccupationChoices.choices:
+            name = choice[0]
+            if not Occupation.objects.filter(name=name).exists():
+                Occupation.objects.create(name=name)
+                logger.info(f"Occupation {name} created.")

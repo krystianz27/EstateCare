@@ -21,6 +21,8 @@ export default function LoginForm() {
   const redirectUrl = searchParams.get("redirect") || "/profile";
   const dispatch = useAppDispatch();
 
+  const role = "owner";
+
   const {
     register,
     handleSubmit,
@@ -37,11 +39,15 @@ export default function LoginForm() {
 
   const onSubmit = async (values: LoginUserSchema) => {
     try {
-      await loginUser(values).unwrap();
-      dispatch(setAuth());
-      toast.success("Login Successful");
-      router.replace(redirectUrl);
-      reset();
+      const response = await loginUser(values).unwrap();
+      if (response) {
+        console.log("Role:", role);
+        dispatch(setAuth({ role }));
+        localStorage.setItem("role", role);
+        toast.success("Login Successful");
+        router.replace(redirectUrl);
+        reset();
+      }
     } catch (error) {
       const errorMessage = extractErrorMessage(error);
       toast.error(errorMessage || "An error occurred");

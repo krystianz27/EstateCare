@@ -69,7 +69,6 @@ function TenantCardContent() {
           data.profiles.results.map((tenant: Tenant) => (
             <Card key={tenant.id}>
               <CardContent className="rounded-lg p-4">
-                {/* Sekcja użytkownika */}
                 <CardHeader className="flex-col-center text-center">
                   <Avatar className="border-pumpkin mx-auto size-28 overflow-hidden rounded-full border-4 object-cover">
                     <AvatarImage
@@ -91,12 +90,8 @@ function TenantCardContent() {
                     @{tenant.username}
                   </p>
                 </CardTitle>
-
-                <div className="mt-4">
-                  <h3 className="text-lg font-semibold dark:text-lime-500">
-                    User Information
-                  </h3>
-                  <div className="space-y-2">
+                <CardDescription className="mt-4 space-y-2 border-b-0">
+                  <div>
                     <TenantInfo
                       label="Country"
                       value={tenant.country_of_origin}
@@ -113,18 +108,8 @@ function TenantCardContent() {
                       icon={CalendarDays}
                     />
                   </div>
-                </div>
-
-                {tenant.apartment && (
-                  <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
-                )}
-
-                {tenant.apartment && (
-                  <div>
-                    <h3 className="text-lg font-semibold dark:text-lime-500">
-                      Apartment Details
-                    </h3>
-                    <div className="space-y-2">
+                  {tenant.apartment && (
+                    <>
                       <TenantInfo
                         label="Street"
                         value={tenant.apartment.street}
@@ -155,9 +140,9 @@ function TenantCardContent() {
                         value={tenant.apartment.country}
                         icon={Map}
                       />
-                    </div>
-                  </div>
-                )}
+                    </>
+                  )}
+                </CardDescription>
               </CardContent>
             </Card>
           ))
@@ -165,7 +150,6 @@ function TenantCardContent() {
           <p>No tenants found</p>
         )}
       </div>
-
       <PaginationLocal totalPages={totalPages} currentPage={currentPage} />
     </div>
   );

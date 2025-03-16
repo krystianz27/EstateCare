@@ -7,12 +7,14 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from core_apps.apartments.models import Apartment
 from core_apps.common.renderers import GenericJSONRenderer
 
-from .models import Profile
+from .models import Occupation, Profile
 from .serializers import (
     AvatarUploadSerializer,
     ProfileSerializer,
+    TenantSerializer,
     UpdateProfileSerializer,
 )
 from .tasks import upload_avatar_to_cloudinary
@@ -99,6 +101,28 @@ class AvatarUploadView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class TenantListAPIView(generics.ListAPIView):
+    serializer_class = TenantSerializer
+    renderer_classes = [GenericJSONRenderer]
+    pagination_class = StandardResultsSetPagination
+    object_label = "profiles"
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ["user__username", "user__first_name", "user__last_name"]
+    filter_fields = ["occupation", "gender", "country_of_origin"]
+
+    def get_queryset(  # type: ignore
+        self,
+    ) -> QuerySet[Profile]:
+        owned_apartments = Apartment.objects.filter(owner=self.request.user)
+        tenants = User.objects.filter(rented_apartments__in=owned_apartments)
+
+        return (
+            Profile.objects.filter(user__in=tenants)
+            .exclude(user__is_staff=True)
+            .exclude(user__is_superuser=True)
+        )
+
+
 class NonTenantProfileListAPIView(generics.ListAPIView):
     serializer_class = ProfileSerializer
     renderer_classes = [GenericJSONRenderer]
@@ -112,5 +136,5 @@ class NonTenantProfileListAPIView(generics.ListAPIView):
         return (
             Profile.objects.exclude(user__is_staff=True)
             .exclude(user__is_superuser=True)
-            .exclude(occupation=Profile.Occupation.TENANT)
+            .exclude(occupation=Occupation.OccupationChoices.TENANT)
         )

@@ -15,13 +15,17 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const handleAuthState = async () => {
       const isLoggedIn = getCookie("logged_in") === "true";
+      const savedRole = localStorage.getItem("role");
 
       if (!isLoggedIn) {
         dispatch(setLogout());
+        localStorage.removeItem("role");
         router.push(`/login?redirect=${encodeURIComponent(pathname)}`);
         // return;
       } else {
-        dispatch(setAuth());
+        const validRole =
+          savedRole === "owner" || savedRole === "tenant" ? savedRole : null;
+        dispatch(setAuth({ role: validRole }));
         setIsLoading(false);
       }
     };

@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useGetApartmentMessagesQuery } from "@/lib/redux/features/chat/chatApiSlice";
-import { useGetUserQuery } from "@/lib/redux/features/auth/authApiSlice";
-import { ApartmentMessage } from "@/types";
+// import { useGetUserQuery } from "@/lib/redux/features/auth/authApiSlice";
+import { ApartmentMessage, UserResponse } from "@/types";
 import { useTheme } from "next-themes";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Spinner from "@/components/shared/Spinner";
@@ -13,9 +13,13 @@ import { MessageCircleMore, X } from "lucide-react";
 
 interface ChatWindowProps {
   apartmentId: string;
+  currentUser?: UserResponse;
 }
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ apartmentId }) => {
+const ChatWindow: React.FC<ChatWindowProps> = ({
+  apartmentId,
+  currentUser,
+}) => {
   const [isChatVisible, setIsChatVisible] = useState(true);
   const [page, setPage] = useState(1);
   const { data, isLoading, isError } = useGetApartmentMessagesQuery({
@@ -23,8 +27,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ apartmentId }) => {
     page,
   });
 
-  const { data: userData } = useGetUserQuery();
-  const userId = userData?.id;
+  // const { data: userData } = useGetUserQuery();
+  const userId = currentUser?.id;
 
   const { theme } = useTheme();
   const messagesEndRef = useRef<HTMLDivElement>(null);

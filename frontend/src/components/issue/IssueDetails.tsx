@@ -21,6 +21,7 @@ import { AuthFormHeader } from "../forms/auth";
 import { CheckCheck, CircleDot, EyeIcon, Hotel } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { statusOptions } from "@/constant";
 
 interface IssueDetailsProps {
   params: {
@@ -140,7 +141,10 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
         </p>
         <p className="text-lg">
           Status:&nbsp;
-          <span className="dark:text-platinum">{issue.status}</span>
+          <span className="dark:text-platinum">
+            {statusOptions.find((option) => option.value === issue.status)
+              ?.label || issue.status}
+          </span>
         </p>
         <p className="text-lg">
           Priority:&nbsp;

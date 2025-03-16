@@ -31,8 +31,8 @@ function ProfilePageContent() {
             defaultValue="about"
           >
             <TabsList
-              className="mb-6 grid min-h-40 grid-cols-2 gap-4 rounded-lg bg-slate-200 px-4  py-3 
-              max-md:min-h-48 sm:gap-6 md:grid-cols-2 md:gap-4 dark:border-slate-900 dark:bg-zinc-900"
+              className="max-md:min-h-30 mb-6 grid min-h-40 grid-cols-2 gap-4 rounded-lg bg-slate-200  px-4 
+              py-3 sm:gap-6 md:grid-cols-2 md:gap-4 dark:border-slate-900 dark:bg-zinc-900"
             >
               <TabsTrigger
                 value="about"
@@ -40,12 +40,12 @@ function ProfilePageContent() {
               >
                 About
               </TabsTrigger>
-              <TabsTrigger
+              {/* <TabsTrigger
                 value="posts"
                 className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
               >
                 My Posts
-              </TabsTrigger>
+              </TabsTrigger> */}
               <TabsTrigger
                 value="my-apartments"
                 className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
@@ -58,12 +58,12 @@ function ProfilePageContent() {
               >
                 My Issues
               </TabsTrigger>
-              <TabsTrigger
+              {/* <TabsTrigger
                 value="my-reports"
                 className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
               >
                 My Reports
-              </TabsTrigger>
+              </TabsTrigger> */}
               <TabsTrigger
                 value="assigned-issues"
                 className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
@@ -74,10 +74,10 @@ function ProfilePageContent() {
 
             <div className="mt-20">
               <About />
-              <Posts />
+              {/* <Posts /> */}
               <Apartments />
               <Issues />
-              <Reports />
+              {/* <Reports /> */}
               <IssuesAsigned />
             </div>
           </Tabs>
