@@ -15,7 +15,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const handleAuthState = async () => {
       const isLoggedIn = getCookie("logged_in") === "true";
-      const savedRole = localStorage.getItem("role");
+      const savedRole = localStorage.getItem("role") || null;
 
       if (!isLoggedIn) {
         dispatch(setLogout());

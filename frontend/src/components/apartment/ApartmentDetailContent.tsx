@@ -3,12 +3,13 @@
 import React from "react";
 import { useGetApartmentByIdQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
 import { Button } from "../ui/button";
+import Link from "next/link";
 import Spinner from "../shared/Spinner";
 import IssueList from "@/components/issue/IssuesList";
 import ManageTenants from "./ManageTenants";
-import Link from "next/link";
 import TenantsSection from "./TenantsSection";
 import { UserResponse } from "@/types";
+import ActiveRentalContracts from "../rental-contract/ActiveRentalContracts";
 
 interface ApartmentDetailContentProps {
   apartmentId: string;
@@ -64,14 +65,38 @@ const ApartmentDetailContent: React.FC<ApartmentDetailContentProps> = ({
         </p>
       </section>
       <TenantsSection tenants={apartment.tenants || []} />
-      <Link
-        href={`/apartment/report-issue?apartmentId=${apartmentId}`}
-        passHref
-      >
-        <Button className="bg-red-500 text-white">Report Issue</Button>
-      </Link>
+
+      <div className="space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
+        <div className="w-full sm:w-auto">
+          <Link
+            href={`/apartment/report-issue?apartmentId=${apartmentId}`}
+            passHref
+          >
+            <Button className="w-full bg-red-500 text-white sm:w-auto">
+              Report Issue
+            </Button>
+          </Link>
+        </div>
+
+        {isOwner && (
+          <div className="w-full sm:w-auto">
+            <Link
+              href={`/rentalcontracts/add?apartment_id=${apartmentId}`}
+              passHref
+            >
+              <Button className="w-full bg-blue-500 text-white sm:w-auto">
+                Add Rental Contract
+              </Button>
+            </Link>
+          </div>
+        )}
+      </div>
+
       <IssueList issues={apartment.issues} />
-      {isOwner && <ManageTenants apartmentId={apartment.id} />}{" "}
+
+      {isOwner && <ActiveRentalContracts apartmentId={apartment.id} />}
+
+      {isOwner && <ManageTenants apartmentId={apartment.id} />}
     </div>
   );
 };

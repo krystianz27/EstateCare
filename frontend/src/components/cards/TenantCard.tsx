@@ -9,7 +9,7 @@ import UserSearch from "../shared/search/UsersSearch";
 import {
   Card,
   CardContent,
-  CardDescription,
+  // CardDescription,
   CardHeader,
   CardTitle,
 } from "../ui/card";
@@ -21,9 +21,9 @@ import {
   Home,
   Mailbox,
   Landmark,
-  Briefcase,
-  Building,
-  School,
+  // Briefcase,
+  // Building,
+  // School,
 } from "lucide-react";
 
 import { formatDate } from "@/utils";
@@ -69,7 +69,6 @@ function TenantCardContent() {
           data.profiles.results.map((tenant: Tenant) => (
             <Card key={tenant.id}>
               <CardContent className="rounded-lg p-4">
-                {/* Sekcja użytkownika */}
                 <CardHeader className="flex-col-center text-center">
                   <Avatar className="border-pumpkin mx-auto size-28 overflow-hidden rounded-full border-4 object-cover">
                     <AvatarImage

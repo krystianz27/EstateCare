@@ -45,14 +45,18 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
 
     getAllTechnicians: builder.query<NonTenantResponse, QueryParams>({
       query: (params = {}) => {
-        const queryString = new URLSearchParams();
+        // const queryString = new URLSearchParams();
 
-        if (params.searchTerm) {
-          queryString.append("search", params.searchTerm);
-        } else if (params.page) {
-          queryString.append("page", params.page.toString());
-        }
-        return `/profiles/non-tenant-profiles/?${queryString.toString()}`;
+        // if (params.searchTerm) {
+        //   queryString.append("search", params.searchTerm);
+        // } else if (params.page) {
+        //   queryString.append("page", params.page.toString());
+        // }
+        const queryParams = new URLSearchParams();
+        if (params.searchTerm) queryParams.append("search", params.searchTerm);
+        if (params.city) queryParams.append("city_of_origin", params.city);
+        if (params.page) queryParams.append("page", params.page.toString());
+        return `/profiles/non-tenant-profiles/?${queryParams.toString()}`;
       },
       providesTags: ["User"],
     }),

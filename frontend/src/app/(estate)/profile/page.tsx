@@ -6,12 +6,12 @@ import type { Metadata } from "next";
 import Header from "@/components/profile/Header";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import About from "@/components/profile/AboutContent";
-import Posts from "@/components/profile/Posts";
+// import Posts from "@/components/profile/Posts";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Issues from "@/components/issue/Issues";
 import IssuesAsigned from "@/components/issue/IssuesAsigned";
-import Reports from "@/components/profile/Reports";
+// import Reports from "@/components/profile/Reports";
 import Apartments from "@/components/apartment/Apartments";
 
 export const metadata: Metadata = {
@@ -56,7 +56,7 @@ function ProfilePageContent() {
                 value="my-issues"
                 className="h3-semibold tab w-full rounded-lg px-6 py-2 text-center"
               >
-                My Issues
+                Reported Issues
               </TabsTrigger>
               {/* <TabsTrigger
                 value="my-reports"

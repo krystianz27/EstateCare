@@ -12,3 +12,4 @@ export * from "./tag";
 export * from "./user";
 export * from "./document";
 export * from "./chat";
+export * from "./rental-contract";

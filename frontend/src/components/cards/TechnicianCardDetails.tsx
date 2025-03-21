@@ -2,7 +2,8 @@ import { capitalizeFirstLetter, formatDate } from "@/utils";
 import { Briefcase, CalendarDays, Map, Star } from "lucide-react";
 
 interface TechnicianCardDetailsProps {
-  country_of_origin: string;
+  country_of_origin?: string;
+  city_of_origin?: string;
   occupation: string;
   date_joined: string;
   average_rating: number;
@@ -17,7 +18,7 @@ function RatingStars({ rating }: { rating: number }) {
         return (
           <Star
             key={index}
-            className={`fill-current text-pumpkin ${!fullStar && halfStar ? "fill-opacity-50" : ""}`}
+            className={`text-pumpkin fill-current ${!fullStar && halfStar ? "fill-opacity-50" : ""}`}
           />
         );
       })}
@@ -27,6 +28,7 @@ function RatingStars({ rating }: { rating: number }) {
 
 export default function TechnicianCardDetails({
   country_of_origin,
+  city_of_origin,
   occupation,
   date_joined,
   average_rating,
@@ -37,6 +39,11 @@ export default function TechnicianCardDetails({
         <Map className="card-icon" />
         <span className="tab-font">Country: </span>
         <span className="tab-font">{country_of_origin}</span>
+      </p>
+      <p className="flex items-center space-x-2">
+        <Map className="card-icon" />
+        <span className="tab-font">Country: </span>
+        <span className="tab-font">{city_of_origin}</span>
       </p>
 
       <p className="flex items-center space-x-2">

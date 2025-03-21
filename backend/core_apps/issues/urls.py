@@ -8,12 +8,14 @@ from .views import (
     IssueListAPIView,
     IssueUpdateAPIView,
     MyIssuesListAPIView,
+    UserRelatedIssuesListAPIView,
 )
 
 urlpatterns = [
     path("", IssueListAPIView.as_view(), name="issue-list"),
     path("me/", MyIssuesListAPIView.as_view(), name="my-issue-list"),
     path("assigned/", AssignedIssuesListView.as_view(), name="assigned-issues"),
+    path("related/", UserRelatedIssuesListAPIView.as_view(), name="related-issues"),
     # path(
     #     "create/<uuid:apartment_id>/", IssueCreateAPIView.as_view(), name="create-issue"
     # ),

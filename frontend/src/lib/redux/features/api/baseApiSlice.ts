@@ -24,7 +24,10 @@ const baseQueryWithReauth: BaseQueryFn<
 
   let response = await baseQuery(args, api, extraOptions);
 
-  if (response.error && response.error.status === 401) {
+  if (
+    response.error &&
+    (response.error.status === 401 || response.error.status === 400)
+  ) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       try {
@@ -37,11 +40,16 @@ const baseQueryWithReauth: BaseQueryFn<
           extraOptions,
         );
 
-        if (refreshResponse?.data) {
-          api.dispatch(setAuth());
-          response = await baseQuery(args, api, extraOptions);
-        } else {
+        if (
+          refreshResponse?.error &&
+          (response.error.status === 401 || response.error.status === 400)
+        ) {
           api.dispatch(setLogout());
+          document.cookie = "logged_in=; path=/; max-age=0";
+          window.location.href = "/login";
+        } else if (refreshResponse?.data) {
+          api.dispatch(setAuth({ role: "owner" }));
+          response = await baseQuery(args, api, extraOptions);
         }
       } finally {
         release();
@@ -66,8 +74,10 @@ export const baseApiSlice = createApi({
     "Document",
     "PrivateMessage",
     "ApartmentMessage",
+    "RentalContract",
   ],
   refetchOnFocus: true,
   refetchOnMountOrArgChange: true,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   endpoints: (builder) => ({}),
 });

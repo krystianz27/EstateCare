@@ -24,17 +24,15 @@ export default function TechnicianCard() {
   const searchParams = useSearchParams();
 
   const [searchTechnicianTerm, setTechnicianSearchTerm] = useState<string>("");
-  const [cityFilter, setCityFilter] = useState<string>("");
 
   const currentPage = Number(searchParams.get("page")) || 1;
 
   const { data, isLoading } = useGetAllTechniciansQuery({
     searchTerm: searchTechnicianTerm,
-    city: cityFilter, // Nowy parametr
     page: currentPage,
   });
-
   const technicians = data?.non_tenant_profiles?.results || [];
+
   const totalCount = data?.non_tenant_profiles.count || 1;
   const totalPages = Math.ceil(totalCount / 10);
 
@@ -51,9 +49,8 @@ export default function TechnicianCard() {
       <div>
         <UsersSearch
           setSearchTerm={setTechnicianSearchTerm}
-          setCityFilter={setCityFilter}
           placeholder="Search by username, first, last name or city"
-        />
+        />{" "}
         <h1 className="flex-center font-robotoSlab dark:text-pumpkin text-5xl">
           All Technicians - (0)
         </h1>
@@ -66,9 +63,9 @@ export default function TechnicianCard() {
     <div>
       <UsersSearch
         setSearchTerm={setTechnicianSearchTerm}
-        setCityFilter={setCityFilter}
         placeholder="Search by username, first, last name or city"
-      />
+      />{" "}
+      {/* Przekazywanie funkcji do zmiany stanu */}
       <h1 className="flex-center font-robotoSlab dark:text-pumpkin text-5xl">
         All Technicians - ({totalCount})
       </h1>
@@ -91,15 +88,18 @@ export default function TechnicianCard() {
                     height={100}
                   />
                 </Avatar>
+
                 <CardTitle className="flex-center h2-semibold font-robotoSlab dark:text-pumpkin">
                   {technician.full_name}
                 </CardTitle>
               </CardHeader>
+
               <CardTitle className="flex-center">
                 <p className="h4-semibold dark:text-lime-500">
                   @{technician.username}
                 </p>
               </CardTitle>
+
               <CardDescription className="mt-2 grid">
                 <TechnicianCardDetails
                   country_of_origin={technician.country_of_origin}
@@ -113,6 +113,7 @@ export default function TechnicianCard() {
                   average_rating={technician.average_rating}
                 />
               </CardDescription>
+
               <div className="flex-center">
                 <Link
                   href={`/technicians/create-rating?username=${technician.username}`}

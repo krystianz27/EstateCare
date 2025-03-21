@@ -35,15 +35,15 @@ export default function AuthAvatar() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="cursor-pointer border-2 border-pumpkin">
+        <Avatar className="border-pumpkin cursor-pointer border-2">
           <AvatarImage alt="auth image" src={profile.avatar} />
           <AvatarFallback>
-            <CircleUser className="size-8 dark:text-platinum" />
+            <CircleUser className="dark:text-platinum size-8" />
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="bg-white/90 dark:bg-black/85 dark:text-platinum">
+      <DropdownMenuContent className="dark:text-platinum bg-white/90 dark:bg-black/85">
         <DropdownMenuLabel className="border-b-2">
           Manage Account
         </DropdownMenuLabel>
@@ -61,21 +61,29 @@ export default function AuthAvatar() {
 
         <DropdownMenuItem
           onClick={() => {
+            router.push("/apartment");
+          }}
+          className="auth-nav"
+        >
+          <Users className="mr-1" /> Apartments
+        </DropdownMenuItem>
+        {/* <DropdownMenuItem
+          onClick={() => {
             router.push("/tenants");
           }}
           className="auth-nav"
         >
           <Users className="mr-1" /> Tenants
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
 
-        <DropdownMenuItem
+        {/* <DropdownMenuItem
           onClick={() => {
             router.push("/bookmarks");
           }}
           className="auth-nav"
         >
           <BookMarked className="mr-1" /> My Bookmarks
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
 
         <DropdownMenuItem
           onClick={handleLogout}

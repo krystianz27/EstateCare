@@ -162,7 +162,7 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
         {canUpdate && (
           <Link href={`/issue/update-issue/${id}`} className="w-full">
             <Button
-              className="bg-electricIndigo text-babyPowder dark:bg-electricIndigo dark:text-babyPowder h-10 w-full"
+              className="text-babyPowder dark:text-babyPowder h-10 w-full bg-blue-600 dark:bg-blue-600"
               size="sm"
               variant="outline"
             >

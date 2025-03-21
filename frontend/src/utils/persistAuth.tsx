@@ -12,7 +12,7 @@ export default function PersistAuth() {
     const isLoggedIn = getCookie("logged_in") === "true";
 
     if (isLoggedIn) {
-      dispatch(setAuth());
+      dispatch(setAuth({ role: "owner" }));
     } else {
       dispatch(setLogout());
     }

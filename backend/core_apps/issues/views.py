@@ -3,12 +3,14 @@ import logging
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.utils import timezone
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.exceptions import PermissionDenied, ValidationError
 
 from core_apps.apartments.models import Apartment
 from core_apps.common.models import ContentView
 from core_apps.common.renderers import GenericJSONRenderer
+from core_apps.issues.filters import IssueFilter
 from core_apps.issues.permissions import (
     IsAssignedUserOrTenantOrOwner,
     IsReportedByUserOrAssignedUserOrIsTenant,
@@ -43,11 +45,34 @@ class AssignedIssuesListView(generics.ListAPIView):
 class MyIssuesListAPIView(generics.ListAPIView):
     queryset = Issue.objects.all()
     serializer_class = IssueSerializer
-    renderer_classes = [GenericJSONRenderer]
     object_label = "my_issues"
+    renderer_classes = [GenericJSONRenderer]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["status"]
 
     def get_queryset(self):  # type: ignore
         return Issue.objects.filter(reported_by=self.request.user)
+
+
+class UserRelatedIssuesListAPIView(generics.ListAPIView):
+    serializer_class = IssueSerializer
+    object_label = "my_issues"
+    renderer_classes = [GenericJSONRenderer]
+    filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["status"]
+    filterset_class = IssueFilter
+
+    def get_queryset(self):  # type: ignore
+        user = self.request.user
+        user_apartments = Apartment.objects.filter(
+            owner=user
+        ) | Apartment.objects.filter(tenants=user)
+
+        filters = Q(reported_by=user) | Q(assigned_to=user)
+        if user_apartments.exists():
+            filters |= Q(apartment__in=user_apartments)
+
+        return Issue.objects.filter(filters).distinct()
 
 
 class IssueCreateAPIView(generics.CreateAPIView):

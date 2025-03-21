@@ -46,10 +46,6 @@ export interface IssueResponse {
   issue: Issue;
 }
 
-// export interface IssueStatusData {
-//   status: string;
-// }
-
 export interface UpdateIssueData {
   issueId: string;
   status?: string;

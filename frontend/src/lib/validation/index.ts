@@ -66,3 +66,13 @@ export {
   documentRevokeShareSchema,
   type DocumentRevokeShareSchema,
 } from "./documentSchema";
+
+export {
+  rentalContractCreateSchema,
+  type RentalContractCreateSchema,
+} from "./rentalContractSchema";
+
+export {
+  rentalContractUpdateSchema,
+  type RentalContractUpdateSchema,
+} from "./rentalContractSchema";

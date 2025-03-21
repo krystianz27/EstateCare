@@ -1,5 +1,6 @@
 import logging
 
+from config.settings.local import DEFAULT_FROM_EMAIL, SITE_NAME
 from django.contrib.auth import get_user_model
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
@@ -7,7 +8,6 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 
-from config.settings.local import DEFAULT_FROM_EMAIL, SITE_NAME
 from core_apps.apartments.models import Apartment
 from core_apps.common.models import TimeStampedModel
 
@@ -86,7 +86,7 @@ class Issue(TimeStampedModel):
         try:
             subject = f"New Issue Assigned: {self.title}"
             from_email = DEFAULT_FROM_EMAIL
-            recipient_list = [self.assigned_to.email]
+            recipient_list = [self.assigned_to.email]  # type: ignore
 
             context = {"issue": self, "site_name": SITE_NAME}
 

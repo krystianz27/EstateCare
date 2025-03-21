@@ -62,7 +62,7 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
           </CardDescription>
         </CardContent>
 
-        <CardFooter className="dark:text-babyPowder flex flex-row justify-between">
+        <CardFooter className="dark:text-babyPowder flex flex-col items-start justify-between">
           <div>
             <span className="mr-0.5 font-bold">Owner: </span>
             <span className="text-lg">

@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from core_apps.issues.models import Issue
 
@@ -18,6 +19,23 @@ class IssueForApartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Issue
         fields = ["id", "title", "description", "status", "priority", "resolved_on"]
+
+
+class ApartmentForRentalContractSerializer(serializers.ModelSerializer):
+    owner = UserSerializer(required=False, read_only=True)
+
+    class Meta:
+        model = Apartment
+        fields = [
+            "id",
+            "street",
+            "building_number",
+            "apartment_number",
+            "city",
+            "postal_code",
+            "country",
+            "owner",
+        ]
 
 
 class ApartmentSerializer(serializers.ModelSerializer):
@@ -61,7 +79,8 @@ class AddDeleteTenantSerializer(serializers.ModelSerializer):
 
 
 class RentalContractSerializer(serializers.ModelSerializer):
-    apartment = ApartmentSerializer(required=False, read_only=True)
+    apartment = ApartmentForRentalContractSerializer(required=False, read_only=True)
+    apartment_id = serializers.UUIDField(write_only=True)
     owner = UserSerializer(required=False, read_only=True)
 
     class Meta:
@@ -69,6 +88,7 @@ class RentalContractSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "apartment",
+            "apartment_id",
             "owner",
             "tenant",
             "start_date",
@@ -77,4 +97,16 @@ class RentalContractSerializer(serializers.ModelSerializer):
             "deposit",
             "status",
         ]
-        read_only_fields = ["id", "owner"]
+        read_only_fields = ["id", "apartment", "owner"]
+
+    def to_internal_value(self, data):
+        if "apartment_id" in data:
+            try:
+                apartment = Apartment.objects.get(id=data["apartment_id"])
+                data["apartment_id"] = apartment.pkid
+            except Apartment.DoesNotExist:
+                raise ValidationError(
+                    {"apartment": "Apartment with this UUID does not exist."}
+                )
+
+        return super().to_internal_value(data)

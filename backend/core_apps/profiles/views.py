@@ -35,7 +35,7 @@ class ProfileListAPIView(generics.ListAPIView):
     object_label = "profiles"
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ["user__username", "user__first_name", "user__last_name"]
-    filter_fields = ["occupation", "gender", "country_of_origin"]
+    filterset_fields = ["occupations__name", "gender", "city_of_origin"]
 
     def get_queryset(  # type: ignore
         self,
@@ -44,7 +44,7 @@ class ProfileListAPIView(generics.ListAPIView):
             Profile.objects.exclude(user__is_staff=True).exclude(
                 user__is_superuser=True
             )
-            # .filter(occupation=Profile.Occupation.TENANT)
+            # .filter(occupations__name=Profile.Occupation.TENANT)
         )
 
 
@@ -108,7 +108,7 @@ class TenantListAPIView(generics.ListAPIView):
     object_label = "profiles"
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ["user__username", "user__first_name", "user__last_name"]
-    filter_fields = ["occupation", "gender", "country_of_origin"]
+    filterset_fields = ["occupations__name", "gender", "city_of_origin"]
 
     def get_queryset(  # type: ignore
         self,
@@ -129,12 +129,21 @@ class NonTenantProfileListAPIView(generics.ListAPIView):
     pagination_class = StandardResultsSetPagination
     object_label = "non_tenant_profiles"
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    search_fields = ["user__username", "user__first_name", "user__last_name"]
-    filterset_fields = ["occupation", "gender", "country_of_origin"]
+    search_fields = [
+        "user__username",
+        "user__first_name",
+        "user__last_name",
+        "city_of_origin",
+        "occupations__name",
+    ]
+    filterset_fields = ["occupations__name", "gender", "city_of_origin"]
 
     def get_queryset(self) -> QuerySet[Profile]:  # type: ignore
         return (
             Profile.objects.exclude(user__is_staff=True)
             .exclude(user__is_superuser=True)
-            .exclude(occupation=Occupation.OccupationChoices.TENANT)
+            .exclude(occupations__name=Occupation.OccupationChoices.TENANT)
+            .exclude(occupations__name=Occupation.OccupationChoices.OWNER)
+            .filter(occupations__isnull=False)
+            .distinct()
         )

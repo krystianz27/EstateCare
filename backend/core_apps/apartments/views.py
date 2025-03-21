@@ -157,18 +157,22 @@ logger = logging.getLogger(__name__)
 class RentalContractListCreateView(generics.ListCreateAPIView):
     queryset = RentalContract.objects.all()
     serializer_class = RentalContractSerializer
-    permission_classes = [IsAuthenticated, IsApartmentOwner]
+    permission_classes = [IsAuthenticated]
     renderer_classes = [GenericJSONRenderer]
     object_label = "rental_contract"
 
     def get_queryset(self):  # type: ignore
         user = self.request.user
         status_filter = self.request.query_params.get("status")  # type: ignore
+        apartment_id = self.request.query_params.get("apartment_id")  # type: ignore
 
         filters = Q(owner=user)
 
         if status_filter:
             filters &= Q(status=status_filter)
+
+        if apartment_id:
+            filters &= Q(apartment__id=apartment_id)
 
         return RentalContract.objects.filter(filters)
 
@@ -187,37 +191,10 @@ class RentalContractListCreateView(generics.ListCreateAPIView):
 class RentalContractRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = RentalContract.objects.all()
     serializer_class = RentalContractSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsApartmentOwnerOrTenant]
     renderer_classes = [GenericJSONRenderer]
     lookup_field = "id"
     object_label = "rental_contract"
 
-    def get_permissions(self):
-        if self.request.method in ["PUT", "PATCH", "DELETE"]:
-            self.permission_classes = [IsApartmentOwner]
-        return super().get_permissions()
-
-
-# Already implemented by PATCH in RentalContractRetrieveUpdateDestroyView
-# class UpdateRentalContractStatusView(generics.GenericAPIView):
-#     queryset = RentalContract.objects.all()
-#     permission_classes = [IsAuthenticated, IsApartmentOwner]
-#     renderer_classes = [GenericJSONRenderer]
-#     serializer_class = RentalContractSerializer
-#     lookup_field = "id"
-#     object_label = "rental_contract"
-
-#     def patch(self, request, *args, **kwargs):
-#         contract = self.get_object()
-#         status_value = request.data.get("status")
-
-#         if status_value not in dict(RentalContract.Status.choices):
-#             raise ValidationError({"status": ["Invalid status value."]})
-
-#         contract.status = status_value
-#         contract.save()
-
-#         return Response(
-#             {"detail": "Rental contract status updated successfully"},
-#             status=status.HTTP_200_OK,
-#         )
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)

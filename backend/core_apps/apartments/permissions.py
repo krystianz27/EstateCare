@@ -43,3 +43,10 @@ class IsApartmentOwner(BasePermission):
                 "You do not have permission to modify or delete this apartment."
             )
         return True
+
+
+class IsOwnerOrReadOnly(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+        return obj.owner == request.user

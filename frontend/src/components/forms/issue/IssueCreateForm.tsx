@@ -68,7 +68,7 @@ export default function IssueCreateForm() {
   };
 
   return (
-    <main>
+    <main className="flex justify-center">
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}

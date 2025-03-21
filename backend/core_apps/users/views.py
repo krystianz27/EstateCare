@@ -3,9 +3,13 @@ import logging
 from django.conf import settings
 from djoser.social.views import ProviderAuthView
 from rest_framework import status
+
+# from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.exceptions import InvalidToken
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 logger = logging.getLogger(__name__)
@@ -64,49 +68,123 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         return token_res
 
 
+logger = logging.getLogger(__name__)
+
+
 class CustomTokenRefreshView(TokenRefreshView):
     def post(self, request: Request, *args, **kwargs) -> Response:
         refresh_token = request.COOKIES.get("refresh")
 
-        data = request.data if request.data else {}
+        if not refresh_token:
+            response = Response(
+                {"message": "Refresh token not found in cookies"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+            response.set_cookie(
+                "logged_in",
+                "false",
+                path=settings.COOKIE_PATH,
+                secure=settings.COOKIE_SECURE,
+                httponly=False,
+                samesite=settings.COOKIE_SAMESITE,
+            )
+            return response
 
-        if refresh_token:
-            data["refresh"] = refresh_token  # type: ignore
+            # raise AuthenticationFailed("Refresh token missing or invalid")
 
-        request._full_data = data
+        try:
+            refresh_token_obj = RefreshToken(refresh_token)
+            access_token = refresh_token_obj.access_token
+            new_refresh_token = str(refresh_token_obj)
 
-        refresh_res = super().post(request, *args, **kwargs)
+            refresh_res = Response(
+                {
+                    "access": str(access_token),
+                    "refresh": new_refresh_token,
+                },
+                status=status.HTTP_200_OK,
+            )
 
-        if refresh_res.status_code == status.HTTP_200_OK:
-            if refresh_res.data:
-                access_token = refresh_res.data.get("access")
-                refresh_token = refresh_res.data.get("refresh")
+            set_auth_cookies(
+                refresh_res,
+                access_token=str(access_token),
+                refresh_token=new_refresh_token,
+            )
 
-                if access_token and refresh_token:
-                    set_auth_cookies(
-                        refresh_res,
-                        access_token=access_token,
-                        refresh_token=refresh_token,
-                    )
+            refresh_res.data["message"] = "Access tokens refreshed successfully"  # type: ignore
+            return refresh_res
 
-                    refresh_res.data.pop("access", None)
-                    refresh_res.data.pop("refresh", None)
+        except InvalidToken as e:
+            logger.error(f"Invalid token: {str(e)}")
+            return Response(
+                {"message": "Invalid token"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Exception as e:
+            logger.error(f"Error refreshing token: {str(e)}")
+            return Response(
+                {"message": "Internal server error"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
-                    refresh_res.data["message"] = "Access tokens refreshed successfully"
-                else:
-                    refresh_res.data["message"] = (
-                        "Access or refresh tokens not found in refresh response data"
-                    )
-                    logger.error(
-                        "Access or refresh token not found in refresh response data"
-                    )
-            else:
-                refresh_res.data = {
-                    "message": "No data returned from refresh token response"
-                }
-                logger.error("No data returned in refresh response")
 
-        return refresh_res
+# class CustomTokenRefreshView(TokenRefreshView):
+#     def post(self, request: Request, *args, **kwargs) -> Response:
+#         refresh_token = request.COOKIES.get("refresh")
+
+#         data = request.data if request.data else {}
+
+#         if refresh_token:
+#             data["refresh"] = refresh_token  # type: ignore
+
+#         request._full_data = data
+
+#         try:
+#             refresh_res = super().post(request, *args, **kwargs)
+
+#             if refresh_res.status_code == status.HTTP_200_OK:
+#                 if refresh_res.data:
+#                     access_token = refresh_res.data.get("access")
+#                     refresh_token = refresh_res.data.get("refresh")
+
+#                     if access_token and refresh_token:
+#                         set_auth_cookies(
+#                             refresh_res,
+#                             access_token=access_token,
+#                             refresh_token=refresh_token,
+#                         )
+#                         refresh_res.data.pop("access", None)
+#                         refresh_res.data.pop("refresh", None)
+
+#                         refresh_res.data["message"] = (
+#                             "Access tokens refreshed successfully"
+#                         )
+#                     else:
+#                         refresh_res.data["message"] = (
+#                             "Access or refresh tokens not found in refresh response data"
+#                         )
+#                         logger.error(
+#                             "Access or refresh token not found in refresh response data"
+#                         )
+#                 else:
+#                     refresh_res.data = {
+#                         "message": "No data returned from refresh token response"
+#                     }
+#                     logger.error("No data returned in refresh response")
+
+#             return refresh_res
+
+#         except InvalidToken as e:
+#             logger.error(f"Invalid token: {str(e)}")
+#             return Response(
+#                 {"message": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST
+#             )
+#         except Exception as e:
+#             logger.error(f"Error refreshing token: {str(e)}")
+#             return Response(
+#                 {"message": "Internal server error"},
+#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+#             )
 
 
 class CustomProviderAuthView(ProviderAuthView):
