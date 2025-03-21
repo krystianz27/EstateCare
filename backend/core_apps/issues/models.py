@@ -3,6 +3,7 @@ import logging
 from config.settings.local import DEFAULT_FROM_EMAIL, SITE_NAME
 from django.contrib.auth import get_user_model
 from django.core.mail import EmailMultiAlternatives
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -62,6 +63,18 @@ class Issue(TimeStampedModel):
         verbose_name=_("Priority"),
     )
     resolved_on = models.DateField(verbose_name=_("Resolved On"), null=True, blank=True)
+    estimated_repair_date = models.DateField(
+        verbose_name=_("Estimated Repair Date"),
+        null=True,
+        blank=True,
+    )
+    repair_duration = models.PositiveIntegerField(
+        verbose_name=_("Repair Duration (hours)"),
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(1)],
+        help_text=_("Estimated duration of the repair in hours."),
+    )
 
     def __str__(self) -> str:
         return self.title

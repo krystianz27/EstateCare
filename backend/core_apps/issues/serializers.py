@@ -49,6 +49,8 @@ class IssueSerializer(serializers.ModelSerializer):
             "description",
             "status",
             "priority",
+            "estimated_repair_date",
+            "repair_duration",
             "view_count",
         ]
         read_only_fields = [
@@ -83,6 +85,12 @@ class IssueStatusUpdateSerializer(serializers.ModelSerializer):
             "resolved_by",
             "resolved_on",
             "assigned_to",
+            "estimated_repair_date",
+            "repair_duration",
+        ]
+        read_only_fields = [
+            "id",
+            "view_count",
         ]
 
     def update(self, instance: Issue, validated_data: dict) -> Issue:
