@@ -12,6 +12,8 @@ export interface Issue {
   priority: "low" | "medium" | "high";
   view_count: number;
   assigned_to?: string;
+  estimated_repair_date?: string;
+  repair_duration?: number;
 }
 
 export interface IssueData {
@@ -39,6 +41,8 @@ export interface UpdateIssueResponse {
     status: "reported" | "resolved" | "in_progress";
     resolved_by: string;
     resolved_on: string;
+    estimated_repair_date?: string;
+    repait_duration?: number;
   };
 }
 

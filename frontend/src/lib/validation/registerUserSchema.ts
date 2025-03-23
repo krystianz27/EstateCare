@@ -42,3 +42,21 @@ export const registerUserSchema = z
   });
 
 export type RegisterUserSchema = z.infer<typeof registerUserSchema>;
+
+export const createUserByEmailSchema = z.object({
+  email: z.string().trim().email({ message: ERROR_MESSAGES.email }),
+  first_name: z
+    .string()
+    .trim()
+    .min(2, { message: ERROR_MESSAGES.firstNameMin })
+    .max(50, { message: ERROR_MESSAGES.firstNameMax })
+    .optional(),
+  last_name: z
+    .string()
+    .trim()
+    .min(2, { message: ERROR_MESSAGES.lastNameMin })
+    .max(50, { message: ERROR_MESSAGES.lastNameMax })
+    .optional(),
+});
+
+export type CreateUserByEmailSchema = z.infer<typeof createUserByEmailSchema>;

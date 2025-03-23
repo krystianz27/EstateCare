@@ -47,3 +47,14 @@ export interface SocialAuthResponse {
   message: string;
   user: Profile;
 }
+
+export interface CreateUserByEmailData {
+  email: string;
+  first_name?: string;
+  last_name?: string;
+  apartmentId: string;
+}
+
+export interface CreateUserByEmailResponse {
+  message: string;
+}
