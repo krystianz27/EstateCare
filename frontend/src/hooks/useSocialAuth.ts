@@ -33,7 +33,7 @@ export function useSocialAuth(
       triggerSocialAuth({ provider, state, code })
         .unwrap()
         .then(() => {
-          dispatch(setAuth());
+          dispatch(setAuth({ role: "owner" }));
           toast.success("Logged in successfully");
           router.push("/welcome");
         })

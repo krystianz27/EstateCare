@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
   isAuthenticated: boolean;
-  role: "owner" | "tenant" | null;
+  role?: "owner" | "tenant" | null;
 }
 
 const initialState: AuthState = {
@@ -21,9 +21,9 @@ const authSlice = createSlice({
       if (action.payload && action.payload.role) {
         state.isAuthenticated = true;
         state.role = action.payload.role;
-        console.log("Role authSlice:", state.role);
+        // console.log("Role authSlice:", state.role);
       } else {
-        console.log("Error: role is undefined or missing");
+        // console.log("Error: role is undefined or missing");
         state.role = null;
       }
     },
