@@ -2,6 +2,7 @@ import React from "react";
 import { useGetAllRentalContractsQuery } from "@/lib/redux/features/rental-contract/rentalContractApiSlice";
 import Spinner from "@/components/shared/Spinner";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 interface ActiveRentalContractsProps {
   apartmentId?: string;
@@ -26,9 +27,17 @@ const ActiveRentalContracts: React.FC<ActiveRentalContractsProps> = ({
   const rentalContracts = data.rental_contract.results;
 
   return (
-    <div className="mt-8">
-      <h2 className="text-2xl font-semibold">Active Rental Contracts</h2>
-
+    <div className="bg-lightGrey mt-8 rounded-2xl dark:bg-zinc-900">
+      <h2 className="pt-4 text-center text-2xl font-semibold">
+        Active Rental Contracts
+      </h2>
+      <div className="my-4 flex items-center justify-center">
+        <Link href="/rentalcontracts">
+          <Button className="h3-semibold dark:bg-amber dark:text-amberText w-full rounded-lg bg-zinc-800 text-white sm:w-64">
+            See All Rental Contracts
+          </Button>
+        </Link>
+      </div>
       {rentalContracts.length === 0 ? (
         <p>No active rental contracts found.</p>
       ) : (
