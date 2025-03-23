@@ -2,6 +2,7 @@ import logging
 
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status
 from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.permissions import IsAuthenticated
@@ -160,6 +161,8 @@ class RentalContractListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     renderer_classes = [GenericJSONRenderer]
     object_label = "rental_contract"
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ["status"]
 
     def get_queryset(self):  # type: ignore
         user = self.request.user

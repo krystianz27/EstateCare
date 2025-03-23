@@ -5,6 +5,7 @@ from .views import (
     CustomTokenObtainPairView,
     CustomTokenRefreshView,
     LogoutAPIView,
+    RegisterUserByEmail,
 )
 
 urlpatterns = [
@@ -16,4 +17,5 @@ urlpatterns = [
     path("login/", CustomTokenObtainPairView.as_view()),
     path("refresh/", CustomTokenRefreshView.as_view()),
     path("logout/", LogoutAPIView.as_view()),
+    path("register-by-email/", RegisterUserByEmail.as_view()),
 ]

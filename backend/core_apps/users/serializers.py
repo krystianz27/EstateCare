@@ -44,3 +44,13 @@ class CustomUserSerializer(UserSerializer):
             "date_joined",
         ]
         read_only_fields = ["id", "email", "date_joined"]
+
+
+class EmailUserCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["email", "first_name", "last_name"]
+        extra_kwargs = {
+            "first_name": {"required": False, "default": "Default"},
+            "last_name": {"required": False, "default": "User"},
+        }

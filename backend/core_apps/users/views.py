@@ -2,7 +2,7 @@ import logging
 
 from django.conf import settings
 from djoser.social.views import ProviderAuthView
-from rest_framework import status
+from rest_framework import generics, status
 
 # from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.request import Request
@@ -12,7 +12,41 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from core_apps.apartments.models import Apartment
+from core_apps.users.emails import send_welcome_email
+from core_apps.users.serializers import EmailUserCreateSerializer
+from core_apps.users.utils import generate_random_password
+
 logger = logging.getLogger(__name__)
+
+
+class RegisterUserByEmail(generics.CreateAPIView):
+    serializer_class = EmailUserCreateSerializer
+
+    def perform_create(self, serializer):  # type: ignore
+        password = generate_random_password()
+
+        email = self.request.data.get("email")  # type: ignore
+        apartment_id = self.request.data.get("apartmentId")  # type: ignore
+
+        user = serializer.save(
+            email=email,
+            password=password,
+            username=email,
+            is_active=True,
+        )
+
+        send_welcome_email(user)
+
+        apartment = Apartment.objects.get(id=apartment_id)
+        apartment.tenants.add(user)
+
+        return Response(
+            {
+                "message": "User created successfully. Check your email for login details."
+            },
+            status=status.HTTP_201_CREATED,
+        )
 
 
 def set_auth_cookies(
