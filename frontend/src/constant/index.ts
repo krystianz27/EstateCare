@@ -42,6 +42,11 @@ export const leftNavLinks: LeftNavLink[] = [
     label: "Apartments",
     imgLocation: "/assets/icons/apartments.svg",
   },
+  {
+    path: "/issue",
+    label: "Issues",
+    imgLocation: "/assets/icons/report-issue.svg",
+  },
   // {
   //   path: "/posts",
   //   label: "Posts",
