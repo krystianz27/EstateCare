@@ -73,20 +73,48 @@ export default function IssueCard({ issue }: IssueCardProps) {
               <span className="tab-font">Country: </span>
               <span className="text-lg">{issue.apartment_unit.country}</span>
             </p>
+            <p className="flex items-center space-x-2">
+              <span className="tab-font">Estimated Repair date: </span>
+              <span className="text-lg">{issue.estimated_repair_date}</span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="tab-font">Repair Duration: </span>
+              <span className="text-lg">{issue.repair_duration}</span>
+            </p>
           </CardDescription>
         </CardContent>
 
         <CardFooter className="dark:text-babyPowder flex flex-row justify-between">
           <div>
             <span className="mr-0.5 font-bold">Status: </span>
-            <Badge className="bg-eerieBlack text-babyPowder dark:bg-electricIndigo dark:text-babyPowder">
+            <Badge
+              className={`text-babyPowder ${
+                issue.status === "reported"
+                  ? "bg-red-600"
+                  : issue.status === "in_progress"
+                    ? "bg-orange-400"
+                    : issue.status === "resolved"
+                      ? "bg-green-600"
+                      : "bg-gray-500"
+              }`}
+            >
               {issue.status}
             </Badge>
           </div>
 
           <div>
             <span className="mr-0.5 font-bold">Priority: </span>
-            <Badge className="bg-eerieBlack text-babyPowder dark:text-veryBlack dark:bg-lime-500">
+            <Badge
+              className={`text-babyPowder ${
+                issue.priority === "low"
+                  ? "bg-green-600"
+                  : issue.priority === "medium"
+                    ? "bg-orange-400"
+                    : issue.priority === "high"
+                      ? "bg-red-600"
+                      : "bg-gray-500"
+              }`}
+            >
               {issue.priority}
             </Badge>
           </div>

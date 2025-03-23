@@ -11,10 +11,8 @@ export const metadata: Metadata = {
 export default function AllRentalContractsPage() {
   return (
     <ProtectedRoute>
-      <div className="mt-7 bg-inherit sm:mx-auto sm:w-full">
-        {/* <div className="bg-lightGrey rounded-xl px-0 py-2 shadow sm:rounded-lg sm:px-12 md:rounded-3xl dark:bg-zinc-900"> */}
+      <div className="bg-inherit sm:mx-auto sm:w-full">
         <AllRentalContracts />
-        {/* </div> */}
       </div>
     </ProtectedRoute>
   );

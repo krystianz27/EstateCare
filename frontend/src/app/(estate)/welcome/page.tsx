@@ -4,10 +4,7 @@ import ActiveRentalContracts from "@/components/rental-contract/ActiveRentalCont
 
 export default function WelcomePage() {
   return (
-    <div className="relative mb-8 ">
-      {/* <div className="bg-lightGrey relative mb-8 dark:bg-zinc-900"> */}
-
-      <h2 className="text-2xl font-semibold">Active Issues</h2>
+    <div className="relative my-2">
       <IssuesUserRelated status={["reported", "in_progress"]} />
 
       <ActiveRentalContracts />

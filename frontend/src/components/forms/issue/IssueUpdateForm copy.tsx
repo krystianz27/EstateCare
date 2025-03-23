@@ -1,10 +1,7 @@
 "use client";
 
-import {
-  useUpdateIssueMutation,
-  useGetSingleIssueQuery,
-} from "@/lib/redux/features/issue/issueApiSlice";
-import React, { useState, useEffect } from "react";
+import { useUpdateIssueMutation } from "@/lib/redux/features/issue/issueApiSlice";
+import React, { useState } from "react";
 import { IssueUpdateSchema } from "@/lib/validation";
 import { extractErrorMessage } from "@/utils";
 import { useRouter } from "next/navigation";
@@ -26,8 +23,6 @@ interface UpdateParamsProps {
 
 export default function IssueUpdateForm({ params }: UpdateParamsProps) {
   const issueId = params.id;
-  const { data: issueData, isLoading: isLoadingIssue } =
-    useGetSingleIssueQuery(issueId);
   const [updateIssue, { isLoading }] = useUpdateIssueMutation();
   const router = useRouter();
 
@@ -40,16 +35,6 @@ export default function IssueUpdateForm({ params }: UpdateParamsProps) {
     setValue,
     formState: { errors },
   } = useForm<IssueUpdateSchema>();
-
-  useEffect(() => {
-    if (issueData) {
-      reset({
-        status: issueData.issue.status,
-        estimated_repair_date: issueData.issue.estimated_repair_date,
-        repair_duration: issueData.issue.repair_duration,
-      });
-    }
-  }, [issueData, reset]);
 
   const onSubmit = async (formValues: IssueUpdateSchema) => {
     const valuesWithIssueId = {
@@ -68,14 +53,6 @@ export default function IssueUpdateForm({ params }: UpdateParamsProps) {
       toast.error(extractErrorMessage(error));
     }
   };
-
-  if (isLoadingIssue) {
-    return (
-      <main className="my-10 flex h-screen items-start justify-center bg-gray-100 dark:bg-gray-800">
-        <Spinner size="sm" />
-      </main>
-    );
-  }
 
   return (
     <main className="my-10 flex h-screen items-start justify-center bg-gray-100 dark:bg-gray-800">

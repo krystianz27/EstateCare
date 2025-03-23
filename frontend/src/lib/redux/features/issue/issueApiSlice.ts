@@ -22,13 +22,35 @@ export const issueApiSlice = baseApiSlice.injectEndpoints({
 
     getUserRelatedIssues: builder.query<
       MyIssuesResponse,
-      { status?: string[] }
+      { status?: string[]; page?: number }
     >({
-      query: ({ status }) => {
+      query: ({ status, page = 1 }) => {
         const params = new URLSearchParams();
+
         if (status) {
           status.forEach((s) => params.append("status", s));
         }
+
+        params.append("page", page.toString());
+
+        return `/issues/related/?${params.toString()}`;
+      },
+      providesTags: ["Issue"],
+    }),
+
+    getUserRelatedIssuesV2: builder.query<
+      MyIssuesResponse,
+      { status?: string; page?: number }
+    >({
+      query: ({ status, page = 1 }) => {
+        const params = new URLSearchParams();
+
+        if (status) {
+          params.append("status", status);
+        }
+
+        params.append("page", page.toString());
+
         return `/issues/related/?${params.toString()}`;
       },
       providesTags: ["Issue"],
@@ -72,6 +94,7 @@ export const {
   useDeleteIssueMutation,
   useGetMyIssuesQuery,
   useGetUserRelatedIssuesQuery,
+  useGetUserRelatedIssuesV2Query,
   useGetSingleIssueQuery,
   useGetMyAssignedIssuesQuery,
   useUpdateIssueMutation,

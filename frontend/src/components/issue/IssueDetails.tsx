@@ -150,6 +150,17 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
           Priority:&nbsp;
           <span className="dark:text-platinum">{issue.priority}</span>
         </p>
+        <p className="text-lg">
+          Estimated Repair Date:&nbsp;
+          <span className="dark:text-platinum">
+            {issue.estimated_repair_date}
+          </span>
+        </p>
+        <p className="text-lg">
+          Repair Duration:&nbsp;
+          <span className="dark:text-platinum">{issue.repair_duration}</span>
+        </p>
+
         <p className="flex items-center">
           <EyeIcon className="mr-1 size-5" />
           <span className="dark:text-platinum text-lg">
