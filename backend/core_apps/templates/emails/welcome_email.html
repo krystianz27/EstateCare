@@ -1,0 +1,22 @@
+{% extends 'emails/base.html' %} {% block title %}
+  Welcome to {{ site_name }}
+{% endblock %} {% block content %}
+  <p>Dear {{ user.get_user_full_name }}</p>
+  <p>Welcome to {{ site_name }}!</p>
+  <p>Your account has been successfully created. Here are your login details:</p>
+  <ul>
+    <li>
+      <strong>Email:</strong> {{ user.email }}
+    </li>
+    <li>
+      <strong>Password:</strong> {{ password }}
+    </li>
+  </ul>
+  <p>We recommend you change your password after logging in.</p>
+  <p>If you have any questions or need assistance, feel free to reach out to our support team.</p>
+  <p>Thank you for joining us!</p>
+  <p>
+    Best Regards,<br />
+    The {{ site_name }} Team
+  </p>
+{% endblock %}
