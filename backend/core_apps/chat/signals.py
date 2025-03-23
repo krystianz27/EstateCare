@@ -20,10 +20,18 @@ def create_chat_for_apartment(sender, instance, created, **kwargs):
 
 @receiver(m2m_changed, sender=Apartment.tenants.through)
 def update_tenants_in_chat(sender, instance, action, pk_set, **kwargs):
+    if action.startswith("pre_"):
+        return
+
     chat = ChatApartment.objects.filter(apartment=instance).first()
+    logger.info(
+        f"Signal triggered for action: {action}, sender: {sender}, instance: {instance.id}, pk_set: {pk_set}"
+    )
+
     if not chat:
         return
 
+    # if action == 'post_add' and not instance.tenants.filter(pkid__in=pk_set).exists():
     if action == "post_add":
         chat.members.add(*pk_set)
     elif action == "post_remove":
