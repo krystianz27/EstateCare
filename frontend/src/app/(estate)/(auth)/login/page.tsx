@@ -6,19 +6,10 @@ import { useRedirectIfAuthenticated } from "@/hooks";
 import buildingImage from "@/../public/assets/images/photo18.webp";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
-  // const redirectUrl = searchParams.get("redirect") || "/welcome";
-  const [redirectUrl, setRedirectUrl] = useState("/welcome");
-
-  useEffect(() => {
-    const redirect = searchParams.get("redirect");
-    if (redirect) {
-      setRedirectUrl(redirect);
-    }
-  }, [searchParams]);
+  const redirectUrl = searchParams.get("redirect") || "/welcome";
 
   useRedirectIfAuthenticated(redirectUrl);
 

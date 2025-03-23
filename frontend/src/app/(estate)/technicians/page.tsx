@@ -1,6 +1,5 @@
 import TechnicianCard from "@/components/cards/TechnicianCard";
 import type { Metadata } from "next";
-
 export const metadata: Metadata = {
   title: "Estate Care | Technicians",
   description:
@@ -8,9 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function TechniciansPage() {
-  return (
-    <>
-      <TechnicianCard />
-    </>
-  );
+  return <TechnicianCard />;
 }

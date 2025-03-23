@@ -1,4 +1,5 @@
 "use client";
+
 import IssuesUserRelated from "@/components/issue/IssuesUserRelated";
 import ActiveRentalContracts from "@/components/rental-contract/ActiveRentalContracts";
 
