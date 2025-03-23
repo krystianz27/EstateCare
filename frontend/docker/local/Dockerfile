@@ -13,12 +13,6 @@ RUN \
     else echo "Lockfile not found." && exit 1; \
     fi
 
-# Compiled version in the development
-#####################################
-# Build the app
-RUN npm run build
-####################################
-
 
 FROM base as node-run-stage 
 ARG APP_HOME=/app 
@@ -35,7 +29,4 @@ RUN chown -R nextjs:nodejs ${APP_HOME}
 
 USER nextjs
 
-# CMD ["npm", "run", "dev"]
-
-# Compiled version in the development 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]

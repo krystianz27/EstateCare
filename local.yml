@@ -63,7 +63,7 @@ services:
       context: ./frontend
       dockerfile: ./docker/local/Dockerfile
     container_name: estate_care_client
-    image: estate_care
+    image: estate_care_client
     # ports:
     #   - "3000:3000"
     expose:
