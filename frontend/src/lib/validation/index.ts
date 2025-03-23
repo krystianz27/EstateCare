@@ -1,6 +1,8 @@
 export {
   registerUserSchema,
+  createUserByEmailSchema,
   type RegisterUserSchema,
+  type CreateUserByEmailSchema,
 } from "./registerUserSchema";
 
 export { loginUserSchema, type LoginUserSchema } from "./loginSchema";
