@@ -25,11 +25,12 @@ const ManageTenants: React.FC<ManageTenantsProps> = ({ apartmentId }) => {
     }
 
     if (isUpdatingError) {
-      const errorMessage =
-        error && "data" in error
-          ? JSON.stringify((error as any).data.apartment)
-          : "Unknown error occurred";
-      toast.error("Failed to update tenants: " + errorMessage);
+      // const errorMessage =
+      //   error && "data" in error
+      //     ? JSON.stringify((error as any).data.apartment)
+      //     : "Unknown error occurred";
+      // toast.error("Failed to update tenants: " + errorMessage);
+      toast.error("Failed to update tenants. Please try again later");
     }
   }, [isSuccess, isUpdatingError, error]);
 

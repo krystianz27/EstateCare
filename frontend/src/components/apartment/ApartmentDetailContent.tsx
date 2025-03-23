@@ -10,6 +10,7 @@ import ManageTenants from "./ManageTenants";
 import TenantsSection from "./TenantsSection";
 import { UserResponse } from "@/types";
 import ActiveRentalContracts from "../rental-contract/ActiveRentalContracts";
+import CreateUserByEmailForm from "../forms/auth/CreateUserByEmailForm";
 
 interface ApartmentDetailContentProps {
   apartmentId: string;
@@ -97,6 +98,8 @@ const ApartmentDetailContent: React.FC<ApartmentDetailContentProps> = ({
       {isOwner && <ActiveRentalContracts apartmentId={apartment.id} />}
 
       {isOwner && <ManageTenants apartmentId={apartment.id} />}
+
+      {isOwner && <CreateUserByEmailForm apartmentId={apartment.id} />}
     </div>
   );
 };
