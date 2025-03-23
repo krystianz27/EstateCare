@@ -1,6 +1,8 @@
 import { baseApiSlice } from "@/lib/redux/features/api/baseApiSlice";
 import {
   ActivateUserData,
+  CreateUserByEmailData,
+  CreateUserByEmailResponse,
   LoginResponse,
   LoginUserData,
   RegisterUserData,
@@ -32,6 +34,17 @@ export const authApiSlice = baseApiSlice.injectEndpoints({
     registerUser: builder.mutation<RegisterUserResponse, RegisterUserData>({
       query: (userData) => ({
         url: "/auth/users/",
+        method: "POST",
+        body: userData,
+      }),
+    }),
+
+    createUserByEmail: builder.mutation<
+      CreateUserByEmailResponse,
+      CreateUserByEmailData
+    >({
+      query: (userData) => ({
+        url: "/auth/register-by-email/",
         method: "POST",
         body: userData,
       }),
@@ -95,6 +108,7 @@ export const {
   useLogoutUserMutation,
   useGetUserQuery,
   useRegisterUserMutation,
+  useCreateUserByEmailMutation,
   useResetPasswordConfirmMutation,
   useResetPasswordRequestMutation,
   useRefreshJWTMutation,
