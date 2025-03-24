@@ -1,3 +1,5 @@
+"use client";
+
 import { setAuth } from "@/lib/redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks/typedHooks";
 import { getCookie } from "cookies-next";

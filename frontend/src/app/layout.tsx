@@ -19,7 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${openSans.variable} ${robotoSlab.variable}`}>
+      <body
+        suppressHydrationWarning
+        className={`${openSans.variable} ${robotoSlab.variable}`}
+      >
         <Toast />
         <ReduxProvider>
           <PersistAuth />

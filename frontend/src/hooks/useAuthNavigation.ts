@@ -1,3 +1,5 @@
+"use client";
+
 import { leftNavLinks } from "@/constant";
 import { useLogoutUserMutation } from "@/lib/redux/features/auth/authApiSlice";
 import { setLogout } from "@/lib/redux/features/auth/authSlice";

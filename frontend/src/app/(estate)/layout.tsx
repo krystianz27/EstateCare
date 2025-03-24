@@ -8,12 +8,13 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <Suspense fallback={<div>Ładowanie...</div>}>
+    <Suspense fallback={<div>Loading...</div>}>
       <main className="bg-baby_veryBlack relative">
-        <Navbar />
-        <div className="flex">
+        <Navbar className="fixed top-0 left-0 w-full" />
+
+        <div className="flex pt-[navbarHeight]">
           <LeftNavbar />
-          <section className="flex min-h-screen flex-1 flex-col px-4 pb-6 pt-24 sm:px-6 lg:px-8 lg:pt-32">
+          <section className="flex min-h-screen flex-1 flex-col px-4 pb-6 pt-0 sm:px-6 lg:px-8 lg:pt-24">
             {children}
           </section>
         </div>
