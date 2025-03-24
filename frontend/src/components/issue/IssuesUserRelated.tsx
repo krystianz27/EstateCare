@@ -31,7 +31,7 @@ export default function IssuesUserRelated({ status }: IssuesListProps) {
 
   return (
     <div className="bg-lightGrey mx-2 flex flex-col gap-4 rounded-2xl dark:bg-zinc-900">
-      <h2 className="pt-4 text-center text-2xl font-semibold">Active Issues</h2>
+      <h2 className="pt-2 text-center text-2xl font-semibold">Active Issues</h2>
 
       <div className="flex justify-center">
         <Link href="/issue">

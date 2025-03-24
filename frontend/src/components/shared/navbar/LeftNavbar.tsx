@@ -1,14 +1,22 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { useAuthNavigation } from "@/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function LeftNavbar() {
   const pathname = usePathname();
   const { handleLogout, filteredLeftNavLinks, isAuthenticated } =
     useAuthNavigation();
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <section
@@ -53,37 +61,40 @@ export default function LeftNavbar() {
           );
         })}
       </div>
-      {isAuthenticated ? (
+
+      {isClient && (
         <div className="flex flex-col gap-3">
-          <Button
-            onClick={handleLogout}
-            className="dark:bg-amber dark:text-amberText w-full rounded-lg border bg-black px-4 py-3 text-white"
-          >
-            Log Out
-          </Button>
-        </div>
-      ) : (
-        <div className="flex flex-col gap-3">
-          <Link href="/login">
+          {isAuthenticated ? (
             <Button
-              className="lime-gradient small-medium 
-          light-border-2 btn-tertiary text-baby_ballon 
-          min-h-[41px] w-full rounded-lg border px-4 py-3 
-          shadow-none"
+              onClick={handleLogout}
+              className="dark:bg-amber dark:text-amberText w-full rounded-lg border bg-black px-4 py-3 text-white"
             >
-              Login
+              Log Out
             </Button>
-          </Link>
-          <Link href="/register">
-            <Button
-              className="electricIndigo-gradient small-medium
-            light-border-2 btn-tertiary text-baby_ballon
-            min-h-[41px] w-full rounded-lg border px-4 py-3
-            shadow-none"
-            >
-              Register
-            </Button>
-          </Link>
+          ) : (
+            <>
+              <Link href="/login">
+                <Button
+                  className="lime-gradient small-medium 
+              light-border-2 btn-tertiary text-baby_ballon 
+              min-h-[41px] w-full rounded-lg border px-4 py-3 
+              shadow-none"
+                >
+                  Login
+                </Button>
+              </Link>
+              <Link href="/register">
+                <Button
+                  className="electricIndigo-gradient small-medium
+                light-border-2 btn-tertiary text-baby_ballon
+                min-h-[41px] w-full rounded-lg border px-4 py-3
+                shadow-none"
+                >
+                  Register
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       )}
     </section>

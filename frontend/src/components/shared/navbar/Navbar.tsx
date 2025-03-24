@@ -5,18 +5,18 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import MobileNavbar from "./MobileNavbar";
 import AuthAvatar from "@/components/shared/navbar/AuthAvatar";
 
-export default function Navbar() {
+export default function Navbar({ className }: { className?: string }) {
   return (
     <nav
-      className="flex-between bg-baby_rich fixed z-50 w-full 
-    gap-5 border-b-2 border-b-platinum p-4 shadow-platinum dark:border-b-0 dark:shadow-none sm:p-6 lg:px-12"
+      className={`flex-between bg-baby_rich fixed z-50 w-full 
+      gap-5 border-b-2 border-b-platinum p-2 shadow-platinum dark:border-b-0 dark:shadow-none sm:p-2 lg:px-12 ${className}`}
       aria-label="Main navigation"
       role="navigation"
     >
       <MobileNavbar />
 
       <Link href="/" className="flex items-center">
-        <HomeModernIcon className="mr-2 size-11 text-lime-500" />
+        <HomeModernIcon className="mr-2 size-7 text-lime-500" />
         <p className="h2-bold hidden font-robotoSlab text-veryBlack dark:text-babyPowder sm:block">
           Estate Care <span className="text-lime-500"> Apartments</span>
         </p>
