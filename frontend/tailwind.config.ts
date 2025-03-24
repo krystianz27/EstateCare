@@ -32,6 +32,7 @@ const config = {
         // pumpkin: "#F17105",
         pumpkin: "#fbbf24",
         amber: "#fbbf24",
+        amberHover: "#ca8a04",
         amberText: "#0f172a",
         platinum: "#DDE1E4",
         lightGrey: "#EEEEEE",
