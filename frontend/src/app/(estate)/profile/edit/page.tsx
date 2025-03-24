@@ -12,7 +12,7 @@ export default function EditProfilePage() {
     <main className="flex min-h-screen items-center justify-center py-4">
       <section className="bg-lightGrey dark:bg-deepBlueGrey w-full max-w-[480px] rounded-xl px-6 py-4 shadow sm:px-12 md:rounded-3xl">
         <AuthFormHeader title="Update Profile" />
-        <div className="mt-4">
+        <div className="my-4">
           <EditProfileForm />
         </div>
       </section>

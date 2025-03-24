@@ -8,6 +8,11 @@ export {
 export { loginUserSchema, type LoginUserSchema } from "./loginSchema";
 
 export {
+  passwordChangeSchema,
+  type PasswordChangeSchema,
+} from "./passwordChangeSchema";
+
+export {
   passwordResetRequestSchema,
   type PasswordResetRequestSchema,
 } from "./passwordResetRequestSchema";

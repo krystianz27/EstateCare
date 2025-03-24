@@ -1,6 +1,7 @@
 import { baseApiSlice } from "@/lib/redux/features/api/baseApiSlice";
 import {
   ActivateUserData,
+  ChangePasswordData,
   CreateUserByEmailData,
   CreateUserByEmailResponse,
   LoginResponse,
@@ -28,6 +29,14 @@ export const authApiSlice = baseApiSlice.injectEndpoints({
       query: () => ({
         url: "/auth/logout/",
         method: "POST",
+      }),
+    }),
+
+    changePassword: builder.mutation<void, ChangePasswordData>({
+      query: (data) => ({
+        url: "/auth/users/set_password/",
+        method: "POST",
+        body: data,
       }),
     }),
 
@@ -110,6 +119,7 @@ export const {
   useRegisterUserMutation,
   useCreateUserByEmailMutation,
   useResetPasswordConfirmMutation,
+  useChangePasswordMutation,
   useResetPasswordRequestMutation,
   useRefreshJWTMutation,
 } = authApiSlice;

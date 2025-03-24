@@ -2,7 +2,10 @@ import { UserCommonData } from "./user";
 import { Profile } from "./profile";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface LoginUserData extends UserCommonData {}
+export interface LoginUserData {
+  email: string;
+  password: string;
+}
 
 export interface LoginResponse {
   message: string;
@@ -26,6 +29,11 @@ export interface RegisterUserResponse {
 export interface ActivateUserData {
   uid: string;
   token: string;
+}
+
+export interface ChangePasswordData {
+  current_password: string;
+  new_password: string;
 }
 
 export interface ResetPasswordConfirmData extends ActivateUserData {
