@@ -41,7 +41,6 @@ export default function LoginForm() {
     try {
       const response = await loginUser(values).unwrap();
       if (response) {
-        // console.log("Role:", role);
         dispatch(setAuth({ role }));
         localStorage.setItem("role", role);
         toast.success("Login Successful");

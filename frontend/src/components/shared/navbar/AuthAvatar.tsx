@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuthNavigation } from "@/hooks";
 import { useProfile } from "@/hooks/useProfile";
+import { useAppSelector } from "@/lib/redux/hooks/typedHooks";
+// import { getCookie } from "cookies-next";
 import { LogOut, User, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -20,11 +22,22 @@ export default function AuthAvatar() {
   const { profile, isLoading, isError } = useProfile();
   const router = useRouter();
 
+  // const [isLogged, setIsLogged] = useState(getCookie("logged_in") === "true");
+  // const [isLogged, setIsLogged] = useAppSelector(state.);
+
   const [isClient, setIsClient] = useState(false);
+
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  // const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // useEffect(() => {
+  //   console.log("Auth changed:", isAuthenticated);
+  //   console.log("AuthAvatar re-rendered, isAuthenticated:", isAuthenticated);
+  // }, [isLoggedIn]);
 
   if (!isClient) {
     return null;
@@ -38,18 +51,13 @@ export default function AuthAvatar() {
     return <p>Error loading profile.</p>;
   }
 
-  // if (!profile) {
-  //   return null;
-  // }
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="">
-          {isLoading || isError || !profile?.avatar ? (
+          {isLoading || isError || !isAuthenticated || !profile ? (
             <AvatarFallback className="dark:bg-slate-900">
               <User className="dark:text-platinum size-7" />
-              {/* <UserRound */}
             </AvatarFallback>
           ) : (
             <AvatarImage
@@ -63,7 +71,7 @@ export default function AuthAvatar() {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="dark:text-platinum bg-white/90 dark:bg-black/85">
-        {profile ? (
+        {isAuthenticated && profile ? (
           <>
             <DropdownMenuLabel className="border-b-2"></DropdownMenuLabel>
             <DropdownMenuSeparator />

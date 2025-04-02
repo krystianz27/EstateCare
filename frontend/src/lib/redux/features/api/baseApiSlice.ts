@@ -20,14 +20,20 @@ const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
+  const isAuthRequest =
+    (typeof args === "string" && args.startsWith("/auth")) ||
+    (typeof args === "object" && args.url?.startsWith("/auth"));
+
+  // If this is a request related to '/auth', just execute it
+  if (isAuthRequest) {
+    return baseQuery(args, api, extraOptions);
+  }
+
   await mutex.waitForUnlock();
 
   let response = await baseQuery(args, api, extraOptions);
 
-  if (
-    response.error &&
-    (response.error.status === 401 || response.error.status === 400)
-  ) {
+  if (response.error && response.error.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       try {
@@ -40,10 +46,7 @@ const baseQueryWithReauth: BaseQueryFn<
           extraOptions,
         );
 
-        if (
-          refreshResponse?.error &&
-          (response.error.status === 401 || response.error.status === 400)
-        ) {
+        if (refreshResponse?.error && response.error.status === 401) {
           api.dispatch(setLogout());
           document.cookie = "logged_in=; path=/; max-age=0";
           window.location.href = "/login";

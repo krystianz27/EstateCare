@@ -1,5 +1,6 @@
 "use client";
 
+import Head from "next/head";
 import { AuthFormHeader, LoginForm } from "@/components/forms/auth";
 import OAuthButtons from "@/components/shared/OAuthButtons";
 import { useRedirectIfAuthenticated } from "@/hooks";
@@ -15,6 +16,9 @@ export default function LoginPage() {
 
   return (
     <>
+      <Head>
+        <title>Estate Care | Login</title>
+      </Head>
       <div className="relative mt-0 min-h-screen overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image

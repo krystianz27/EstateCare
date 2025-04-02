@@ -5,21 +5,24 @@ import { useLogoutUserMutation } from "@/lib/redux/features/auth/authApiSlice";
 import { setLogout } from "@/lib/redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks/typedHooks";
 import { extractErrorMessage } from "@/utils";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+// import { baseApiSlice } from "@/lib/redux/features/api/baseApiSlice";
 
 export function useAuthNavigation() {
   const dispatch = useAppDispatch();
   const [logoutUser] = useLogoutUserMutation();
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
-  const router = useRouter();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  // const router = useRouter();
 
   const handleLogout = async () => {
     try {
       localStorage.removeItem("role");
       await logoutUser().unwrap();
       dispatch(setLogout());
-      router.push("/login");
+      // router.push("/login");
+
+      window.location.href = "/login";
       toast.success("Logged Out!");
     } catch (e) {
       const errorMessage = extractErrorMessage(e);
