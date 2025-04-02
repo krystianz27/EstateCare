@@ -31,10 +31,12 @@ class RegisterUserByEmail(generics.CreateAPIView):
 
         user = serializer.save(
             email=email,
-            password=password,
             username=email,
             is_active=True,
         )
+
+        user.set_password(password)
+        user.save()
 
         send_welcome_email(user)
 
