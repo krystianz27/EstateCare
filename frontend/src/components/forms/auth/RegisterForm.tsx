@@ -5,12 +5,14 @@ import { useRegisterUserMutation } from "@/lib/redux/features/auth/authApiSlice"
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { registerUserSchema, RegisterUserSchema } from "@/lib/validation";
-import { extractErrorMessage } from "@/utils";
+// import { extractErrorMessage } from "@/utils";
 import { toast } from "react-toastify";
 import { FormFieldComponent } from "@/components/forms/FormFieldComponent";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/shared/Spinner";
 import { JSX } from "react";
+import { extractErrorMessage } from "@/utils";
+// import { RegisterUserSuccessResponse } from "@/types";
 
 type FormFieldData = {
   name:
@@ -88,12 +90,15 @@ export default function RegisterForm() {
 
   const onSubmit = async (values: RegisterUserSchema) => {
     try {
-      await registerUser(values).unwrap();
-      toast.success("An email with an activation link has been sent");
-      router.push("/login");
-      reset();
-    } catch (e) {
-      const errorMessage = extractErrorMessage(e);
+      const response = await registerUser(values).unwrap();
+      console.log("Response:", response);
+      if (response) {
+        toast.success("An email with an activation link has been sent");
+        router.push("/login");
+        reset();
+      }
+    } catch (error) {
+      const errorMessage = extractErrorMessage(error);
       toast.error(errorMessage || "An error occurred");
     }
   };

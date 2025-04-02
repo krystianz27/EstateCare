@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks/typedHooks";
 import { extractErrorMessage } from "@/utils";
 // import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-// import { baseApiSlice } from "@/lib/redux/features/api/baseApiSlice";
 
 export function useAuthNavigation() {
   const dispatch = useAppDispatch();

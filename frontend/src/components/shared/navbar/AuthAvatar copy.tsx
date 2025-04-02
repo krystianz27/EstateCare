@@ -11,28 +11,24 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuthNavigation } from "@/hooks";
 import { useProfile } from "@/hooks/useProfile";
+import { useAppSelector } from "@/lib/redux/hooks/typedHooks";
 import { LogOut, User, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function AuthAvatar() {
-  const { handleLogout, isAuthenticated } = useAuthNavigation();
+  const { handleLogout } = useAuthNavigation();
   const { profile, isLoading, isError } = useProfile();
   const router = useRouter();
 
   const [isClient, setIsClient] = useState(false);
 
-  // const { isAuthenticated } = useAppSelector((state) => state.auth);
-  const [isAuthenticatedState, setIsAuthenticatedState] =
-    useState(isAuthenticated);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
+    console.log("Refreshing AuthAvatar");
     setIsClient(true);
   }, []);
-
-  useEffect(() => {
-    setIsAuthenticatedState(isAuthenticated);
-  }, [isAuthenticated, isAuthenticatedState, router]);
 
   if (!isClient) {
     return null;
@@ -68,8 +64,8 @@ export default function AuthAvatar() {
       <DropdownMenuContent className="dark:text-platinum bg-white/90 dark:bg-black/85">
         {isAuthenticated && profile ? (
           <>
-            {/* <DropdownMenuLabel className="border-b-2"></DropdownMenuLabel> */}
-            {/* <DropdownMenuSeparator /> */}
+            <DropdownMenuLabel className="border-b-2"></DropdownMenuLabel>
+            <DropdownMenuSeparator />
 
             <DropdownMenuItem
               onClick={() => router.push("/profile")}
@@ -102,7 +98,6 @@ export default function AuthAvatar() {
         >
           <BookMarked className="mr-1" /> My Bookmarks
         </DropdownMenuItem> */}
-            <DropdownMenuSeparator />
 
             <DropdownMenuItem
               onClick={handleLogout}
