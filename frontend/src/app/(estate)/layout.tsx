@@ -12,9 +12,9 @@ const Layout = ({ children }: LayoutProps) => {
       <main className="bg-baby_veryBlack relative">
         <Navbar className="fixed top-0 left-0 w-full" />
 
-        <div className="flex pt-[navbarHeight]">
+        <div className="flex">
           <LeftNavbar />
-          <section className="flex min-h-screen flex-1 flex-col px-4 pb-6 pt-0 sm:px-6 lg:px-8 lg:pt-24">
+          <section className="flex min-h-screen flex-1 flex-col px-4 pb-6 pt-20 sm:px-6 lg:px-8">
             {children}
           </section>
         </div>

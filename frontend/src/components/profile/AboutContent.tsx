@@ -10,10 +10,10 @@ import {
   CalendarDays,
   Contact,
   Home,
-  Hotel,
+  // Hotel,
   Map,
   MapPinnedIcon,
-  Star,
+  // Star,
   UserRoundCheck,
 } from "lucide-react";
 import { capitalizeFirstLetter, formatDate } from "@/utils";

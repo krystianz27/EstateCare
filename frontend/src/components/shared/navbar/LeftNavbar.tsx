@@ -22,7 +22,7 @@ export default function LeftNavbar() {
     <section
       className="light-border custom-scrollbar light:bg-zinc-50 
     shadow-platinum sticky left-0 top-0 flex h-screen flex-col 
-    justify-between overflow-y-auto border-r p-6 pt-36 
+    justify-between overflow-y-auto border-r p-6 pt-20 
     max-md:hidden lg:w-[297px] dark:shadow-none"
     >
       <div className="mb-8 flex flex-1 flex-col gap-6">
