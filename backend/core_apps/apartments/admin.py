@@ -31,6 +31,7 @@ class ApartmentAdmin(admin.ModelAdmin):
         "apartment_number",
     ]
 
+    # raw_id_fields = ("tenants",)
     filter_horizontal = ("tenants",)
 
     def get_tenants(self, obj):
@@ -48,6 +49,14 @@ class ApartmentAdmin(admin.ModelAdmin):
         return tenants if tenants else "No Tenant"
 
     get_tenant_full_name.short_description = "Tenant(s)"  # type: ignore
+
+
+#     def formfield_for_manytomany(self, db_field, request, **kwargs):
+#         if db_field.name == "tenants":
+#             kwargs["widget"] = admin.widgets.ManyToManyRawIdWidget(  # type: ignore
+#                 db_field, self.admin_site
+#             )
+#         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 
 @admin.register(RentalContract)

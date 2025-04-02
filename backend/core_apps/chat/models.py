@@ -14,9 +14,17 @@ class ChatApartment(models.Model):
         Apartment, on_delete=models.CASCADE, related_name="chat"
     )
     members = models.ManyToManyField(User, related_name="apartment_chats")
+    # members = models.ManyToManyField(
+    #     User, through="ChatMember", related_name="apartment_chats"
+    # )
 
     def __str__(self):
         return f"Chat for Apartment {self.apartment.id}"
+
+
+# class ChatMember(models.Model):
+#     chat = models.ForeignKey(ChatApartment, on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class MessageApartment(models.Model):

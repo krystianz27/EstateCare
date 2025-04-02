@@ -8,13 +8,13 @@ from django.utils.html import strip_tags
 logger = logging.getLogger(__name__)
 
 
-def send_welcome_email(user) -> None:
+def send_welcome_email(user, password: str) -> None:
     try:
         subject = "Welcome to Our Platform!"
         context = {
             "user": user,
             "site_name": SITE_NAME,
-            "password": user.password,
+            "password": password,
         }
 
         html_email = render_to_string("emails/welcome_email.html", context)

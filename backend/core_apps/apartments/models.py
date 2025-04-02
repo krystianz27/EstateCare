@@ -44,6 +44,14 @@ class Apartment(TimeStampedModel):
         verbose_name=_("Tenants"),
     )
 
+    # tenants = models.ManyToManyField(
+    #     User,
+    #     through="ApartmentTenant",
+    #     related_name="rented_apartments",
+    #     blank=True,
+    #     verbose_name=_("Tenants"),
+    # )
+
     class Meta(TimeStampedModel.Meta):
         verbose_name = _("Apartment")
         verbose_name_plural = _("Apartments")
@@ -68,6 +76,11 @@ class Apartment(TimeStampedModel):
 
     def is_owner(self, user):
         return self.owner == user
+
+
+class ApartmentTenant(models.Model):
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class RentalContract(TimeStampedModel):

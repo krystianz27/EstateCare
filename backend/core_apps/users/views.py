@@ -38,7 +38,7 @@ class RegisterUserByEmail(generics.CreateAPIView):
         user.set_password(password)
         user.save()
 
-        send_welcome_email(user)
+        send_welcome_email(user, password)
 
         apartment = Apartment.objects.get(id=apartment_id)
         apartment.tenants.add(user)
