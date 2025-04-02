@@ -22,7 +22,7 @@ function LeftNavContent() {
   const pathname = usePathname();
   const { filteredLeftNavLinks } = useAuthNavigation();
   return (
-    <section className="flex h-full flex-col gap-6 pt-16">
+    <section className="flex h-full flex-col gap-2 pt-0">
       {filteredLeftNavLinks.map((linkItem) => {
         const isActive =
           (pathname.includes(linkItem.path) && linkItem.path.length > 1) ||
@@ -105,38 +105,44 @@ export default function MobileNavbar() {
           <SheetClose asChild>
             <SheetFooter className="flex flex-col gap-3">
               {isAuthenticated ? (
-                <Button
-                  key="logout"
-                  onClick={handleLogout}
-                  className="electricIndigo-gradient small-medium light-border-2 
-                  btn-tertiary text-babyPowder mt-4 min-h-[41px] w-full 
-                  rounded-lg border px-4 py-3 shadow-none"
-                >
-                  Logout
-                </Button>
+                <SheetClose asChild>
+                  <Button
+                    key="logout"
+                    onClick={handleLogout}
+                    className="electricIndigo-gradient small-medium light-border-2
+                    btn-tertiary text-babyPowder mt-4 min-h-[41px] w-full
+                    rounded-lg border px-4 py-3 shadow-none"
+                  >
+                    Logout
+                  </Button>
+                </SheetClose>
               ) : (
                 <div className="flex w-full flex-col gap-2">
-                  <Link href="/login" key="login" className="w-full">
-                    <Button
-                      className="lime-gradient small-medium light-border-2 
-                      btn-tertiary text-baby_ballon mt-4 
-                      min-h-[41px] w-full rounded-lg border px-4 py-3 
-                      shadow-none"
-                    >
-                      Login
-                    </Button>
-                  </Link>
+                  <SheetClose asChild>
+                    <Link href="/login" key="login" className="w-full">
+                      <Button
+                        className="lime-gradient small-medium light-border-2
+                        btn-tertiary text-baby_ballon mt-4
+                        min-h-[41px] w-full rounded-lg border px-4 py-3
+                        shadow-none"
+                      >
+                        Login
+                      </Button>
+                    </Link>
+                  </SheetClose>
 
-                  <Link href="/register" key="register" className="w-full">
-                    <Button
-                      className="electricIndigo-gradient small-medium light-border-2 
-                      btn-tertiary text-baby_ballon mt-4 
-                      min-h-[41px] w-full rounded-lg border px-4 py-3 
-                      shadow-none"
-                    >
-                      Register
-                    </Button>
-                  </Link>
+                  <SheetClose asChild>
+                    <Link href="/register" key="register" className="w-full">
+                      <Button
+                        className="electricIndigo-gradient small-medium light-border-2
+                        btn-tertiary text-baby_ballon mt-4
+                        min-h-[41px] w-full rounded-lg border px-4 py-3
+                        shadow-none"
+                      >
+                        Register
+                      </Button>
+                    </Link>
+                  </SheetClose>
                 </div>
               )}
             </SheetFooter>
