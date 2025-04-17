@@ -6,6 +6,8 @@ staticfiles/
 !.envs/.env.example
 .ruff_cache/
 
+schema_estate_care.sqlite3
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -217,3 +219,4 @@ frontend/.vercel
 # typescript
 frontend/*.tsbuildinfo
 frontend/next-env.d.ts
+schema_estate_care.sql
