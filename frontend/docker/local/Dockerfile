@@ -1,6 +1,6 @@
-FROM docker.io/node:20.11-alpine3.18 as base
+FROM docker.io/node:23.11-alpine3.20 AS base
 
-FROM base as node-build-stage
+FROM base AS node-build-stage
 
 RUN apk add --no-cache libc6-compat
 
@@ -14,7 +14,7 @@ RUN \
     fi
 
 
-FROM base as node-run-stage 
+FROM base AS node-run-stage 
 ARG APP_HOME=/app 
 WORKDIR ${APP_HOME}
 

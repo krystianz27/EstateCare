@@ -1,4 +1,4 @@
-FROM docker.io/node:20.11-alpine3.18 AS base
+FROM docker.io/node:23.11-alpine3.20 AS base
 
 # stage 1. Install dependencies only when needed
 FROM base AS deps
@@ -52,7 +52,8 @@ RUN chown -R nextjs:nodejs ${APP_HOME}
 
 USER nextjs
 
-ENV PORT 3000
+ENV PORT=3000
 
-CMD HOSTNAME=client node server.js
+# CMD HOSTNAME=client node server.js
+CMD ["node", "server.js", "HOSTNAME=client"]
 
