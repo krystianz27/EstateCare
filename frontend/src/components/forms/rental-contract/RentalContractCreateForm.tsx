@@ -7,17 +7,34 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams, useRouter } from "next/navigation";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/shared/Spinner";
 import { useCreateRentalContractMutation } from "@/lib/redux/features/rental-contract/rentalContractApiSlice";
-import { FormFieldComponent } from "../FormFieldComponent"; // Import FormFieldComponent
+import { FormFieldComponent } from "../FormFieldComponent";
+import { useGetAllMyApartmentsFullQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
+import dynamic from "next/dynamic";
+import customStyles from "../selectStyles";
+import Select from "react-select";
+
+const ClientOnly = dynamic<{ children: React.ReactNode }>(
+  () => Promise.resolve(({ children }) => <>{children}</>),
+  { ssr: false },
+);
 
 export default function RentalContractCreateForm() {
   const searchParams = useSearchParams();
   const apartmentId = searchParams.get("apartment_id") || undefined;
   const router = useRouter();
+
+  const { data } = useGetAllMyApartmentsFullQuery({ page: 1 });
+  const apartmentOptions =
+    data?.apartment.results.map((apartment) => ({
+      value: apartment.id,
+      label: `${apartment.street} ${apartment.building_number || ""} 
+        ${apartment.apartment_number ? `, ${apartment.apartment_number}` : ""}, ${apartment.city}`,
+    })) || [];
 
   const [createRentalContract, { isLoading }] =
     useCreateRentalContractMutation();
@@ -26,6 +43,7 @@ export default function RentalContractCreateForm() {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<RentalContractCreateSchema>({
     resolver: zodResolver(rentalContractCreateSchema),
@@ -55,6 +73,41 @@ export default function RentalContractCreateForm() {
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-full max-w-md flex-col gap-4 dark:text-black"
       >
+        <div>
+          <label
+            htmlFor="apartment_id"
+            className="h4-semibold dark:text-babyPowder"
+          >
+            Select Apartment
+          </label>
+          <div className="mt-1 flex items-center space-x-3 text-sm">
+            <ClientOnly>
+              <Controller
+                name="apartment_id"
+                control={control}
+                defaultValue={apartmentId}
+                render={({ field: { onChange, value } }) => (
+                  <Select
+                    className="mt-1 w-full"
+                    options={apartmentOptions}
+                    value={apartmentOptions.find(
+                      (option) => option.value === value,
+                    )}
+                    onChange={(val) => onChange(val?.value || "")}
+                    placeholder="Select your apartment"
+                    instanceId="apartment-select"
+                    styles={customStyles}
+                  />
+                )}
+              />
+            </ClientOnly>
+          </div>
+          {errors.apartment_id && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.apartment_id.message}
+            </p>
+          )}
+        </div>
         <FormFieldComponent
           label="Tenant"
           name="tenant"
@@ -64,19 +117,21 @@ export default function RentalContractCreateForm() {
         />
 
         <FormFieldComponent
-          label="Start Date (YYYY-MM-DD)"
+          label="Start Date"
           name="start_date"
           register={register}
           errors={errors}
           placeholder="Start Date"
+          type="date"
         />
 
         <FormFieldComponent
-          label="End Date (YYYY-MM-DD)"
+          label="End Date"
           name="end_date"
           register={register}
           errors={errors}
           placeholder="End Date"
+          type="date"
         />
 
         <FormFieldComponent

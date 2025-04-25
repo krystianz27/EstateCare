@@ -4,6 +4,7 @@ import React from "react";
 import {
   useGetRentalContractByIdQuery,
   useUpdateRentalContractMutation,
+  useDeleteRentalContractMutation,
 } from "@/lib/redux/features/rental-contract/rentalContractApiSlice";
 
 import Spinner from "@/components/shared/Spinner";
@@ -21,6 +22,7 @@ const RentalContractDetail: React.FC<RentalContractDetailProps> = ({
     useGetRentalContractByIdQuery(contractId);
 
   const [updateRentalContract] = useUpdateRentalContractMutation();
+  const [deleteRentalContract] = useDeleteRentalContractMutation();
 
   if (isLoading) {
     return <Spinner size="xl" />;
@@ -40,6 +42,21 @@ const RentalContractDetail: React.FC<RentalContractDetailProps> = ({
       toast.success("Contract has been terminated.");
     } catch (error) {
       toast.error("An error occurred while terminating the contract.");
+    }
+  };
+
+  const handleDeleteContract = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this rental contract?",
+    );
+
+    if (confirmed) {
+      try {
+        await deleteRentalContract(contractId).unwrap();
+        toast.success("Contract has been deleted.");
+      } catch (error) {
+        toast.error("An error occurred while deleting the contract.");
+      }
     }
   };
 
@@ -124,9 +141,16 @@ const RentalContractDetail: React.FC<RentalContractDetailProps> = ({
 
           <button
             onClick={handleTerminateContract}
-            className="w-full rounded-full bg-red-500 px-4 py-2 text-white transition duration-200 hover:bg-red-600"
+            className="w-full rounded-full bg-yellow-600 px-4 py-2 text-white transition duration-200 hover:bg-red-600"
           >
             Terminate Contract
+          </button>
+
+          <button
+            onClick={handleDeleteContract}
+            className="w-full rounded-full bg-red-600 px-4 py-2 text-white transition duration-200 hover:bg-red-700 mt-4"
+          >
+            Delete Contract
           </button>
         </div>
       </div>
