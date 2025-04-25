@@ -39,9 +39,8 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
 
   const router = useRouter();
 
-  // const canUpdate = issue?.assigned_to === currentUser?.profile.full_name;
   const canUpdate = true;
-  const canDelete = issue?.reported_by === currentUser?.profile.full_name;
+  const canDelete = true;
 
   const [deleteIssue] = useDeleteIssueMutation();
 
@@ -169,7 +168,7 @@ export default function IssueDetails({ params }: IssueDetailsProps) {
         </p>
       </CardFooter>
 
-      <div className="mt-4 flex flex-col gap-y-3">
+      <div className="mt-4 flex flex-col md:flex-row gap-y-3 md:gap-y-0 md:gap-x-3">
         {canUpdate && (
           <Link href={`/issue/update-issue/${id}`} className="w-full">
             <Button
