@@ -11,6 +11,8 @@ import TenantsSection from "./TenantsSection";
 import { UserResponse } from "@/types";
 import ActiveRentalContracts from "../rental-contract/ActiveRentalContracts";
 import CreateUserByEmailForm from "../forms/auth/CreateUserByEmailForm";
+import { useDeleteApartmentMutation } from "@/lib/redux/features/apartment/apartmentApiSlice";
+import { useRouter } from "next/navigation";
 
 interface ApartmentDetailContentProps {
   apartmentId: string;
@@ -22,6 +24,10 @@ const ApartmentDetailContent: React.FC<ApartmentDetailContentProps> = ({
   currentUser,
 }) => {
   const { data, isLoading, isError } = useGetApartmentByIdQuery(apartmentId);
+  const [deleteApartment, { isLoading: isDeleting }] =
+    useDeleteApartmentMutation();
+
+  const router = useRouter();
 
   if (isLoading) {
     return <Spinner size="xl" />;
@@ -49,6 +55,21 @@ const ApartmentDetailContent: React.FC<ApartmentDetailContentProps> = ({
     return address;
   };
 
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this apartment?",
+    );
+    if (!confirmed) return;
+
+    try {
+      await deleteApartment(apartment.id).unwrap();
+      router.push("/apartments");
+    } catch (error) {
+      console.error("Failed to delete apartment:", error);
+      alert("Something went wrong. Try again.");
+    }
+  };
+
   return (
     <div className="container mx-auto rounded-2xl bg-slate-100 px-4 py-8 max-md:my-2 dark:bg-zinc-900">
       <section className="mb-8">
@@ -67,29 +88,42 @@ const ApartmentDetailContent: React.FC<ApartmentDetailContentProps> = ({
       </section>
       <TenantsSection tenants={apartment.tenants || []} />
 
-      <div className="space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <div className="w-full sm:w-auto">
           <Link
             href={`/apartment/report-issue?apartmentId=${apartmentId}`}
             passHref
           >
-            <Button className="w-full bg-red-500 text-white sm:w-auto">
+            <Button className="w-full bg-orange-500 text-white">
               Report Issue
             </Button>
           </Link>
         </div>
 
         {isOwner && (
-          <div className="w-full sm:w-auto">
-            <Link
-              href={`/rentalcontracts/add?apartment_id=${apartmentId}`}
-              passHref
-            >
-              <Button className="w-full bg-blue-500 text-white sm:w-auto">
-                Add Rental Contract
+          <>
+            <div className="w-full sm:w-auto">
+              <Link
+                href={`/rentalcontracts/add?apartment_id=${apartmentId}`}
+                passHref
+              >
+                <Button className="w-full bg-blue-500 text-white">
+                  Add Rental Contract
+                </Button>
+              </Link>
+            </div>
+
+            <div className="w-full sm:w-auto">
+              <Button
+                onClick={handleDelete}
+                variant="destructive"
+                className="w-full bg-red-600 text-white hover:bg-red-700"
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Deleting..." : "Delete Apartment"}
               </Button>
-            </Link>
-          </div>
+            </div>
+          </>
         )}
       </div>
 

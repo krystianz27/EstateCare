@@ -165,6 +165,14 @@ export const apartmentApiSlice = baseApiSlice.injectEndpoints({
       invalidatesTags: ["Apartment"],
     }),
 
+    deleteApartment: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/apartments/${id}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Apartment"],
+    }),
+
     updateTenants: builder.mutation<
       ApartmentResponse,
       { id: string; tenantData: TenantUpdateData }
@@ -187,5 +195,6 @@ export const {
   useGetAllMyApartmentsFullQuery,
   useCreateApartmentMutation,
   useUpdateApartmentMutation,
+  useDeleteApartmentMutation,
   useUpdateTenantsMutation,
 } = apartmentApiSlice;
