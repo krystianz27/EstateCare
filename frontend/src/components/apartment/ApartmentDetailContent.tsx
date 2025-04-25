@@ -1,7 +1,10 @@
 "use client";
 
 import React from "react";
-import { useGetApartmentByIdQuery } from "@/lib/redux/features/apartment/apartmentApiSlice";
+import {
+  useDeleteApartmentMutation,
+  useGetApartmentByIdQuery,
+} from "@/lib/redux/features/apartment/apartmentApiSlice";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import Spinner from "../shared/Spinner";
@@ -11,7 +14,6 @@ import TenantsSection from "./TenantsSection";
 import { UserResponse } from "@/types";
 import ActiveRentalContracts from "../rental-contract/ActiveRentalContracts";
 import CreateUserByEmailForm from "../forms/auth/CreateUserByEmailForm";
-import { useDeleteApartmentMutation } from "@/lib/redux/features/apartment/apartmentApiSlice";
 import { useRouter } from "next/navigation";
 
 interface ApartmentDetailContentProps {
