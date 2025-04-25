@@ -73,7 +73,7 @@ const ApartmentDetailContent: React.FC<ApartmentDetailContentProps> = ({
   };
 
   return (
-    <div className="container mx-auto rounded-2xl bg-slate-100 px-4 py-8 max-md:my-2 dark:bg-zinc-900">
+    <div className="container mx-auto rounded-2xl bg-slate-100 px-4 py-8 max-md:my-2 dark:bg-zinc-800">
       <section className="mb-8">
         <h1 className="text-3xl font-semibold">Apartment Details</h1>
         <div className="mt-2 text-gray-700">
@@ -90,7 +90,7 @@ const ApartmentDetailContent: React.FC<ApartmentDetailContentProps> = ({
       </section>
       <TenantsSection tenants={apartment.tenants || []} />
 
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
         <div className="w-full sm:w-auto">
           <Link
             href={`/apartment/report-issue?apartmentId=${apartmentId}`}

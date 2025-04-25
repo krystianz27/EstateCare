@@ -24,8 +24,10 @@ export default function ApartmentCard({ apartment }: ApartmentCardProps) {
       >
         <CardHeader>
           <CardTitle className="flex-center h3-semibold font-robotoSlab dark:text-lime-500">
-            Apartment {apartment.street || ""}{" "}
-            {apartment.apartment_number || ""}
+            Apartment {apartment.street || ""} {apartment.building_number || ""}
+            {apartment.apartment_number
+              ? ` / ${apartment.apartment_number}`
+              : ""}
           </CardTitle>
         </CardHeader>
         <CardContent>

@@ -44,9 +44,12 @@ export default function IssueCard({ issue }: IssueCardProps) {
           <CardDescription className="dark:text-platinum">
             <p className="flex items-center space-x-2">
               <Hotel className="tab-icon" />
-              <span className="tab-font">Apartment Number: </span>
-              <span className="text-lg">
-                {issue.apartment_unit.apartment_number}
+              <span className="tab-font text-lg">
+                {issue.apartment_unit.street || ""}{" "}
+                {issue.apartment_unit.building_number || ""}
+                {issue.apartment_unit.apartment_number
+                  ? ` / ${issue.apartment_unit.apartment_number}`
+                  : ""}{" "}
               </span>
             </p>
             <p className="flex items-center space-x-2">
@@ -57,6 +60,12 @@ export default function IssueCard({ issue }: IssueCardProps) {
               <span className="tab-font">Building Number: </span>
               <span className="text-lg">
                 {issue.apartment_unit.building_number || "N/A"}
+              </span>
+            </p>
+            <p className="flex items-center space-x-2">
+              <span className="tab-font">Apartment Number: </span>
+              <span className="text-lg">
+                {issue.apartment_unit.apartment_number || "N/A"}
               </span>
             </p>
             <p className="flex items-center space-x-2">

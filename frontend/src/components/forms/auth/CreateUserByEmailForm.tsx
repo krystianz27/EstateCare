@@ -80,7 +80,7 @@ export default function CreateUserByEmailForm({
 
   return (
     <main className="flex min-h-screen items-center justify-center">
-      <div className="d w-full max-w-md rounded-3xl bg-slate-100 p-6 shadow-lg dark:bg-zinc-800">
+      <div className="d w-full max-w-md rounded-3xl bg-slate-100 p-6 shadow-lg dark:bg-zinc-900">
         <h2 className="text-center text-xl font-semibold ">
           User Registration Form
         </h2>
