@@ -3,21 +3,20 @@
   "extends": [
     "next/core-web-vitals",
     "next/typescript",
-    "standard",
-    // "eslint:recommended",
+    // "standard"
+    "eslint:recommended",
     "prettier",
     "plugin:tailwindcss/recommended"
     // "plugin:prettier/recommended"
   ],
-  // "plugins": ["tailwindcss"],
-  "plugins": ["tailwindcss", "prettier"],
+  "plugins": ["tailwindcss"],
+  // "plugins": ["tailwindcss", "prettier"],
   "rules": {
     "camelcase": "off",
-    // "no-unused-vars": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "tailwindcss/no-custom-classname": "off",
-    "tailwindcss/classnames-order": "off",
+    "tailwindcss/classnames-order": "warn",
     "@next/next/no-html-link-for-pages": "off"
   }
 }

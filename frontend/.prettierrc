@@ -3,5 +3,5 @@
   "printWidth": 80,
   "useTabs": false,
   "doubleQuote": true,
-  "tailwindConfig": "./tailwind.config.ts"
+  "tailwindConfig": "./tailwind.config.js"
 }
