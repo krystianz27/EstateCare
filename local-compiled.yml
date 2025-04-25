@@ -36,7 +36,7 @@ services:
       - "5432:5432"
     volumes:
       # - estate_prod_postgres_data:/var/lib/postgresql/data
-      - estate_care_test_postgres_data:/var/lib/postgresql/data
+      - estate_care_test_postgres17_data:/var/lib/postgresql/data
     env_file:
       - ./backend/.envs/.env.local
     networks:
@@ -134,7 +134,8 @@ volumes:
   # estate_media: {}
   estate_node_modules: {}
   # estate_prod_postgres_data: {}
-  estate_care_test_postgres_data: {}
+  # estate_care_test_postgres_data: {}
+  estate_care_test_postgres17_data: {}
   estate_care_mailpit_data: {}
   estate_care_logs_store: {}
   estate_care_redis_data: {}
