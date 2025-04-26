@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (  # UpdateRentalContractStatusView,
     AddDeleteTenantView,
     ApartmentListCreateView,
+    ApartmentListCreateViewUnoptimized,
     ApartmentRetrieveUpdateDestroyView,
     RentalContractListCreateView,
     RentalContractRetrieveUpdateDestroyView,
@@ -25,6 +26,11 @@ urlpatterns = [
     #     name="rental-contract-update-status",
     # ),
     path("", ApartmentListCreateView.as_view(), name="apartment-list-create"),
+    path(
+        "unoptimized/",
+        ApartmentListCreateViewUnoptimized.as_view(),
+        name="apartment-list-create-unoptimized",
+    ),
     path(
         "<uuid:id>/",
         ApartmentRetrieveUpdateDestroyView.as_view(),

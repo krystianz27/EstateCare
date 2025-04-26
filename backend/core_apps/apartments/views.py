@@ -2,7 +2,6 @@ import logging
 
 from django.contrib.auth import get_user_model
 from django.db.models import Q
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status
 from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.permissions import IsAuthenticated
@@ -22,7 +21,7 @@ logger = logging.getLogger(__name__)
 User = get_user_model()
 
 
-class ApartmentListCreateView(generics.ListCreateAPIView):
+class ApartmentListCreateViewUnoptimized(generics.ListCreateAPIView):
     queryset = Apartment.objects.all()
     serializer_class = ApartmentSerializer
     renderer_classes = [GenericJSONRenderer]
@@ -40,6 +39,36 @@ class ApartmentListCreateView(generics.ListCreateAPIView):
 
         else:
             return Apartment.objects.filter(
+                Q(owner=user)
+                | Q(pkid__in=Apartment.objects.filter(tenants=user).values("pkid"))
+            )
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class ApartmentListCreateView(generics.ListCreateAPIView):
+    queryset = Apartment.objects.all()
+    serializer_class = ApartmentSerializer
+    renderer_classes = [GenericJSONRenderer]
+    object_label = "apartment"
+
+    def get_queryset(self):  # type: ignore
+        user = self.request.user
+        role_filter = self.request.query_params.get("type", "all")  # type: ignore
+
+        base_qs = Apartment.objects.select_related("owner").prefetch_related(
+            "tenants", "issues"
+        )
+
+        if role_filter == "owner":
+            return base_qs.filter(owner=user)
+
+        elif role_filter == "tenant":
+            return base_qs.filter(tenants=user)
+
+        else:
+            return base_qs.filter(
                 Q(owner=user)
                 | Q(pkid__in=Apartment.objects.filter(tenants=user).values("pkid"))
             )
