@@ -1,6 +1,6 @@
 import logging
 
-from django.db.models.signals import m2m_changed, post_delete, post_save
+from django.db.models.signals import m2m_changed, post_save
 from django.dispatch import receiver
 
 from core_apps.apartments.models import Apartment
@@ -15,7 +15,7 @@ def create_chat_for_apartment(sender, instance, created, **kwargs):
         chat = ChatApartment.objects.create(apartment=instance)
         chat.members.add(instance.owner)
 
-        logger.info(f"Chat created for apartment {instance.id}, owner added.")
+        # logger.info(f"Chat created for apartment {instance.id}, owner added.")
 
 
 @receiver(m2m_changed, sender=Apartment.tenants.through)
@@ -24,9 +24,9 @@ def update_tenants_in_chat(sender, instance, action, pk_set, **kwargs):
         return
 
     chat = ChatApartment.objects.filter(apartment=instance).first()
-    logger.info(
-        f"Signal triggered for action: {action}, sender: {sender}, instance: {instance.id}, pk_set: {pk_set}"
-    )
+    # logger.info(
+    #     f"Signal triggered for action: {action}, sender: {sender}, instance: {instance.id}, pk_set: {pk_set}"
+    # )
 
     if not chat:
         return
@@ -37,4 +37,4 @@ def update_tenants_in_chat(sender, instance, action, pk_set, **kwargs):
     elif action == "post_remove":
         chat.members.remove(*pk_set)
 
-    logger.info(f"Tenants updated in chat for apartment {instance.id}.")
+    # logger.info(f"Tenants updated in chat for apartment {instance.id}.")

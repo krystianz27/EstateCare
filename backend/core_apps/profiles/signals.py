@@ -17,11 +17,12 @@ def create__user_profile(
 ) -> None:
     if created:
         Profile.objects.create(user=instance)
-        logger.info(
-            f"User profile created for user {instance.first_name} {instance.last_name}"
-        )
+        # logger.info(
+        #     f"User profile created for user {instance.first_name} {instance.last_name}"
+        # )
     else:
-        logger.info(f"Profile already exists for user {instance.first_name}")
+        # logger.info(f"Profile already exists for user {instance.first_name}")
+        pass
 
 
 @receiver(post_migrate)
@@ -31,4 +32,4 @@ def populate_occupations(sender, **kwargs):
             name = choice[0]
             if not Occupation.objects.filter(name=name).exists():
                 Occupation.objects.create(name=name)
-                logger.info(f"Occupation {name} created.")
+                # logger.info(f"Occupation {name} created.")
