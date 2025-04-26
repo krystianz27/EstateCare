@@ -1,4 +1,4 @@
-FROM docker.io/python:3.12.7-slim-bookworm AS python
+FROM docker.io/python:3.13.3-slim-bookworm AS python
 
 # Stage 1: Build our dependency wheels
 FROM python AS python-build-stage
@@ -20,11 +20,11 @@ ARG BUILD_ENVIRONMENT=local
 
 ARG APP_HOME=/app
 
-ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONDONTWRITEBYTECODE=1
 
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
-ENV BUILD_ENV ${BUILD_ENVIRONMENT}
+ENV BUILD_ENV=${BUILD_ENVIRONMENT}
 
 WORKDIR ${APP_HOME}
 
