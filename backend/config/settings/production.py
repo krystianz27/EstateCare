@@ -10,16 +10,20 @@ prod_env_file = path.join(BASE_DIR, ".envs", ".env.production")
 if path.isfile(prod_env_file):
     load_dotenv(prod_env_file)
 
+DEBUG = False
 
 SECRET_KEY = getenv("DJANGO_SECRET_KEY")
 
 ADMIN_URL = getenv("DJANGO_ADMIN_URL")
 
 
-ALLOWED_HOSTS = ["64.226.65.42"]
+ALLOWED_HOSTS = [
+    "61.126.36.82",
+    "localhost",
+]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://64.226.65.42",
+    "http://61.126.36.82",
     # 'https://yourdomain.com',
 ]
 

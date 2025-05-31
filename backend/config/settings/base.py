@@ -3,6 +3,7 @@ from os import getenv, path  # noqa: F401
 from pathlib import Path
 
 import cloudinary
+from celery.schedules import crontab
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -198,7 +199,10 @@ CELERY_TASK_SOFT_TIME_LIMIT = 60
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 CELERY_BEAT_SCHEDULE = {
-    "update-reputations-every-day": {"task": "update_all_reputations"}
+    "update-reputations-every-day": {
+        "task": "update_all_reputations",
+        "schedule": crontab(hour="0", minute="0"),
+    }
 }
 
 
