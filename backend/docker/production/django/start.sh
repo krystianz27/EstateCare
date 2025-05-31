@@ -11,7 +11,9 @@ python /app/manage.py collectstatic --no-input
 
 NUM_WORKERS=${GUNICORN_WORKERS:-3}
 
-exec /usr/local/bin/gunicorn config.wsgi \
-  --bind 0.0.0.0:8000 \
-  --chdir=/app \
-  --workers $NUM_WORKERS
+# exec /usr/local/bin/gunicorn config.wsgi \
+#   --bind 0.0.0.0:8000 \
+#   --chdir=/app \
+#   --workers $NUM_WORKERS
+
+exec daphne -b 0.0.0.0 -p 8000 config.asgi:application

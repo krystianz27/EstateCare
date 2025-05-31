@@ -4,6 +4,12 @@ build:
 build-compiled:
 	docker compose -f local-compiled.yml up --build -d --remove-orphans
 
+build-production:
+	docker compose -f production.yml up --build -d --remove-orphans
+
+down-production:
+	docker compose -f production.yml down
+
 up:
 	docker compose -f local.yml up -d
 

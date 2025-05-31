@@ -20,6 +20,7 @@ staticfiles/
 media/
 frontend/
 activate_venv.bat
+activate_venv.ps1
 
 Makefile
 mypy.ini

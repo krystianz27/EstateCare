@@ -35,7 +35,6 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      # - estate_care_test_postgres_data:/var/lib/postgresql/data
       - estate_care_test_postgres17_data:/var/lib/postgresql/data
     env_file:
       - ./backend/.envs/.env.local
@@ -122,6 +121,7 @@ services:
       # - estate_media:/app/media:z
       - estate_care_logs_store:/var/log/nginx
     depends_on:
+      - client
       - api
     networks:
       - estate_prod_nw
